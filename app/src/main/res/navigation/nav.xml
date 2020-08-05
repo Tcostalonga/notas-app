@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/detalheFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="tarsila.costalonga.notasapp.ui.mainfragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/detalheFragment"
+        android:name="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragment"
+        android:label="detalhe_fragment"
+        tools:layout="@layout/detalhe_fragment" />
 </navigation>

@@ -5,20 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
 
 class MainFragment : Fragment() {
 
-    lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
+
+    private var viewModel: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        binding = FragmentMainBinding.inflate(inflater, container, false, R.layout.fragment_main)
         binding.lifecycleOwner = viewLifecycleOwner
-
+binding.viewModelMainF = viewModel
         return binding.root
     }
 

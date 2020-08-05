@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModelDetalheF"
+            type="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel" />
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_oito"
+                tools:context=".ui.detalhefragment.DetalheFragment">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_cycling"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+
+                    android:id="@+id/dt_criado"
+                    style="@style/datasEstilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Criado: 03/08/20"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+                <TextView
+                    android:id="@+id/dt_modificado"
+                    style="@style/datasEstilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Atualizado: 04/08/20"
+                    android:layout_marginStart="@dimen/margin_larga"
+                    app:layout_constraintBaseline_toBaselineOf="@id/dt_criado"
+                    app:layout_constraintStart_toEndOf="@+id/dt_criado" />
+
+                <TextView
+                    android:id="@+id/show_titulo"
+                    style="@style/textoEstilo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lembrar de passar pano na casa"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dt_criado" />
+
+                <TextView
+                    android:id="@+id/show_conteudo"
+                    style="@style/textoEstilo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="@string/exemplo_descricao"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/show_titulo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            style="@style/BottomAppBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="end"
+            app:hideOnScroll="true"
+            app:menu="@menu/opt_menu_bot">
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_edit"
+            style="@style/FAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_24"
+            app:layout_anchor="@id/bottom_bar" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

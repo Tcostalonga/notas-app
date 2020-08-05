@@ -5,7 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize">
+
+      <com.google.android.material.appbar.MaterialToolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          style="@style/ActivityTheme" />
+
+   </com.google.android.material.appbar.AppBarLayout>
+
 
    <fragment
         android:id="@+id/nav_fragment"

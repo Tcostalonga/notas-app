@@ -4,6 +4,8 @@
     //Light theme
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#1B1919</color>
     <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#9C9C9C</color>
 
 </resources>

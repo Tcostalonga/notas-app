@@ -4,6 +4,8 @@
     //Dark theme
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#9E9E9E</color>
-    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="colorAccent">#DFDFDF</color>
+    <color name="primaryTextColor">#F1EAEA</color>
+    <color name="secondaryTextColor">#555555</color>
 
 </resources>
