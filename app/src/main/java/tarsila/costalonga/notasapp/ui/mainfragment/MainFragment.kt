@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
-import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
 
 class MainFragment : Fragment() {
 

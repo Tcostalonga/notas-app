@@ -17,14 +17,14 @@
     <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:layout_marginTop">@dimen/margin_oito</item>
+        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
     </style>
 
     //Textos Body
     <style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/libre_franklin</item>
-        <item name="android:layout_marginTop">@dimen/margin_oito</item>
+        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
     </style>
 
     //BottomBar
@@ -34,9 +34,8 @@
 
     //Fab
     <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
-    <item name="backgroundTint">@color/colorPrimary</item>
-    <item name="srcCompat">@drawable/edit_24</item>
-    <item name="tint">@color/colorAccent</item>
+    <item name="backgroundTint">@color/colorAccent</item>
+    <item name="tint">@color/colorPrimary</item>
     </style>
 
 </resources>

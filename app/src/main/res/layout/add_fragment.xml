@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.detalhefragment.DetalheFragment">
+
+    <data>
+
+        <variable
+            name="viewModelAddF"
+            type="tarsila.costalonga.notasapp.ui.addfragment.AddViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_media">
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/add_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@null"
+                android:hint="@string/titulo"
+                android:inputType="textAutoComplete|textCapSentences"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:padding="@dimen/margin_pequena" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/add_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/descricao"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textMultiLine|textCapSentences"
+                android:padding="@dimen/margin_pequena" />
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_task_fab"
+            style="@style/FAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_pequena"
+            android:src="@drawable/done_24"
+            app:fabSize="normal"
+            app:layout_anchor="@id/linear_layout_add"
+            app:layout_anchorGravity="bottom|end" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

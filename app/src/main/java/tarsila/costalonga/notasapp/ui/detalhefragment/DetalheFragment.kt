@@ -22,6 +22,7 @@ class DetalheFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DetalheFragmentBinding.inflate(inflater, container, false)
+
         viewModel = ViewModelProviders.of(this).get(DetalheViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner

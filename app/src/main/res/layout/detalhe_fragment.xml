@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.detalhefragment.DetalheFragment">
 
     <data>
 
@@ -23,8 +25,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_oito"
-                tools:context=".ui.detalhefragment.DetalheFragment">
+                android:layout_margin="@dimen/margin_pequena">
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -36,14 +37,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <TextView
-
                     android:id="@+id/dt_criado"
                     style="@style/datasEstilo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="Criado: 03/08/20"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageView" />
@@ -53,8 +51,8 @@
                     style="@style/datasEstilo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Atualizado: 04/08/20"
                     android:layout_marginStart="@dimen/margin_larga"
+                    android:text="Atualizado: 04/08/20"
                     app:layout_constraintBaseline_toBaselineOf="@id/dt_criado"
                     app:layout_constraintStart_toEndOf="@+id/dt_criado" />
 
