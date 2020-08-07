@@ -24,8 +24,22 @@
             android:layout_margin="@dimen/margin_media"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/anexo"
+                style="@style/textoEstilo"
+                android:alpha="0.4"
+                android:layout_margin="@dimen/margin_extra_pequena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:drawableEnd="@drawable/clips_24"
+                android:drawablePadding="@dimen/margin_extra_pequena"
+                android:text="Anexo: " />
+
             <EditText
                 android:id="@+id/add_titulo"
+                style="@style/textoEstilo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -38,6 +52,7 @@
 
             <EditText
                 android:id="@+id/add_descricao"
+                style="@style/textoEstilo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

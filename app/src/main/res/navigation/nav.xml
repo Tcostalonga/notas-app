@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/estatisticasFragment"
-        android:name="tarsila.costalonga.notasapp.ui.estatisticas.EstatisticasFragment"
+        android:name="tarsila.costalonga.notasapp.ui.estatisticasfragment.EstatisticasFragment"
         android:label="EstatisticasFragment"
         tools:layout="@layout/fragment_estatisticas"/>
 </navigation>

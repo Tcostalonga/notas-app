@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.estatisticasfragment.EstatisticasFragment">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/notas_total"
+            style="@style/estatisticasEstilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_larga"
+            android:text="Total de notas criadas "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/notas_atvs"
+            style="@style/estatisticasEstilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_pequena"
+            android:text="Notas ativas"
+            app:layout_constraintEnd_toStartOf="@+id/notas_fnlz"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/num_criadas" />
+
+        <TextView
+            android:id="@+id/notas_fnlz"
+            style="@style/estatisticasEstilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_pequena"
+            android:text="Notas finalizadas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notas_atvs"
+            app:layout_constraintTop_toBottomOf="@id/num_criadas" />
+
+
+        <TextView
+            android:id="@+id/num_criadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_pequena"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:text="12"
+            style="@style/estatisticasEstilo"
+            app:layout_constraintEnd_toEndOf="@+id/notas_total"
+            app:layout_constraintStart_toStartOf="@+id/notas_total"
+            app:layout_constraintTop_toBottomOf="@+id/notas_total" />
+
+
+        <TextView
+            android:id="@+id/num_atvs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_pequena"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:text="5"
+            style="@style/estatisticasEstilo"
+            app:layout_constraintEnd_toEndOf="@+id/notas_atvs"
+            app:layout_constraintStart_toStartOf="@+id/notas_atvs"
+            app:layout_constraintTop_toBottomOf="@+id/notas_atvs" />
+
+        <TextView
+            android:id="@+id/num_fnlz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="@dimen/margin_pequena"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="6"
+            style="@style/estatisticasEstilo"
+            app:layout_constraintEnd_toEndOf="@+id/notas_fnlz"
+            app:layout_constraintStart_toStartOf="@+id/notas_fnlz"
+            app:layout_constraintTop_toBottomOf="@+id/notas_fnlz" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
