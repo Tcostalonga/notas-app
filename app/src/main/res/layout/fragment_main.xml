@@ -5,20 +5,35 @@
     tools:context=".ui.mainfragment.MainFragment">
 
     <data>
+
         <variable
             name="viewModelMainF"
             type="tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
+        android:layout_height="match_parent">
 
-         <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/margin_pequena"
+            android:text="@string/hello_blank_fragment"
+            tools:listitem="@layout/list_item" />
 
-    </FrameLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            style="@style/FAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin_larga"
+            app:srcCompat="@drawable/add_24" />
+
+
+    </RelativeLayout>
 </layout>

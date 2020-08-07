@@ -15,17 +15,16 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_media">
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linear_layout_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_media"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <EditText
                 android:id="@+id/add_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,8 +36,7 @@
                 android:maxLines="1"
                 android:padding="@dimen/margin_pequena" />
 
-
-            <androidx.appcompat.widget.AppCompatEditText
+            <EditText
                 android:id="@+id/add_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +55,7 @@
             style="@style/FAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_pequena"
+            android:layout_margin="@dimen/margin_larga"
             android:src="@drawable/done_24"
             app:fabSize="normal"
             app:layout_anchor="@id/linear_layout_add"

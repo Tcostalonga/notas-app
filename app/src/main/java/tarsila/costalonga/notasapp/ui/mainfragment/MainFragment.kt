@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 
@@ -13,16 +15,24 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
 
-    private var viewModel: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+    private lateinit var viewModel: MainViewModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false, R.layout.fragment_main)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
         binding.lifecycleOwner = viewLifecycleOwner
-binding.viewModelMainF = viewModel
+        binding.viewModelMainF = viewModel
+
+        binding.rcView.layoutManager = LinearLayoutManager(requireContext())
+
+
+
         return binding.root
     }
 

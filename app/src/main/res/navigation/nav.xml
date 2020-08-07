@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/addFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -14,10 +14,15 @@
         android:id="@+id/detalheFragment"
         android:name="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragment"
         android:label="detalhe_fragment"
-        tools:layout="@layout/detalhe_fragment" />
+        tools:layout="@layout/fragment_detalhe" />
     <fragment
         android:id="@+id/addFragment"
         android:name="tarsila.costalonga.notasapp.ui.addfragment.AddFragment"
         android:label="add_fragment"
-        tools:layout="@layout/add_fragment" />
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/estatisticasFragment"
+        android:name="tarsila.costalonga.notasapp.ui.estatisticas.EstatisticasFragment"
+        android:label="EstatisticasFragment"
+        tools:layout="@layout/fragment_estatisticas"/>
 </navigation>

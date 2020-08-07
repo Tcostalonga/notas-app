@@ -1,5 +1,5 @@
 <resources>
-    <!-- Tema do app -->
+    // Tema do app
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -7,13 +7,14 @@
         <item name="iconTint">@color/colorAccent</item>
     </style>
 
+    //TopBar
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
     <item name="title">@string/app_name</item>
     <item name="titleTextColor">@color/colorAccent</item>
     </style>
 
 
-    //Textos data
+    //Datas
     <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="fontFamily">@font/montserrat</item>
@@ -24,7 +25,6 @@
     <style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/libre_franklin</item>
-        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
     </style>
 
     //BottomBar

@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.detalhe_fragment.*
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.databinding.DetalheFragmentBinding
+import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
 
 class DetalheFragment : Fragment() {
 
-    private lateinit var binding: DetalheFragmentBinding
+    private lateinit var binding: FragmentDetalheBinding
 
     lateinit var viewModel: DetalheViewModel
 
@@ -21,7 +21,7 @@ class DetalheFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DetalheFragmentBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detalhe, container, false)
 
         viewModel = ViewModelProviders.of(this).get(DetalheViewModel::class.java)
 
