@@ -1,20 +1,25 @@
 <resources>
     // Tema do app
+
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="iconTint">@color/colorAccent</item>
+        <item name="tint">@color/colorAccent</item>
+
     </style>
 
     //TopBar
+
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-    <item name="title">@string/app_name</item>
-    <item name="titleTextColor">@color/colorAccent</item>
+        <item name="title">@string/app_name</item>
+        <item name="titleTextColor">@color/colorAccent</item>
     </style>
 
 
     //Datas
+
     <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="fontFamily">@font/montserrat</item>
@@ -22,6 +27,7 @@
     </style>
 
     //Textos Body
+
     <style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/libre_franklin</item>
@@ -29,6 +35,7 @@
 
 
     //Textos Estatisticas
+
     <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/merriweather_sans</item>
@@ -36,14 +43,16 @@
     </style>
 
     //BottomBar
+
     <style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
     //Fab
+
     <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
-    <item name="backgroundTint">@color/colorAccent</item>
-    <item name="tint">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="tint">@color/colorPrimary</item>
     </style>
 
 </resources>

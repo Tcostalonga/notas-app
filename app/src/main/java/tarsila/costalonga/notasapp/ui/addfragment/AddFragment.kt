@@ -22,7 +22,6 @@ class AddFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
 
-
         return binding.root
 
 
