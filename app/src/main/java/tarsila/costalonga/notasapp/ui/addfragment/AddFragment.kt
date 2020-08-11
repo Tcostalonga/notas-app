@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentAddBinding
 
+
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBinding
 
-    lateinit var viewModel: AddViewModel
+     private val viewModel: AddViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -21,6 +25,8 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
+
+
 
         return binding.root
 
