@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notas App</string>
+    <string name="app_name">NotaAnota</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="exemplo_descricao">Lorem ipsum dolor sit amet, consectetur Morbi maximus, quam id tincidunt convallis, velit libero placerat nibh, vitae dictum dolor nisl at lacus. Mauris sed magna nibh. Cras vel ullamcorper elit, a volutpat augue. Morbi elit nisl, lacinia sed enim non, condimentum ultricies purus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. </string>
@@ -13,5 +13,7 @@
     <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso. \n\nNos links abaixo, você pode encontrar o meu <a href="https://github.com/Tcostalonga">GitHub</a>, <a href="https://www.linkedin.com/in/t%C3%A1rsila-martins-costalonga-297b06189/">Linkedin</a> e <a href="mailto:tarsila.costalonga@gmail.com">Email</a> </string>
 
     <string name="defaultpassword">User Guide <a href="http://www.cleverfinger.com.au/user-guide/">dig</a></string>
+    <string name="trocar_tema">Trocar tema</string>
+
 
 </resources>

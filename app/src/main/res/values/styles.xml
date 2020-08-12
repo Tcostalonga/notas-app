@@ -6,15 +6,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="iconTint">@color/colorAccent</item>
+<!--
         <item name="tint">@color/colorAccent</item>
+-->
+
 
     </style>
 
     //TopBar
 
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="title">@string/app_name</item>
         <item name="titleTextColor">@color/colorAccent</item>
+
+
     </style>
 
 
