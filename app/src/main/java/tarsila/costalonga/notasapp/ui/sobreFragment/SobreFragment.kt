@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui
+package tarsila.costalonga.notasapp.ui.sobreFragment
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod

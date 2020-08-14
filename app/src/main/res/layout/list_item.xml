@@ -6,6 +6,10 @@
 
     <data>
         <variable
+            name="itemView"
+            type="tarsila.costalonga.notasapp.bd.Notas" />
+
+        <variable
             name="viewModel"
             type="tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel" />
     </data>
@@ -24,20 +28,28 @@
             app:srcCompat="@drawable/drag_indicator_24" />
 
         <CheckBox
-            android:id="@+id/checkbox"
+            android:id="@+id/show_checkbox"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:checked="false" />
-
+            android:checked="@{itemView.finalizado}"
+        />
+         <!--   android:onClick="@{() -> viewModel.checkboxStatus(itemView.finalizado)}"
+-->
         <TextView
             android:id="@+id/show_titulo"
             style="@style/textoEstilo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:maxLines="2"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_pequena"
-            tools:text="@string/titulo" />
+            tools:text="@string/titulo"
+            android:text="@{itemView.titulo}"
+            app:notaFinalizada="@{itemView.finalizado}"
+
+        />
 
     </LinearLayout>
 </layout>

@@ -14,9 +14,6 @@
             android:id="@+id/action_mainFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_detalheFragment"
-            app:destination="@id/detalheFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_sobreFragment"
             app:destination="@id/sobreFragment" />
         <action
@@ -32,7 +29,11 @@
         android:id="@+id/addFragment"
         android:name="tarsila.costalonga.notasapp.ui.addfragment.AddFragment"
         android:label="add_fragment"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/estatisticasFragment"
         android:name="tarsila.costalonga.notasapp.ui.estatisticasfragment.EstatisticasFragment"
@@ -40,7 +41,7 @@
         tools:layout="@layout/fragment_estatisticas"/>
     <fragment
         android:id="@+id/sobreFragment"
-        android:name="tarsila.costalonga.notasapp.ui.SobreFragment"
+        android:name="tarsila.costalonga.notasapp.ui.sobreFragment.SobreFragment"
         android:label="fragment_sobre"
         tools:layout="@layout/fragment_sobre" />
 </navigation>

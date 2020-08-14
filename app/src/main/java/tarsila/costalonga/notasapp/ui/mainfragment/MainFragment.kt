@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,8 @@ class MainFragment : Fragment() {
 
     private lateinit var sharedPref: SharedPreferences
 
+    private lateinit var adapter: MainAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +39,16 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelMainF = viewModel
 
+        //Rc_view configuração
+        adapter = MainAdapter()
         binding.rcView.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcView.adapter = adapter
+
+        viewModel.allNotas.observe(viewLifecycleOwner, Observer {
+            adapter.data = it
+            adapter.notifyDataSetChanged()
+
+        })
 
         //Iniciando SharedPrefs e atribuindo valor default
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)

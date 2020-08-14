@@ -7,7 +7,6 @@ import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 
 class AddViewModel @ViewModelInject constructor (val repositorio: NotasRepositorio) : ViewModel() {
 
-    val getAllNotas = repositorio.getAllNotas
 
     val numTotalNotas = repositorio.numTotalNotas
 

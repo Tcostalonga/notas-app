@@ -6,7 +6,7 @@
     <string name="share">Compartilhar</string>
     <string name="remove">Remover</string>
     <string name="titulo">Título</string>
-    <string name="descricao">Descrição</string>
+    <string name="anotacao">Anotação</string>
     <string name="estatasticas">Estatísticas</string>
     <string name="pesquisar">Pesquisar</string>
     <string name="sobre">Sobre</string>
@@ -14,6 +14,7 @@
 
     <string name="defaultpassword">User Guide <a href="http://www.cleverfinger.com.au/user-guide/">dig</a></string>
     <string name="trocar_tema">Trocar tema</string>
+    <string name="obrigatoriedade_de_campo">Campo título e anotação obrigatórios</string>
 
 
 </resources>

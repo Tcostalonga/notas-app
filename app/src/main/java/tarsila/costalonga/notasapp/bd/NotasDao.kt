@@ -15,6 +15,9 @@ interface NotasDao {
     @Delete
     suspend fun deleteUmaNota(nota: Notas)
 
+    @Query("SELECT * from notas_table WHERE id = :key")
+    fun getUmaNota(key: Long): Notas
+
     @Query("SELECT * FROM notas_table ORDER BY dt_criacao DESC")
     fun getAllNotas(): LiveData<List<Notas>>
 
