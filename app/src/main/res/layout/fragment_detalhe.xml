@@ -20,64 +20,68 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_media">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_pequena">
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/img_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/imagem_nota"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_cycling"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_cycling" />
 
                 <TextView
                     android:id="@+id/dt_criado"
                     style="@style/datasEstilo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Criado: 03/08/20"
+                    android:contentDescription="@string/data_criacao_nota"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@id/img_view"
+                    tools:text="Criado em: 03/08/2020" />
 
                 <TextView
-                    android:id="@+id/dt_modificado"
+                    android:id="@+id/dt_atualizado"
                     style="@style/datasEstilo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_larga"
-                    android:text="Atualizado: 04/08/20"
-                    app:layout_constraintBaseline_toBaselineOf="@id/dt_criado"
-                    app:layout_constraintStart_toEndOf="@+id/dt_criado" />
+                    android:contentDescription="@string/data_atualizacao_nota"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dt_criado"
+                    tools:text="Atualizado: 04/08/2020" />
 
                 <TextView
                     android:id="@+id/show_titulo"
                     style="@style/textoEstilo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lembrar de passar pano na casa"
                     android:layout_marginTop="@dimen/margin_pequena"
+                    android:contentDescription="@string/titulo"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dt_criado" />
+                    app:layout_constraintTop_toBottomOf="@id/dt_atualizado"
+                    tools:text="@string/titulo" />
 
                 <TextView
-                    android:id="@+id/show_conteudo"
+                    android:id="@+id/show_anotacao"
                     style="@style/textoEstilo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_pequena"
-                    android:text="@string/exemplo_descricao"
+                    android:contentDescription="@string/anotacao"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/show_titulo" />
+                    app:layout_constraintTop_toBottomOf="@id/show_titulo"
+                    tools:text="@string/tools_nota" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,6 +105,7 @@
             style="@style/FAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/editar_nota"
             android:src="@drawable/edit_24"
             app:layout_anchor="@id/bottom_bar" />
 

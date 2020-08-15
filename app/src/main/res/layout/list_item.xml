@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="itemView"
             type="tarsila.costalonga.notasapp.bd.Notas" />
@@ -12,6 +13,11 @@
         <variable
             name="viewModel"
             type="tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel" />
+
+        <variable
+            name="clickListener"
+            type="tarsila.costalonga.notasapp.ui.mainfragment.NotasListener" />
+
     </data>
 
     <LinearLayout
@@ -33,23 +39,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:checked="@{itemView.finalizado}"
-        />
-         <!--   android:onClick="@{() -> viewModel.checkboxStatus(itemView.finalizado)}"
+            android:contentDescription="@string/botao_check" />
+        <!--   android:onClick="@{() -> viewModel.checkboxStatus(itemView.finalizado)}"
 -->
         <TextView
             android:id="@+id/show_titulo"
             style="@style/textoEstilo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:maxLines="2"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_pequena"
-            tools:text="@string/titulo"
+            android:contentDescription="@string/titulo"
+            android:ellipsize="marquee"
+            android:maxLines="2"
+            android:onClick="@{() -> clickListener.onClick(itemView)}"
             android:text="@{itemView.titulo}"
             app:notaFinalizada="@{itemView.finalizado}"
+            tools:text="@string/titulo"
 
-        />
+            />
 
     </LinearLayout>
 </layout>

@@ -19,12 +19,19 @@
         <action
             android:id="@+id/action_mainFragment_to_estatisticasFragment"
             app:destination="@id/estatisticasFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detalheFragment"
+            app:destination="@id/detalheFragment" />
     </fragment>
     <fragment
         android:id="@+id/detalheFragment"
         android:name="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragment"
         android:label="detalhe_fragment"
-        tools:layout="@layout/fragment_detalhe" />
+        tools:layout="@layout/fragment_detalhe" >
+        <argument
+            android:name="nota_obj"
+            app:argType="tarsila.costalonga.notasapp.bd.Notas" />
+    </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="tarsila.costalonga.notasapp.ui.addfragment.AddFragment"

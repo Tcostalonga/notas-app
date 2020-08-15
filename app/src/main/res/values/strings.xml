@@ -1,20 +1,38 @@
 <resources>
-    <string name="app_name">NotaAnota</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="exemplo_descricao">Lorem ipsum dolor sit amet, consectetur Morbi maximus, quam id tincidunt convallis, velit libero placerat nibh, vitae dictum dolor nisl at lacus. Mauris sed magna nibh. Cras vel ullamcorper elit, a volutpat augue. Morbi elit nisl, lacinia sed enim non, condimentum ultricies purus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. </string>
-    <string name="share">Compartilhar</string>
-    <string name="remove">Remover</string>
+    //Labels
+    <string name="app_name">NotaAnota</string>
     <string name="titulo">Título</string>
     <string name="anotacao">Anotação</string>
+    <string name="tools_nota">Lorem ipsum dolor sit amet, consectetur Morbi maximus, quam id tincidunt convallis, velit libero placerat nibh, vitae dictum dolor nisl at lacus. Mauris sed magna nibh. Cras vel ullamcorper elit, a volutpat augue. Morbi elit nisl, lacinia sed enim non, condimentum ultricies purus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. </string>
+    <string name="share">Compartilhar</string>
+    <string name="remove">Remover</string>
     <string name="estatasticas">Estatísticas</string>
-    <string name="pesquisar">Pesquisar</string>
-    <string name="sobre">Sobre</string>
-    <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso. \n\nNos links abaixo, você pode encontrar o meu <a href="https://github.com/Tcostalonga">GitHub</a>, <a href="https://www.linkedin.com/in/t%C3%A1rsila-martins-costalonga-297b06189/">Linkedin</a> e <a href="mailto:tarsila.costalonga@gmail.com">Email</a> </string>
-
-    <string name="defaultpassword">User Guide <a href="http://www.cleverfinger.com.au/user-guide/">dig</a></string>
     <string name="trocar_tema">Trocar tema</string>
+    <string name="sobre">Sobre</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso. \n\nNos links abaixo, você pode encontrar o meu <a href="https://github.com/Tcostalonga">GitHub</a>, <a href="https://www.linkedin.com/in/t%C3%A1rsila-martins-costalonga-297b06189/">Linkedin</a> e <a href="mailto:tarsila.costalonga@gmail.com">Email</a> </string>
     <string name="obrigatoriedade_de_campo">Campo título e anotação obrigatórios</string>
+
+
+    //String formatada
+    <string name="text_dtCriacao_format">"Criado em: %s"</string>
+    <string name="text_dtAtualizado_format">"Última atualização: %s"</string>
+
+
+    //ContentDescription
+    <string name="salvar_nota">Salvar nota</string>
+    <string name="imagem_nota">Imagem inserida na nota</string>
+    <string name="data_criacao_nota">Data de criação da nota</string>
+    <string name="data_atualizacao_nota">Data de atualização da nota</string>
+    <string name="editar_nota">Editar nota</string>
+    <string name="notas_criadas">Notas criadas</string>
+    <string name="notas_ativas">Notas ativas</string>
+    <string name="notas_finalizadas">Notas finalizadas</string>
+    <string name="icone_do_aplicativo">Ícone do aplicativo</string>
+    <string name="adicionar_imagem">Clique para adicionar uma imagem</string>
+    <string name="criar_anotacao">Criar anotação</string>
+    <string name="botao_check">Botão de check</string>
 
 
 </resources>

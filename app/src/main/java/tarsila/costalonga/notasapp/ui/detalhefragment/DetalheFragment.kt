@@ -6,15 +6,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
+import java.text.SimpleDateFormat
 
+@AndroidEntryPoint
 class DetalheFragment : Fragment() {
 
     private lateinit var binding: FragmentDetalheBinding
 
-    lateinit var viewModel: DetalheViewModel
+    val viewModel: DetalheViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -23,11 +26,30 @@ class DetalheFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detalhe, container, false)
 
-        viewModel = ViewModelProviders.of(this).get(DetalheViewModel::class.java)
 
-        binding.lifecycleOwner = viewLifecycleOwner
+        setarCamposDetalheFragm()
+
+
         binding.viewModelDetalheF = viewModel
+
+
+
         return binding.root
+    }
+
+    private fun setarCamposDetalheFragm() {
+        val arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
+
+        binding.showTitulo.text = arguments.titulo
+        binding.showAnotacao.text = arguments.anotacao
+        binding.dtCriado.text = getString(
+            R.string.text_dtCriacao_format,
+            SimpleDateFormat.getDateInstance(3).format(arguments.dt_criacao))
+        binding.dtAtualizado.text = getString(
+            R.string.text_dtAtualizado_format,
+            SimpleDateFormat.getDateInstance(3).format(arguments.dt_atualizado))
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,16 +67,19 @@ class DetalheFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.share -> Toast.makeText(
                 requireContext(),
                 "teste share",
                 Toast.LENGTH_SHORT
             ).show()
-            R.id.remove -> {     Toast.makeText(
-                requireContext(),
-                "teste remove",
-                Toast.LENGTH_SHORT
-                ).show()}
+            R.id.remove -> {
+                Toast.makeText(
+                    requireContext(),
+                    "teste remove",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         return super.onOptionsItemSelected(item)

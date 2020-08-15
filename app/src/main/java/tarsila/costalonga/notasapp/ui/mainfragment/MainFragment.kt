@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
+import tarsila.costalonga.notasapp.utils.makeToast
 
 const val TEMACOR = "Mudar tema"
 
@@ -40,7 +41,9 @@ class MainFragment : Fragment() {
         binding.viewModelMainF = viewModel
 
         //Rc_view configuração
-        adapter = MainAdapter()
+        adapter = MainAdapter(NotasListener {
+          findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetalheFragment(it))
+        })
         binding.rcView.layoutManager = LinearLayoutManager(requireContext())
         binding.rcView.adapter = adapter
 

@@ -29,6 +29,7 @@
                 android:id="@+id/img_anexo"
                 android:alpha="0.6"
                  android:layout_margin="@dimen/margin_extra_pequena"
+                android:contentDescription="@string/adicionar_imagem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -70,8 +71,11 @@
             android:layout_margin="@dimen/margin_larga"
             android:src="@drawable/done_24"
             app:fabSize="normal"
+            android:contentDescription="@string/salvar_nota"
             app:layout_anchor="@id/linear_layout_add"
-            app:layout_anchorGravity="bottom|end" />
+            app:layout_anchorGravity="bottom|end"
+
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

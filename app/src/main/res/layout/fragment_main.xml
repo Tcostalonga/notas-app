@@ -21,12 +21,12 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/margin_pequena"
-            android:text="@string/hello_blank_fragment"
             tools:listitem="@layout/list_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add"
             style="@style/FAB"
+            android:contentDescription="@string/criar_anotacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
