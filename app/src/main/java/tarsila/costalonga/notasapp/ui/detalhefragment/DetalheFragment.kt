@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
+import tarsila.costalonga.notasapp.utils.makeToast
 import java.text.SimpleDateFormat
+
 
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
@@ -32,7 +34,31 @@ class DetalheFragment : Fragment() {
 
         binding.viewModelDetalheF = viewModel
 
+        binding.fabEdit.setOnClickListener {
+            makeToast(requireContext(), "Fab editar")
+        }
 
+        binding.bottomBar.setNavigationOnClickListener {
+            // Handle navigation icon press
+        }
+
+     binding.bottomBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.share -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "teste remove",
+                        Toast.LENGTH_SHORT
+                    ).show()    // Handle search icon press
+                    true
+                }
+                R.id.remove -> {
+                    // Handle more item (inside overflow menu) press
+                    true
+                }
+                else -> false
+            }
+        }
 
         return binding.root
     }
@@ -49,39 +75,11 @@ class DetalheFragment : Fragment() {
             R.string.text_dtAtualizado_format,
             SimpleDateFormat.getDateInstance(3).format(arguments.dt_atualizado))
 
-
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(binding.bottomBar)
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_bot, menu)
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-
-            R.id.share -> Toast.makeText(
-                requireContext(),
-                "teste share",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.remove -> {
-                Toast.makeText(
-                    requireContext(),
-                    "teste remove",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 }

@@ -19,6 +19,7 @@ class EstatisticasFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(false)
      binding = DataBindingUtil.inflate(inflater, R.layout.fragment_estatisticas, container, false)
 
         return binding.root
