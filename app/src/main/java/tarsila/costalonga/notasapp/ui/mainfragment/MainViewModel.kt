@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 
 
@@ -16,10 +17,10 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
     val fabAdd: LiveData<Int>
         get() = _fabAdd
 
-
-/*    fun checkboxStatus(id: Long, check: Boolean) {
-        repositorio.getUmaNota(id, check)
-    }*/
-
-
+    fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
+        if (checkStatus) {
+            objNota.finalizado = checkStatus
+            repositorio.updateNota(objNota)
+        }
+    }
 }

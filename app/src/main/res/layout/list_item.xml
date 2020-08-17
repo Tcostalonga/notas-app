@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.widget.CompoundButton" />
+
         <variable
             name="itemView"
             type="tarsila.costalonga.notasapp.bd.Notas" />
@@ -39,9 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:checked="@{itemView.finalizado}"
-            android:contentDescription="@string/botao_check" />
-        <!--   android:onClick="@{() -> viewModel.checkboxStatus(itemView.finalizado)}"
--->
+            android:contentDescription="@string/botao_check"
+            android:onClick="@{(view) -> viewModel.checkboxStatus(itemView, ((CompoundButton)view).isChecked())}"
+        />
         <TextView
             android:id="@+id/show_titulo"
             style="@style/textoEstilo"

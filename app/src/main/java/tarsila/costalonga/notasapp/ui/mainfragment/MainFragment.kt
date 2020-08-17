@@ -29,7 +29,6 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: MainAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,11 +61,9 @@ class MainFragment : Fragment() {
             )
         )
 
-
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
         }
-
         return binding.root
     }
 
@@ -83,21 +80,17 @@ class MainFragment : Fragment() {
             R.id.estatisticas -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToEstatisticasFragment())
             R.id.sobre -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToSobreFragment())
             R.id.theme -> changeTema()
-
         }
-
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun changeTema() {
 
         if (sharedPref.getInt(
                 TEMACOR,
                 AppCompatDelegate.MODE_NIGHT_NO
-            ) == AppCompatDelegate.MODE_NIGHT_YES
-        ) {
-
+            ) == AppCompatDelegate.MODE_NIGHT_YES)
+        {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_NO).apply()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 /*
@@ -105,12 +98,9 @@ class MainFragment : Fragment() {
           val i = Intent(requireContext(), MainActivity::class.java)
             startActivity(i)
             activity?.finish()*/
-
         } else {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_YES).apply()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
         }
-
     }
 }

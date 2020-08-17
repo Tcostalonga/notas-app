@@ -31,6 +31,12 @@
         <argument
             android:name="nota_obj"
             app:argType="tarsila.costalonga.notasapp.bd.Notas" />
+        <action
+            android:id="@+id/action_detalheFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_detalheFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"

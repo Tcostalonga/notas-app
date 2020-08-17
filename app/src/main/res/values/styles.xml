@@ -5,10 +5,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="iconTint">@color/colorAccent</item>
+
+    </style>
+
 <!--
         <item name="tint">@color/colorAccent</item>
 -->
 
+    //Alert Dialog Estilo
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
     </style>
 
     //TopBar

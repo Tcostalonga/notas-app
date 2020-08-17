@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.repositorio
 
-import com.google.android.play.core.internal.k
 import kotlinx.coroutines.*
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.bd.NotasDao
@@ -40,8 +39,8 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
 
     fun updateNota(nota: Notas) {
         uiScope.launch {
-            dtDao.updateNota(nota)
-        }
+                 dtDao.updateNota(nota)
+            }
     }
 
     fun deleteUmaNota(nota: Notas) {

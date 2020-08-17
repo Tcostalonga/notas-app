@@ -1,15 +1,15 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
-import javax.inject.Inject
 
-class DetalheViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
+class DetalheViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) :
+    ViewModel() {
 
-
+    fun removerNota(nota: Notas) {
+        repositorio.deleteUmaNota(nota)
+    }
 
 }
