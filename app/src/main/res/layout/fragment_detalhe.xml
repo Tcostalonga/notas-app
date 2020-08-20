@@ -58,7 +58,7 @@
                     app:layout_constraintTop_toBottomOf="@id/dt_criado"
                     tools:text="Atualizado: 04/08/2020" />
 
-                <TextView
+                <EditText
                     android:id="@+id/show_titulo"
                     style="@style/textoEstilo"
                     android:layout_width="match_parent"
@@ -66,17 +66,19 @@
                     android:layout_marginTop="@dimen/margin_pequena"
                     android:contentDescription="@string/titulo"
                     android:textStyle="bold"
+                    android:background="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dt_atualizado"
                     tools:text="@string/titulo" />
 
-                <TextView
+                <EditText
                     android:id="@+id/show_anotacao"
                     style="@style/textoEstilo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_pequena"
+                    android:background="@null"
                     android:contentDescription="@string/anotacao"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

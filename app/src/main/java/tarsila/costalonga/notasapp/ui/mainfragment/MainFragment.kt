@@ -3,6 +3,7 @@ package tarsila.costalonga.notasapp.ui.mainfragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 import tarsila.costalonga.notasapp.utils.makeToast
 
@@ -39,10 +41,14 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelMainF = viewModel
 
-        //Rc_view configuração
+        //Configuração da recycler_view
         adapter = MainAdapter(NotasListener {
-          findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetalheFragment(it))
+         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetalheFragment(it))
         })
+        adapter.onCheckNote = { nota, checked ->
+            viewModel.checkboxStatus(nota, checked)
+            Log.e("MainFragment", "${nota.finalizado}")
+        }
         binding.rcView.layoutManager = LinearLayoutManager(requireContext())
         binding.rcView.adapter = adapter
 
@@ -103,4 +109,5 @@ class MainFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
+
 }

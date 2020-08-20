@@ -3,6 +3,7 @@ package tarsila.costalonga.notasapp.ui.detalhefragment
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,7 +38,11 @@ class DetalheFragment : Fragment() {
         binding.viewModelDetalheF = viewModel
 
         binding.fabEdit.setOnClickListener {
-            findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToAddFragment())
+            val bundle = bundleOf("nota" to arguments)
+
+            findNavController().navigate(
+                R.id.action_detalheFragment_to_addFragment,
+                bundle)
         }
 
 
@@ -70,8 +75,8 @@ class DetalheFragment : Fragment() {
 
     private fun setarCamposDetalheFragm() {
 
-        binding.showTitulo.text = arguments.titulo
-        binding.showAnotacao.text = arguments.anotacao
+        binding.showTitulo.setText(arguments.titulo)
+        binding.showAnotacao.setText(arguments.anotacao)
         binding.dtCriado.text = getString(
             R.string.text_dtCriacao_format,
             SimpleDateFormat.getDateInstance(3).format(arguments.dt_criacao)
@@ -93,7 +98,7 @@ class DetalheFragment : Fragment() {
             }
             .setPositiveButton("OK") { _, _ ->
                 viewModel.removerNota(arguments)
-                makeToast(requireContext(), "Nota removida")
+                makeToast(requireContext(), getString(R.string.nota_delete))
                 findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
             }
             .show()

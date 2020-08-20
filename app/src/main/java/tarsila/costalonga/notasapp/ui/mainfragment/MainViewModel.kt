@@ -18,9 +18,7 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         get() = _fabAdd
 
     fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
-        if (checkStatus) {
-            objNota.finalizado = checkStatus
-            repositorio.updateNota(objNota)
-        }
+        objNota.finalizado = checkStatus
+        repositorio.updateNota(objNota)
     }
 }

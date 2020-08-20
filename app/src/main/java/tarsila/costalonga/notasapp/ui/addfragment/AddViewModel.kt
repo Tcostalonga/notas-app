@@ -12,18 +12,6 @@ class AddViewModel @ViewModelInject constructor(val repositorio: NotasRepositori
     val numTotalNotas = repositorio.numTotalNotas
 
 
-    fun addNota(titulo: String, anotacao: String): Boolean {
-
-        return if (titulo.isNotEmpty() && anotacao.isNotEmpty()) {
-            val objNota = Notas(
-                titulo = titulo,
-                anotacao = anotacao)
-            insertNota(objNota)
-            true
-        } else false
-    }
-
-
     fun insertNota(nota: Notas) {
         repositorio.insertNota(nota)
     }

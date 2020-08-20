@@ -1,5 +1,6 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,23 +13,24 @@ class MainAdapter(val clickListener: NotasListener) :
 
     var data = listOf<Notas>()
 
+    lateinit var onCheckNote: (Notas, Boolean) -> Unit
 
-    class NotasViewHolder constructor(val binding: ListItemBinding) :
+    inner class NotasViewHolder constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Notas, clickListener: NotasListener) {
             binding.itemView = item
-            binding.executePendingBindings()
             binding.clickListener = clickListener
-            itemView.setOnClickListener { clickListener.onClick(item) }
+            binding.executePendingBindings()
+            binding.showCheckbox.setOnCheckedChangeListener { compoundButton, b ->
+                onCheckNote.invoke(item, b)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotasViewHolder {
         val inflater = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return NotasViewHolder(inflater)
-
     }
 
     override fun getItemCount(): Int {
