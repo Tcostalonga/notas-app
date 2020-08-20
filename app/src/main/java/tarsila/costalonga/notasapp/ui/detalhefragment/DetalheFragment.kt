@@ -1,5 +1,8 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragmentArgs
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragmentDirections
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -34,7 +37,7 @@ class DetalheFragment : Fragment() {
 
         setarCamposDetalheFragm()
 
-
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelDetalheF = viewModel
 
         binding.fabEdit.setOnClickListener {

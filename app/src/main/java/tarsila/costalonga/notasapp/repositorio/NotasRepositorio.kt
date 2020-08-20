@@ -18,17 +18,6 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
     private var job = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + job)
 
-/*    fun getUmaNota(key: Long, check: Boolean) {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                val getUmaNota = dtDao.getUmaNota(key)
-                getUmaNota.finalizado = check
-                dtDao.updateNota(getUmaNota)
-            }
-        }
-
-    }*/
-
     fun insertNota(nota: Notas) {
         uiScope.launch {
             withContext(Dispatchers.IO) {

@@ -20,6 +20,10 @@
     //String formatada
     <string name="text_dtCriacao_format">"Criado em: %s"</string>
     <string name="text_dtAtualizado_format">"Última atualização: %s"</string>
+    <string name="est_total">"%d"</string>
+    <string name="est_criadas">"%d"</string>
+    <string name="est_finalizadas">"%d"</string>
+
 
 
     //ContentDescription

@@ -18,8 +18,3 @@ fun View.hideKeyboard() {
 }
 
 
-
-fun convertdt_criacao(text: String, resources: Resources): String {
-
-    return resources.getString(R.string.text_dtCriacao_format, text)
-}

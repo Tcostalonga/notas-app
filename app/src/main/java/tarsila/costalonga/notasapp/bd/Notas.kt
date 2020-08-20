@@ -5,13 +5,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import javax.inject.Inject
 
 
 @Parcelize
 @Entity(tableName = "notas_table")
-data class Notas constructor (
-    @PrimaryKey (autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
+data class Notas constructor(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
     @ColumnInfo(name = "titulo") var titulo: String,
     @ColumnInfo(name = "anotacao") var anotacao: String,
     @ColumnInfo(name = "dt_criacao") val dt_criacao: Long = System.currentTimeMillis(),
@@ -19,5 +18,6 @@ data class Notas constructor (
     @ColumnInfo(name = "img_path") var img_path: String? = "",
     @ColumnInfo(name = "finalizado") var finalizado: Boolean = false
 ) : Parcelable {
+    val isCompleted get() = !finalizado
 
 }
