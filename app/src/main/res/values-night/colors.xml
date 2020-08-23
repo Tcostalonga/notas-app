@@ -2,10 +2,12 @@
 <resources>
 
     //Dark theme
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#9E9E9E</color>
-    <color name="colorAccent">#DFDFDF</color>
-    <color name="primaryTextColor">#F1EAEA</color>
-    <color name="secondaryTextColor">#555555</color>
+    <color name="colorPrimary">#383838</color>
+    <color name="colorPrimaryDark">#828282</color>
+    <color name="colorAccent">#828282</color>
+    <color name="colorbkg">#4A4A4A</color>
+    <color name="colorVerde">#AEEA00</color>
+    <color name="primaryTextColor">#E3E4D6</color>
+    <color name="secondaryTextColor">#5C5C5C</color>
 
 </resources>

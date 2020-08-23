@@ -40,12 +40,12 @@
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            tools:checked="true"
             android:checked="@{itemView.finalizado}"
             android:contentDescription="@string/botao_check" />
 
         <TextView
             android:id="@+id/show_titulo"
-            style="@style/textoEstilo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,7 +54,7 @@
             android:ellipsize="marquee"
             android:maxLines="2"
             android:onClick="@{() -> clickListener.onClick(itemView)}"
-             android:text="@{itemView.titulo}"
+            android:text="@{itemView.titulo}"
             app:notaFinalizada="@{itemView.finalizado}"
             tools:text="@string/titulo" />
 

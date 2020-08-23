@@ -18,16 +18,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_larga">
 
             <TextView
                 android:id="@+id/notas_total"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/notas_criadas"
                 android:drawablePadding="@dimen/margin_pequena"
+                android:layout_marginStart="@dimen/margin_media"
                 android:gravity="center"
                 android:text="@string/notas_criadas"
                 app:drawableStartCompat="@drawable/est_criadas"
@@ -38,11 +38,12 @@
 
             <TextView
                 android:id="@+id/notas_atvs"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/notas_ativas"
                 android:drawablePadding="@dimen/margin_pequena"
+                android:layout_marginStart="@dimen/margin_media"
+
                 android:gravity="center"
                 android:text="@string/notas_ativas"
                 app:drawableStartCompat="@drawable/est_ativas"
@@ -53,11 +54,12 @@
 
             <TextView
                 android:id="@+id/notas_fnlz"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/notas_finalizadas"
                 android:drawablePadding="@dimen/margin_pequena"
+                android:layout_marginStart="@dimen/margin_media"
+
                 android:gravity="center"
                 android:text="@string/notas_finalizadas"
                 app:drawableStartCompat="@drawable/est_finalizadas"
@@ -68,7 +70,6 @@
 
             <TextView
                 android:id="@+id/num_criadas"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/est_criadas(viewModelEstF.totalCriadas)}"
@@ -76,29 +77,31 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/notas_total"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.88"
-                app:layout_constraintStart_toEndOf="@id/notas_total" />
+                app:layout_constraintStart_toEndOf="@id/notas_total"
+                tools:text="9"/>
 
             <TextView
                 android:id="@+id/num_atvs"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/est_criadas(viewModelEstF.notasAtivas)}"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintBaseline_toBaselineOf="@id/notas_atvs"
                 app:layout_constraintEnd_toEndOf="@id/num_criadas"
-                app:layout_constraintStart_toStartOf="@id/num_criadas" />
+                app:layout_constraintStart_toStartOf="@id/num_criadas"
+                tools:text="4"
+                />
 
             <TextView
                 android:id="@+id/num_fnlz"
-                style="@style/estatisticasEstilo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/est_finalizadas(viewModelEstF.notasFinalizadas)}"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintBaseline_toBaselineOf="@id/notas_fnlz"
                 app:layout_constraintEnd_toEndOf="@id/num_atvs"
-                app:layout_constraintStart_toStartOf="@id/num_atvs" />
+                app:layout_constraintStart_toStartOf="@id/num_atvs"
+                tools:text="5" />
 
 
             <View
@@ -106,7 +109,7 @@
                 android:layout_width="1dp"
                 android:layout_height="80dp"
                 android:layout_margin="12dp"
-                android:background="#D5D5D5"
+                android:background="#E0E0E0"
                 app:layout_constraintBottom_toTopOf="@id/notas_atvs"
                 app:layout_constraintStart_toStartOf="@id/notas_total"
                 app:layout_constraintTop_toBottomOf="@id/notas_total" />
@@ -116,7 +119,7 @@
                 android:layout_width="1dp"
                 android:layout_height="80dp"
                 android:layout_margin="12dp"
-                android:background="#D5D5D5"
+                android:background="#E0E0E0"
                 app:layout_constraintBottom_toTopOf="@id/notas_fnlz"
                 app:layout_constraintStart_toStartOf="@id/notas_atvs"
                 app:layout_constraintTop_toBottomOf="@id/notas_atvs" />

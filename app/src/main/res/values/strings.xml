@@ -18,8 +18,8 @@
 
 
     //String formatada
-    <string name="text_dtCriacao_format">"Criado em: %s"</string>
-    <string name="text_dtAtualizado_format">"Última atualização: %s"</string>
+    <string name="text_dtCriacao_format">"Criado: %s"</string>
+    <string name="text_dtAtualizado_format">"Atualizado: %s"</string>
     <string name="est_total">"%d"</string>
     <string name="est_criadas">"%d"</string>
     <string name="est_finalizadas">"%d"</string>
@@ -42,7 +42,7 @@
 
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
-    <string name="alert_message">Clique OK para confirmar para remoção.</string>
+    <string name="alert_message">Clique OK para excluir.</string>
     <string name="nota_delete">Nota removida</string>
 
 

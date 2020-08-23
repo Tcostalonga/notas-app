@@ -27,22 +27,20 @@
 
             <ImageView
                 android:id="@+id/img_anexo"
-                android:alpha="0.6"
-                 android:layout_margin="@dimen/margin_extra_pequena"
-                android:contentDescription="@string/adicionar_imagem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_margin="@dimen/margin_extra_pequena"
+                android:alpha="0.6"
+                android:contentDescription="@string/adicionar_imagem"
                 android:src="@drawable/clips_24" />
 
             <EditText
                 android:id="@+id/add_titulo"
-                style="@style/textoEstilo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:background="@null"
-
                 android:hint="@string/titulo"
                 android:inputType="textAutoComplete|textCapSentences"
                 android:maxLength="50"
@@ -51,7 +49,6 @@
 
             <EditText
                 android:id="@+id/add_anotacao"
-                style="@style/textoEstilo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,16 +63,15 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_task_fab"
-            style="@style/FAB"
-            android:layout_width="wrap_content"
+             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_larga"
-            android:src="@drawable/add_24"
-            app:fabSize="normal"
             android:contentDescription="@string/salvar_nota"
+            android:src="@drawable/done_24"
+            app:fabSize="normal"
             app:layout_anchor="@id/linear_layout_add"
             app:layout_anchorGravity="bottom|end"
-
+style="@style/FAB"
             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -46,7 +46,7 @@
                     android:contentDescription="@string/data_criacao_nota"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/img_view"
-                    tools:text="Criado em: 03/08/2020" />
+                    tools:text="Criado: 03/08/2020" />
 
                 <TextView
                     android:id="@+id/dt_atualizado"
@@ -54,13 +54,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/data_atualizacao_nota"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dt_criado"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dt_criado"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Atualizado: 04/08/2020" />
 
                 <EditText
                     android:id="@+id/show_titulo"
-                    style="@style/textoEstilo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_pequena"
@@ -74,7 +73,6 @@
 
                 <EditText
                     android:id="@+id/show_anotacao"
-                    style="@style/textoEstilo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_pequena"
@@ -92,12 +90,12 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_bar"
-            style="@style/BottomAppBarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             app:fabAlignmentMode="end"
             app:hideOnScroll="true"
+            style="@style/BottomAppBarStyle"
             app:menu="@menu/opt_menu_bot">
 
         </com.google.android.material.bottomappbar.BottomAppBar>

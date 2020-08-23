@@ -55,6 +55,7 @@ class AddFragment : Fragment() {
             it.hideKeyboard()
             val edtTitulo = binding.addTitulo.text.toString()
             val edtAnotacao = binding.addAnotacao.text.toString()
+
             when {
                 (edtTitulo.trim().isEmpty() || edtAnotacao.trim().isEmpty()) -> {
                     makeToast(requireContext(), getString(R.string.obrigatoriedade_de_campo))
@@ -62,6 +63,7 @@ class AddFragment : Fragment() {
                 (obj.titulo != "") -> {
                     obj.titulo = edtTitulo
                     obj.anotacao = edtAnotacao
+                    obj.dt_atualizado = System.currentTimeMillis()
                     viewModel.updateNota(obj)
                     makeToast(requireContext(), getString(R.string.nota_update))
                     findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())

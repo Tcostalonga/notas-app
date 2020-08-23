@@ -54,7 +54,7 @@ class DetalheFragment : Fragment() {
                 R.id.share -> {
                     Toast.makeText(
                         requireContext(),
-                        "teste remove",
+                        "teste share",
                         Toast.LENGTH_SHORT
                     ).show()    // Handle search icon press
                     true
