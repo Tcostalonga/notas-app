@@ -7,6 +7,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModelAddF"
             type="tarsila.costalonga.notasapp.ui.addfragment.AddViewModel" />
@@ -63,16 +65,15 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_task_fab"
-             android:layout_width="wrap_content"
+            style="@style/FAB"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_larga"
             android:contentDescription="@string/salvar_nota"
             android:src="@drawable/done_24"
             app:fabSize="normal"
             app:layout_anchor="@id/linear_layout_add"
-            app:layout_anchorGravity="bottom|end"
-style="@style/FAB"
-            />
+            app:layout_anchorGravity="bottom|end" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

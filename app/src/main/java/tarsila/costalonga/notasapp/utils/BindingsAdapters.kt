@@ -12,4 +12,3 @@ fun TextView.setHachura(enabled: Boolean) {
         paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
     }
 }
-

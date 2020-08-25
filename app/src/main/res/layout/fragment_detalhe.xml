@@ -63,9 +63,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_pequena"
-                    android:contentDescription="@string/titulo"
-                    android:textStyle="bold"
                     android:background="@null"
+                    android:contentDescription="@string/titulo"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="50"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dt_atualizado"
@@ -78,6 +80,7 @@
                     android:layout_marginTop="@dimen/margin_pequena"
                     android:background="@null"
                     android:contentDescription="@string/anotacao"
+                    android:inputType="textCapSentences|textMultiLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/show_titulo"
@@ -90,12 +93,12 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_bar"
+            style="@style/BottomAppBarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             app:fabAlignmentMode="end"
             app:hideOnScroll="true"
-            style="@style/BottomAppBarStyle"
             app:menu="@menu/opt_menu_bot">
 
         </com.google.android.material.bottomappbar.BottomAppBar>

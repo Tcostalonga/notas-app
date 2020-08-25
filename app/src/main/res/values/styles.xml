@@ -1,65 +1,69 @@
 <resources>
-// Tema do app
-<style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    // Tema do app
 
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:windowBackground">@color/colorbkg</item>
-    <item name="fontFamily">@font/proxima_nova_regular</item>
-    <item name="android:textSize">18sp</item>
-<item name="android:textColor">@color/primaryTextColor</item>
-</style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-<!--
-        <item name="tint">@color/colorAccent</item>
--->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorbkg</item>
+        <item name="fontFamily">@font/proxima_nova_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
 
-//Alert Dialog Estilo
-<style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-    <item name="colorPrimary">@color/primaryTextColor</item>
-    <item name="android:textSize">16sp</item>
+    <!--
+            <item name="tint">@color/colorAccent</item>
+    -->
 
-</style>
+    //Alert Dialog Estilo
 
-//TopBar
-<style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-    <item name="android:background">@color/colorPrimary</item>
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/primaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
-</style>
+    //TopBar
 
-
-//Datas
-<style name="datasEstilo" parent="TextAppearance.MaterialComponents.Body1">
-    <item name="android:textColor">@color/colorPrimaryDark</item>
-    <item name="android:layout_marginTop">@dimen/margin_pequena</item>
-</style>
-
-//Textos Body
-<style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
-    <item name="android:textColor">@color/primaryTextColor</item>
+    <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 
 
-</style>
+    //Datas
+
+    <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
+    </style>
+
+    //Textos Body
+
+    <style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
 
 
-//Textos Estatisticas
-<style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
-    <item name="android:textColor">@color/primaryTextColor</item>
-    <item name="android:layout_margin">@dimen/margin_pequena</item>
-</style>
+    //Textos Estatisticas
 
-//BottomBar
-<style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-    <item name="backgroundTint">@color/colorPrimary</item>
-    <item name="iconTint">#E3E4D6</item>
+    <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_margin">@dimen/margin_pequena</item>
+    </style>
 
-</style>
+    //BottomBar
 
-//Fab
-<style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
-    <item name="backgroundTint">@color/colorVerde</item>
-    <item name="tint">@color/colorbkg</item>
-</style>
+    <style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="iconTint">#E3E4D6</item>
+    </style>
+
+    //Fab
+    <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/colorVerde</item>
+        <item name="tint">@color/colorbkg</item>
+    </style>
 
 </resources>

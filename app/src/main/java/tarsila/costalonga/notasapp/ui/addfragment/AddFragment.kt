@@ -1,6 +1,8 @@
 package tarsila.costalonga.notasapp.ui.addfragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +25,7 @@ class AddFragment : Fragment() {
 
     private val viewModel: AddViewModel by viewModels()
 
-    private lateinit var obj : Notas
+    private lateinit var obj: Notas
 
 
     override fun onCreateView(
@@ -33,20 +35,9 @@ class AddFragment : Fragment() {
         setHasOptionsMenu(false)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
 
-        setarCamposAddFrag()
-
-
         return binding.root
-
     }
 
-    private fun setarCamposAddFrag() {
-
-        obj = requireArguments().getParcelable<Notas>("nota") ?: Notas(titulo = "", anotacao = "")
-
-            binding.addTitulo.setText(obj.titulo)
-            binding.addAnotacao.setText(obj.anotacao)
-        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,15 +51,8 @@ class AddFragment : Fragment() {
                 (edtTitulo.trim().isEmpty() || edtAnotacao.trim().isEmpty()) -> {
                     makeToast(requireContext(), getString(R.string.obrigatoriedade_de_campo))
                 }
-                (obj.titulo != "") -> {
-                    obj.titulo = edtTitulo
-                    obj.anotacao = edtAnotacao
-                    obj.dt_atualizado = System.currentTimeMillis()
-                    viewModel.updateNota(obj)
-                    makeToast(requireContext(), getString(R.string.nota_update))
-                    findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
-                }
                 else -> {
+
                     val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao)
                     viewModel.insertNota(newNota)
                     makeToast(requireContext(), getString(R.string.nota_insert))

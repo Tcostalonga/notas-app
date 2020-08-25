@@ -6,8 +6,6 @@
 
     <data>
 
-        <import type="android.widget.CompoundButton" />
-
         <variable
             name="itemView"
             type="tarsila.costalonga.notasapp.bd.Notas" />

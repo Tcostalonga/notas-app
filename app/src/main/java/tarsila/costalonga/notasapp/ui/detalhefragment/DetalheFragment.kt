@@ -1,22 +1,21 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
-import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragmentArgs
-import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragmentDirections
-import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
+import tarsila.costalonga.notasapp.utils.hideKeyboard
 import tarsila.costalonga.notasapp.utils.makeToast
+import tarsila.costalonga.notasapp.utils.showKeyboard
 import java.text.SimpleDateFormat
 
 
@@ -27,6 +26,8 @@ class DetalheFragment : Fragment() {
 
     private val viewModel: DetalheViewModel by viewModels()
 
+    private var btAcao = 0
+
     private lateinit var arguments: Notas
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,17 +36,35 @@ class DetalheFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detalhe, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
 
-        setarCamposDetalheFragm()
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelDetalheF = viewModel
 
-        binding.fabEdit.setOnClickListener {
-            val bundle = bundleOf("nota" to arguments)
+        setarCamposDetalheFragm()
 
-            findNavController().navigate(
-                R.id.action_detalheFragment_to_addFragment,
-                bundle)
+        binding.fabEdit.setOnClickListener {
+            when (btAcao) {
+                0 -> {
+                    binding.showTitulo.requestFocus(1)
+                    it.showKeyboard()
+                    it as FloatingActionButton
+                    it.setImageResource(R.drawable.done_24)
+                    btAcao = 1
+                }
+                1 -> {
+
+                    val obj = arguments
+                    obj.titulo = binding.showTitulo.text.toString()
+                    obj.anotacao = binding.showAnotacao.text.toString()
+                    obj.dt_atualizado = System.currentTimeMillis()
+                    it.hideKeyboard()
+                    viewModel.updateNota(obj)
+                    makeToast(requireContext(), getString(R.string.nota_update))
+                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
+                    btAcao = 0
+                }
+            }
+
+
         }
 
 

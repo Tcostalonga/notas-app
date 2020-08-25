@@ -13,8 +13,9 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso. \n\nNos links abaixo, você pode encontrar o meu <a href="https://github.com/Tcostalonga">GitHub</a>, <a href="https://www.linkedin.com/in/t%C3%A1rsila-martins-costalonga-297b06189/">Linkedin</a> e <a href="mailto:tarsila.costalonga@gmail.com">Email</a> </string>
     <string name="obrigatoriedade_de_campo">Campo título e anotação obrigatórios</string>
-    <string name="nota_update">Nota atualizada com sucesso</string>
-    <string name="nota_insert">Nota criada com sucesso</string>
+    <string name="nota_update">Nota atualizada</string>
+    <string name="nota_insert">Nota criada</string>
+    <string name="nota_delete">Nota removida</string>
 
 
     //String formatada
@@ -43,7 +44,6 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
-    <string name="nota_delete">Nota removida</string>
 
 
 </resources>
