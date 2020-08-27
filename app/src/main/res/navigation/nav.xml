@@ -12,16 +12,24 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            app:destination="@id/addFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_mainFragment_to_sobreFragment"
-            app:destination="@id/sobreFragment" />
+            app:destination="@id/sobreFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_mainFragment_to_estatisticasFragment"
-            app:destination="@id/estatisticasFragment" />
+            app:destination="@id/estatisticasFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_mainFragment_to_detalheFragment"
-            app:destination="@id/detalheFragment" />
+            app:destination="@id/detalheFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/detalheFragment"
