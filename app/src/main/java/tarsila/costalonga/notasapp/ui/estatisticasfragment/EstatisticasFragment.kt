@@ -29,6 +29,8 @@ class EstatisticasFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelEstF = viewModel
 
+        viewModel.carregarNotas()
+
         return binding.root
     }
 }

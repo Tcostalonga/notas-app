@@ -25,9 +25,9 @@
                 android:id="@+id/notas_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_media"
                 android:contentDescription="@string/notas_criadas"
                 android:drawablePadding="@dimen/margin_pequena"
-                android:layout_marginStart="@dimen/margin_media"
                 android:gravity="center"
                 android:text="@string/notas_criadas"
                 app:drawableStartCompat="@drawable/est_criadas"
@@ -40,9 +40,9 @@
                 android:id="@+id/notas_atvs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_media"
                 android:contentDescription="@string/notas_ativas"
                 android:drawablePadding="@dimen/margin_pequena"
-                android:layout_marginStart="@dimen/margin_media"
 
                 android:gravity="center"
                 android:text="@string/notas_ativas"
@@ -56,9 +56,9 @@
                 android:id="@+id/notas_fnlz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_media"
                 android:contentDescription="@string/notas_finalizadas"
                 android:drawablePadding="@dimen/margin_pequena"
-                android:layout_marginStart="@dimen/margin_media"
 
                 android:gravity="center"
                 android:text="@string/notas_finalizadas"
@@ -78,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.88"
                 app:layout_constraintStart_toEndOf="@id/notas_total"
-                tools:text="9"/>
+                tools:text="9" />
 
             <TextView
                 android:id="@+id/num_atvs"
@@ -89,8 +89,9 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/notas_atvs"
                 app:layout_constraintEnd_toEndOf="@id/num_criadas"
                 app:layout_constraintStart_toStartOf="@id/num_criadas"
-                tools:text="4"
-                />
+
+                tools:text="4" />
+
 
             <TextView
                 android:id="@+id/num_fnlz"
@@ -102,7 +103,6 @@
                 app:layout_constraintEnd_toEndOf="@id/num_atvs"
                 app:layout_constraintStart_toStartOf="@id/num_atvs"
                 tools:text="5" />
-
 
             <View
                 android:id="@+id/view1"

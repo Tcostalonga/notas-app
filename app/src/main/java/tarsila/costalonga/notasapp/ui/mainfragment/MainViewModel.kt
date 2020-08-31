@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
-import kotlin.coroutines.CoroutineContext
 
 
 class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
@@ -30,7 +29,7 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
 
     fun carregarNotas() {
         uiScope.launch {
-            allNotas.value = repositorio.getAllNotas()
+            allNotas.value = repositorio.getTodasNotas()
         }
     }
 
