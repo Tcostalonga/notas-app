@@ -28,13 +28,17 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
 
     fun updateNota(nota: Notas) {
         uiScope.launch {
-                 dtDao.updateNota(nota)
-            }
+            dtDao.updateNota(nota)
+        }
     }
 
     fun deleteUmaNota(nota: Notas) {
         uiScope.launch {
             dtDao.deleteUmaNota(nota)
         }
+    }
+
+    suspend fun getAllNotas(): List<Notas> {
+        return dtDao.getTodasNotas()
     }
 }

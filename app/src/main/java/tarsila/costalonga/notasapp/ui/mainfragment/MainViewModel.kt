@@ -4,13 +4,19 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
+import kotlin.coroutines.CoroutineContext
 
 
 class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
 
-    val allNotas = repositorio.getAllNotas
+    val allNotas = MutableLiveData<List<Notas>>()
+
+    private var uiScope = CoroutineScope(Dispatchers.Main)
 
     // Acionar fab_add
     private var _fabAdd = MutableLiveData<Int>()
@@ -21,4 +27,11 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         objNota.finalizado = checkStatus
         repositorio.updateNota(objNota)
     }
+
+    fun carregarNotas() {
+        uiScope.launch {
+            allNotas.value = repositorio.getAllNotas()
+        }
+    }
+
 }

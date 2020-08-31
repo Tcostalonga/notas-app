@@ -1,8 +1,8 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,6 +44,8 @@ class DetalheFragment : Fragment() {
         binding.fabEdit.setOnClickListener {
             when (btAcao) {
                 0 -> {
+                    binding.showTitulo.isEnabled = true
+                    binding.showAnotacao.isEnabled = true
                     binding.showTitulo.requestFocus(1)
                     it.showKeyboard()
                     it as FloatingActionButton
@@ -71,11 +73,8 @@ class DetalheFragment : Fragment() {
         binding.bottomBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.share -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "teste share",
-                        Toast.LENGTH_SHORT
-                    ).show()    // Handle search icon press
+                    criarShare()
+
                     true
                 }
                 R.id.remove -> {
@@ -86,14 +85,17 @@ class DetalheFragment : Fragment() {
             }
         }
 
+        binding.showTitulo.isEnabled = false
+        binding.showAnotacao.isEnabled = false
+
         return binding.root
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_bot, menu)
 
     }
+
 
     private fun setarCamposDetalheFragm() {
 
@@ -124,6 +126,22 @@ class DetalheFragment : Fragment() {
                 findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
             }
             .show()
+    }
+
+    private fun criarShare() {
+
+        val intentConteudo = Intent()
+        intentConteudo.apply {
+            this.action = Intent.ACTION_SEND_MULTIPLE
+            this.putExtra(Intent.EXTRA_TEXT, binding.showTitulo.text.toString())
+            this.putExtra(Intent.EXTRA_TEXT, binding.showAnotacao.text.toString())
+            type = "text/plain"
+        }
+
+         val shareIntent = Intent.createChooser(intentConteudo, null)
+        startActivity(intentConteudo)
+
+
     }
 
 }

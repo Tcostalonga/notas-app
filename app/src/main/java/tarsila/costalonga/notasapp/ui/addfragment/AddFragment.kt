@@ -53,6 +53,7 @@ class AddFragment : Fragment() {
                 }
                 else -> {
 
+//                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = sizebundle passar)
                     val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao)
                     viewModel.insertNota(newNota)
                     makeToast(requireContext(), getString(R.string.nota_insert))

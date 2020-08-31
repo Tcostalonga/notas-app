@@ -10,13 +10,6 @@
             name="itemView"
             type="tarsila.costalonga.notasapp.bd.Notas" />
 
-        <variable
-            name="viewModel"
-            type="tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel" />
-
-        <variable
-            name="clickListener"
-            type="tarsila.costalonga.notasapp.ui.mainfragment.NotasListener" />
 
     </data>
 
@@ -51,9 +44,7 @@
             android:contentDescription="@string/titulo"
             android:ellipsize="marquee"
             android:maxLines="2"
-            android:onClick="@{() -> clickListener.onClick(itemView)}"
             android:text="@{itemView.titulo}"
-            app:notaFinalizada="@{itemView.finalizado}"
             tools:text="@string/titulo" />
 
     </LinearLayout>
