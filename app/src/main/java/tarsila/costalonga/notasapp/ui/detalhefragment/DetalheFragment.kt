@@ -1,6 +1,7 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
 import android.content.Intent
+
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -130,6 +131,19 @@ class DetalheFragment : Fragment() {
 
     private fun criarShare() {
 
+
+        val textsArray = "${binding.showTitulo.text}\n${binding.showAnotacao.text}"
+
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textsArray)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
+
+
+/*
         val intentConteudo = Intent()
         intentConteudo.apply {
             this.action = Intent.ACTION_SEND_MULTIPLE
@@ -138,8 +152,8 @@ class DetalheFragment : Fragment() {
             type = "text/plain"
         }
 
-         val shareIntent = Intent.createChooser(intentConteudo, null)
-        startActivity(intentConteudo)
+       val shareIntent = Intent.createChooser(intentConteudo, null)
+        startActivity(intentConteudo)*/
 
 
     }
