@@ -13,11 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="7"
-        android:background="@color/colorPrimary"
+        android:layout_weight="6"
         android:contentDescription="@string/icone_do_aplicativo"
-        android:src="@drawable/ic_launcher_foreground"
-        app:tint="@color/colorPrimaryDark" />
+        android:src="@drawable/ic_icone_circular" />
 
     <ScrollView
         android:layout_width="match_parent"

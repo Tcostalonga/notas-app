@@ -4,6 +4,7 @@ import android.content.Intent
 
 import android.os.Bundle
 import android.view.*
+import androidx.constraintlayout.solver.SolverVariable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,6 +30,8 @@ class DetalheFragment : Fragment() {
 
     private var btAcao = 0
 
+
+
     private lateinit var arguments: Notas
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,7 @@ class DetalheFragment : Fragment() {
         setarCamposDetalheFragm()
 
         binding.fabEdit.setOnClickListener {
+
             when (btAcao) {
                 0 -> {
                     binding.showTitulo.isEnabled = true
@@ -54,7 +58,6 @@ class DetalheFragment : Fragment() {
                     btAcao = 1
                 }
                 1 -> {
-
                     val obj = arguments
                     obj.titulo = binding.showTitulo.text.toString()
                     obj.anotacao = binding.showAnotacao.text.toString()
@@ -66,16 +69,12 @@ class DetalheFragment : Fragment() {
                     btAcao = 0
                 }
             }
-
-
         }
-
 
         binding.bottomBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.share -> {
                     criarShare()
-
                     true
                 }
                 R.id.remove -> {
@@ -85,18 +84,12 @@ class DetalheFragment : Fragment() {
                 else -> false
             }
         }
-
-        binding.showTitulo.isEnabled = false
-        binding.showAnotacao.isEnabled = false
-
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_bot, menu)
-
     }
-
 
     private fun setarCamposDetalheFragm() {
 
@@ -110,7 +103,6 @@ class DetalheFragment : Fragment() {
             R.string.text_dtAtualizado_format,
             SimpleDateFormat.getDateInstance(3).format(arguments.dt_atualizado)
         )
-
     }
 
     private fun criarAlertDialog() {
@@ -131,9 +123,7 @@ class DetalheFragment : Fragment() {
 
     private fun criarShare() {
 
-
         val textsArray = "${binding.showTitulo.text}\n${binding.showAnotacao.text}"
-
 
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -141,21 +131,5 @@ class DetalheFragment : Fragment() {
             type = "text/plain"
         }
         startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
-
-
-/*
-        val intentConteudo = Intent()
-        intentConteudo.apply {
-            this.action = Intent.ACTION_SEND_MULTIPLE
-            this.putExtra(Intent.EXTRA_TEXT, binding.showTitulo.text.toString())
-            this.putExtra(Intent.EXTRA_TEXT, binding.showAnotacao.text.toString())
-            type = "text/plain"
-        }
-
-       val shareIntent = Intent.createChooser(intentConteudo, null)
-        startActivity(intentConteudo)*/
-
-
     }
-
 }
