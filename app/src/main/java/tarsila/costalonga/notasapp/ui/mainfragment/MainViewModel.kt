@@ -33,4 +33,19 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         }
     }
 
+    fun updateNota(nota: Notas) {
+        repositorio.updateNota(nota)
+    }
+
+
+    fun ordenarRecyclerView(lista: List<Notas>) {
+
+        lista.forEachIndexed { index, nota ->
+            nota.ordem = index
+            updateNota(nota)
+
+        }
+
+    }
+
 }

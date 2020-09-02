@@ -35,12 +35,16 @@ class AddFragment : Fragment() {
         setHasOptionsMenu(false)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
 
+
+
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val tamanhoLista = AddFragmentArgs.fromBundle(requireArguments()).tamanhoLista
 
         binding.saveTaskFab.setOnClickListener {
             it.hideKeyboard()
@@ -54,7 +58,7 @@ class AddFragment : Fragment() {
                 else -> {
 
 //                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = sizebundle passar)
-                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao)
+                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem =  tamanhoLista)
                     viewModel.insertNota(newNota)
                     makeToast(requireContext(), getString(R.string.nota_insert))
                     findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())

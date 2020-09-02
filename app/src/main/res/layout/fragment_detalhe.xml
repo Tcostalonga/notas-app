@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+<!--                <ImageView
                     android:id="@+id/img_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/img_cycling" />
+                    tools:src="@drawable/img_cycling" />-->
 
                 <TextView
                     android:id="@+id/dt_criado"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/data_criacao_nota"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/img_view"
+        app:layout_constraintTop_toTopOf="parent"
                     tools:text="Criado: 03/08/2020" />
 
                 <TextView
@@ -89,6 +89,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/show_titulo"
                     tools:text="@string/tools_nota" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,8 +16,9 @@ data class Notas constructor(
     @ColumnInfo(name = "dt_criacao") val dt_criacao: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "dt_atualizado") var dt_atualizado: Long = dt_criacao,
     @ColumnInfo(name = "img_path") var img_path: String? = "",
-    @ColumnInfo(name = "finalizado") var finalizado: Boolean = false
-//    @ColumnInfo(name = "finalizado") var ordem: Int = 0
+    @ColumnInfo(name = "finalizado") var finalizado: Boolean = false,
+    @ColumnInfo(name = "ordem") var ordem: Int
+
 ) : Parcelable {
     val isCompleted get() = !finalizado
 

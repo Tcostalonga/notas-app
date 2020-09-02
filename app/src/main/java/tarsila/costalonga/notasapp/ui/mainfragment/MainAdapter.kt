@@ -100,9 +100,9 @@ class MainAdapter(val clickListener: NotasListener) :
 
     var listaDoFiltro = ArrayList<Notas>()
 
-    lateinit var onCheckNote: (Notas, Boolean) -> Unit
+    //lateinit var onCheckNote: (Notas, Boolean) -> Unit
 
-    lateinit var listener : ClicksAcao
+    lateinit var listener: ClicksAcao
 
     inner class NotasViewHolder constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -113,13 +113,10 @@ class MainAdapter(val clickListener: NotasListener) :
                 clickListener.onClick(item)
             }
             binding.showCheckbox.setOnCheckedChangeListener { _, b ->
-                listener.checkCliqk(item, b)
+                listener.checkClick(item, b)
                 binding.showTitulo.setHachura(b)
             }
 
-     /*       listaFixa.forEachIndexed { i, j ->
-                j.ordem = i
-            }*/
             binding.executePendingBindings()
         }
     }
@@ -173,10 +170,9 @@ class MainAdapter(val clickListener: NotasListener) :
     }
 }
 
-
 interface ClicksAcao {
 
-    fun checkCliqk(nota: Notas, boolean: Boolean)
+    fun checkClick(nota: Notas, boolean: Boolean)
 }
 
 class NotasListener(val clickListener: (notasObj: Notas) -> Unit) {

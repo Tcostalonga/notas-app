@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 const val TEMACOR = "Mudar tema"
 
@@ -50,12 +54,9 @@ class MainFragment : Fragment() {
                 )
             )
         })
-/*        adapter.onCheckNote = { nota, checked ->
-            viewModel.checkboxStatus(nota, checked)
-        }*/
 
         adapter.listener = object : ClicksAcao {
-            override fun checkCliqk(nota: Notas, boolean: Boolean) {
+            override fun checkClick(nota: Notas, boolean: Boolean) {
                 viewModel.checkboxStatus(nota, boolean)
             }
         }
@@ -80,34 +81,16 @@ class MainFragment : Fragment() {
             )
         )
 
+        arrastarNotas()
+
         binding.fabAdd.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddFragment(
+                    adapter.listaFixa.size
+                )
+            )
+
         }
-/*
-        val iTH = object : ItemTouchHelper.Callback() {
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int {
-                TODO("Not yet implemented")
-            }
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                binding.rcView
-                adapter.listaFixa.size
-                (recyclerView.adapter as MainAdapter).listaFixa
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                TODO("Not yet implemented")
-            }
-        }
-
-        */
 
         return binding.root
     }
@@ -156,6 +139,34 @@ class MainFragment : Fragment() {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_YES).apply()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+    }
+
+    fun arrastarNotas() {
+
+        val iTH = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+
+                val from = viewHolder.adapterPosition
+                val to = target.adapterPosition
+
+                Collections.swap(adapter.listaFixa, from, to)
+                viewModel.ordenarRecyclerView(adapter.listaFixa)
+                adapter.notifyItemMoved(from, to)
+
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+        })
+
+        iTH.attachToRecyclerView(binding.rcView)
     }
 
     override fun onResume() {

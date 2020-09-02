@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_addFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="tamanhoLista"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/estatisticasFragment"
