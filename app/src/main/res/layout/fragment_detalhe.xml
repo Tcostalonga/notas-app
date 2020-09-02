@@ -62,7 +62,7 @@
                     android:id="@+id/show_titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_pequena"
+                    android:layout_marginTop="@dimen/margin_larga"
                     android:background="@null"
                     android:contentDescription="@string/titulo"
                     android:enabled="false"

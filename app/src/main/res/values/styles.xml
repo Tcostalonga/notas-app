@@ -17,21 +17,18 @@
     -->
 
     //Alert Dialog Estilo
-
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="colorPrimary">@color/primaryTextColor</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     //TopBar
-
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
 
     //Datas
-
     <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/proxima_nova</item>
@@ -39,22 +36,14 @@
         <item name="android:layout_marginTop">@dimen/margin_pequena</item>
     </style>
 
-    //Textos Body
-
-    <style name="textoEstilo" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/primaryTextColor</item>
-    </style>
-
 
     //Textos Estatisticas
-
     <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:layout_margin">@dimen/margin_pequena</item>
     </style>
 
     //BottomBar
-
     <style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="iconTint">#E3E4D6</item>

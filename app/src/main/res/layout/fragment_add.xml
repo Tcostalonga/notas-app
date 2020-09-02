@@ -35,7 +35,7 @@
                 android:layout_margin="@dimen/margin_extra_pequena"
                 android:alpha="0.6"
                 android:contentDescription="@string/adicionar_imagem"
-                android:src="@drawable/clips_24" />
+                tools:src="@drawable/clips_24" />
 
             <EditText
                 android:id="@+id/add_titulo"
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:background="@null"
+                android:textStyle="bold"
                 android:hint="@string/titulo"
                 android:inputType="textAutoComplete|textCapSentences"
                 android:maxLength="50"
