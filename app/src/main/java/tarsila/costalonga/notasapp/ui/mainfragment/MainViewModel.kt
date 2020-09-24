@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 
-
 class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
 
     val allNotas = MutableLiveData<List<Notas>>()
@@ -43,9 +42,6 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         lista.forEachIndexed { index, nota ->
             nota.ordem = index
             updateNota(nota)
-
         }
-
     }
-
 }

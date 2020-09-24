@@ -1,8 +1,6 @@
 package tarsila.costalonga.notasapp.ui.addfragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +14,6 @@ import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentAddBinding
 import tarsila.costalonga.notasapp.utils.hideKeyboard
 import tarsila.costalonga.notasapp.utils.makeToast
-
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
@@ -34,8 +31,6 @@ class AddFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(false)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
-
-
 
         return binding.root
     }
@@ -58,7 +53,8 @@ class AddFragment : Fragment() {
                 else -> {
 
 //                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = sizebundle passar)
-                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem =  tamanhoLista)
+                    val newNota =
+                        Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = tamanhoLista)
                     viewModel.insertNota(newNota)
                     makeToast(requireContext(), getString(R.string.nota_insert))
                     findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())

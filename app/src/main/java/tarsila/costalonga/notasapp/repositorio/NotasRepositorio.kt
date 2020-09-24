@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.repositorio
 
-import com.google.android.play.core.internal.k
 import kotlinx.coroutines.*
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.bd.NotasDao
@@ -15,7 +14,6 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
 
     private var job = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + job)
-
 
     var k: List<Notas> = emptyList()
 
@@ -42,7 +40,6 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
     suspend fun getTodasNotas(): List<Notas> {
         return dtDao.getTodasNotas()
     }
-
 
 
 }

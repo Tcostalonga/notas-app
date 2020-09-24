@@ -15,8 +15,7 @@ class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasR
 
     private var uiScope = CoroutineScope(Dispatchers.Main)
 
-
-    val allNotas = MutableLiveData<List<Notas>>()
+     val allNotas = MutableLiveData<List<Notas>>()
 
     fun carregarNotas() {
         uiScope.launch {

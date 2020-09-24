@@ -22,5 +22,6 @@ class BaseApplication : Application() {
             client.addPlugin( DatabasesFlipperPlugin(this));
             client.start()
         }
+
     }
 }

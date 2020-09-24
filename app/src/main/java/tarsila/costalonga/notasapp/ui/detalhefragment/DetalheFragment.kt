@@ -1,10 +1,8 @@
 package tarsila.costalonga.notasapp.ui.detalhefragment
 
 import android.content.Intent
-
 import android.os.Bundle
 import android.view.*
-import androidx.constraintlayout.solver.SolverVariable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
