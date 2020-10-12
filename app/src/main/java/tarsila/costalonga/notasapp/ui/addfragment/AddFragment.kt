@@ -22,9 +22,6 @@ class AddFragment : Fragment() {
 
     private val viewModel: AddViewModel by viewModels()
 
-    private lateinit var obj: Notas
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

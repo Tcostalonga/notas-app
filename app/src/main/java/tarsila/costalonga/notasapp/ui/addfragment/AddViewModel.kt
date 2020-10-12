@@ -11,5 +11,4 @@ class AddViewModel @ViewModelInject constructor(val repositorio: NotasRepositori
     fun insertNota(nota: Notas) {
         repositorio.insertNota(nota)
     }
-
 }

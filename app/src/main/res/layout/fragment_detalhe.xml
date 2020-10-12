@@ -27,16 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-<!--                <ImageView
-                    android:id="@+id/img_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/imagem_nota"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/img_cycling" />-->
+                <!--                <ImageView
+                                    android:id="@+id/img_view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:adjustViewBounds="true"
+                                    android:contentDescription="@string/imagem_nota"
+                                    android:scaleType="centerCrop"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:src="@drawable/img_cycling" />-->
 
                 <TextView
                     android:id="@+id/dt_criado"
@@ -45,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/data_criacao_nota"
                     app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Criado: 03/08/2020" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Criado: 03/08/2020  " />
 
                 <TextView
                     android:id="@+id/dt_atualizado"

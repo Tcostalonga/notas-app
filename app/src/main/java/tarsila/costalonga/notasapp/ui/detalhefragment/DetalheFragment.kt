@@ -28,9 +28,8 @@ class DetalheFragment : Fragment() {
 
     private var btAcao = 0
 
-
-
     private lateinit var arguments: Notas
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +58,7 @@ class DetalheFragment : Fragment() {
                     val obj = arguments
                     obj.titulo = binding.showTitulo.text.toString()
                     obj.anotacao = binding.showAnotacao.text.toString()
-                    obj.dt_atualizado = System.currentTimeMillis()
+                    obj.dtAtualizado = System.currentTimeMillis()
                     it.hideKeyboard()
                     viewModel.updateNota(obj)
                     makeToast(requireContext(), getString(R.string.nota_update))
@@ -95,11 +94,11 @@ class DetalheFragment : Fragment() {
         binding.showAnotacao.setText(arguments.anotacao)
         binding.dtCriado.text = getString(
             R.string.text_dtCriacao_format,
-            SimpleDateFormat.getDateInstance(3).format(arguments.dt_criacao)
+            SimpleDateFormat.getDateInstance(3).format(arguments.dtCriacao)
         )
         binding.dtAtualizado.text = getString(
             R.string.text_dtAtualizado_format,
-            SimpleDateFormat.getDateInstance(3).format(arguments.dt_atualizado)
+            SimpleDateFormat.getDateInstance(3).format(arguments.dtAtualizado)
         )
     }
 

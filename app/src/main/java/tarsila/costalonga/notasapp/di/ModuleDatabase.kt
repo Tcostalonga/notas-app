@@ -30,5 +30,11 @@ object ModuleDatabase {
     fun proverDao(dtBase: NotasRoom): NotasDao {
         return dtBase.notasDao
     }
-
+/*
+    @Singleton
+    @Provides
+    fun provideDefaultDao(
+        dtBase: NotasDao
+    ) = NotasRepositorio(dtBase) as DefaultNotasRepositorio
+*/
 }

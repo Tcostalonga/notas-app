@@ -13,9 +13,9 @@ data class Notas constructor(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
     @ColumnInfo(name = "titulo") var titulo: String,
     @ColumnInfo(name = "anotacao") var anotacao: String,
-    @ColumnInfo(name = "dt_criacao") val dt_criacao: Long = System.currentTimeMillis(),
-    @ColumnInfo(name = "dt_atualizado") var dt_atualizado: Long = dt_criacao,
-    @ColumnInfo(name = "img_path") var img_path: String? = "",
+    @ColumnInfo(name = "dt_criacao") val dtCriacao: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "dt_atualizado") var dtAtualizado: Long = dtCriacao,
+    @ColumnInfo(name = "img_path") var imgPath: String? = "",
     @ColumnInfo(name = "finalizado") var finalizado: Boolean = false,
     @ColumnInfo(name = "ordem") var ordem: Int
 

@@ -3,7 +3,6 @@ package tarsila.costalonga.notasapp.bd
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Root
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,12 +37,10 @@ class NotasDaoTest {
 
     }
 
-
     @After
     fun teardown() {
         database.close()
     }
-
 
     @Test
     fun insertNota() = runBlockingTest {

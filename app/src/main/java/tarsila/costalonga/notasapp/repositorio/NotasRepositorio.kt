@@ -7,17 +7,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
-
-    //Retorna a qnt de notas no bd
-    val numTotalNotas = dtDao.numTotalNotas()
+class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRepositorio {
 
     private var job = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + job)
 
     var k: List<Notas> = emptyList()
 
-    fun insertNota(nota: Notas) {
+    override fun insertNota(nota: Notas) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 dtDao.insertNota(nota)
@@ -25,19 +22,19 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) {
         }
     }
 
-    fun updateNota(nota: Notas) {
+    override fun updateNota(nota: Notas) {
         uiScope.launch {
             dtDao.updateNota(nota)
         }
     }
 
-    fun deleteUmaNota(nota: Notas) {
+    override fun deleteUmaNota(nota: Notas) {
         uiScope.launch {
             dtDao.deleteUmaNota(nota)
         }
     }
 
-    suspend fun getTodasNotas(): List<Notas> {
+    override suspend fun getTodasNotas(): List<Notas> {
         return dtDao.getTodasNotas()
     }
 
