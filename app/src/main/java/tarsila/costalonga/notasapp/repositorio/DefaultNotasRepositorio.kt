@@ -12,4 +12,6 @@ interface DefaultNotasRepositorio {
 
     suspend fun getTodasNotas(): List<Notas>
 
+    suspend fun itemMaiorOrdem(): Int
+
     }

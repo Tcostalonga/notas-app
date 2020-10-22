@@ -38,6 +38,11 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
         return dtDao.getTodasNotas()
     }
 
+    override suspend fun itemMaiorOrdem(): Int {
+        return dtDao.itemMaiorOrdem()
+
+    }
+
 
 }
 

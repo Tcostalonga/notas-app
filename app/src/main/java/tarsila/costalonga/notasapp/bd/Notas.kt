@@ -6,10 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-
 @Parcelize
 @Entity(tableName = "notas_table")
-data class Notas constructor(
+data class Notas constructor (
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
     @ColumnInfo(name = "titulo") var titulo: String,
     @ColumnInfo(name = "anotacao") var anotacao: String,

@@ -27,4 +27,7 @@ interface NotasDao {
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
     suspend fun getTodasNotas(): List<Notas>
 
+    @Query("SELECT MAX(ordem) FROM notas_table")
+    suspend fun itemMaiorOrdem(): Int
+
 }

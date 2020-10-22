@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
         val observer = Observer<List<Notas>> {
             adapter.listaFixa = it
             adapter.listaDoFiltro = ArrayList(it)
-            adapter.notifyDataSetChanged()
         }
         viewModel.allNotas.observe(viewLifecycleOwner, observer)
 
@@ -82,16 +81,14 @@ class MainFragment : Fragment() {
         arrastarNotas()
 
         binding.fabAdd.setOnClickListener {
+
             findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToAddFragment(
-                    adapter.listaFixa.size
-                )
+                MainFragmentDirections.actionMainFragmentToAddFragment(viewModel.maxOrdem ?: 0)
             )
         }
 
         return binding.root
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_top, menu)
@@ -169,6 +166,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.carregarNotas()
+        viewModel.itemMaiorOrdem()
     }
 
 }

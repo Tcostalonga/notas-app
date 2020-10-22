@@ -15,10 +15,19 @@ class MainAdapter(val clickListener: NotasListener) :
     RecyclerView.Adapter<MainAdapter.NotasViewHolder>(), Filterable {
 
     var listaFixa = listOf<Notas>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
 
     var listaDoFiltro = ArrayList<Notas>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
-   // lateinit var onCheckNote: (Notas, Boolean) -> Unit
+    // lateinit var onCheckNote: (Notas, Boolean) -> Unit
 
     lateinit var listener: ClicksAcao
 
@@ -31,7 +40,7 @@ class MainAdapter(val clickListener: NotasListener) :
                 clickListener.onClick(item)
             }
             binding.showCheckbox.setOnCheckedChangeListener { _, b ->
-                 listener.checkClick(item, b)
+                listener.checkClick(item, b)
                 binding.showTitulo.setHachura(b)
             }
 

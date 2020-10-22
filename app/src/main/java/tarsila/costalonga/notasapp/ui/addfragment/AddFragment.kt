@@ -32,11 +32,10 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tamanhoLista = AddFragmentArgs.fromBundle(requireArguments()).tamanhoLista
+        val tamanhoLista = (AddFragmentArgs.fromBundle(requireArguments()).tamanhoLista).plus(1)
 
         binding.saveTaskFab.setOnClickListener {
             it.hideKeyboard()

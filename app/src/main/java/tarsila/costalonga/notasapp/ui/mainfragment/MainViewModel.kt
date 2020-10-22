@@ -14,6 +14,8 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
 
     val allNotas = MutableLiveData<List<Notas>>()
 
+    var maxOrdem: Int? = 0
+
     private var uiScope = CoroutineScope(Dispatchers.Main)
 
     // Acionar fab_add
@@ -42,6 +44,12 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         lista.forEachIndexed { index, nota ->
             nota.ordem = index
             updateNota(nota)
+        }
+    }
+
+    fun itemMaiorOrdem() {
+        uiScope.launch {
+        maxOrdem = repositorio.itemMaiorOrdem()
         }
     }
 }
