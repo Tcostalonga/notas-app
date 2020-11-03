@@ -27,8 +27,6 @@ class MainAdapter(val clickListener: NotasListener) :
             notifyDataSetChanged()
         }
 
-    // lateinit var onCheckNote: (Notas, Boolean) -> Unit
-
     lateinit var listener: ClicksAcao
 
     inner class NotasViewHolder constructor(val binding: ListItemBinding) :

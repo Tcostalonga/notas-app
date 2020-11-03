@@ -43,6 +43,5 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
 
     }
 
-
 }
 

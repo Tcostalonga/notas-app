@@ -1,7 +1,6 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,14 +13,7 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
 
     val allNotas = MutableLiveData<List<Notas>>()
 
-    var maxOrdem: Int? = 0
-
     private var uiScope = CoroutineScope(Dispatchers.Main)
-
-    // Acionar fab_add
-    private var _fabAdd = MutableLiveData<Int>()
-    val fabAdd: LiveData<Int>
-        get() = _fabAdd
 
     fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
         objNota.finalizado = checkStatus
@@ -38,8 +30,7 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         repositorio.updateNota(nota)
     }
 
-
-    fun ordenarRecyclerView(lista: List<Notas>) {
+     fun ordenarRecyclerView(lista: List<Notas>) {
 
         lista.forEachIndexed { index, nota ->
             nota.ordem = index
@@ -47,9 +38,4 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
         }
     }
 
-    fun itemMaiorOrdem() {
-        uiScope.launch {
-        maxOrdem = repositorio.itemMaiorOrdem()
-        }
-    }
 }

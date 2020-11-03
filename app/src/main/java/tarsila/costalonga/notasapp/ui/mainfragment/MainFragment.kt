@@ -81,10 +81,10 @@ class MainFragment : Fragment() {
         arrastarNotas()
 
         binding.fabAdd.setOnClickListener {
+          //Toda vez que for criar um novo item, reordena a lista antiga
+            viewModel.ordenarRecyclerView(adapter.listaFixa)
 
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToAddFragment(viewModel.maxOrdem ?: 0)
-            )
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment(adapter.listaFixa.size))
         }
 
         return binding.root
@@ -166,7 +166,6 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.carregarNotas()
-        viewModel.itemMaiorOrdem()
-    }
+     }
 
 }
