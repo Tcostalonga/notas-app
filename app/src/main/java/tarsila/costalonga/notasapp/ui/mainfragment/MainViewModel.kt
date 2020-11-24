@@ -37,5 +37,4 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
             updateNota(nota)
         }
     }
-
 }

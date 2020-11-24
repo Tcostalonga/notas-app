@@ -6,7 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 
 fun makeToast(context: Context, msg: String): Unit {
-    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+
+        .show()
 }
 
 fun View.hideKeyboard() {

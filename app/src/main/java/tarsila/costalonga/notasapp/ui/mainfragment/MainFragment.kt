@@ -3,6 +3,7 @@ package tarsila.costalonga.notasapp.ui.mainfragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
@@ -38,13 +39,15 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("Chama", "onCreateView")
+
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelMainF = viewModel
 
-        //Configuração da recycler_view
+        //Configuracao da recycler_view
         adapter = MainAdapter(NotasListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToDetalheFragment(
@@ -80,6 +83,8 @@ class MainFragment : Fragment() {
 
         arrastarNotas()
 
+        viewModel.carregarNotas()
+
         binding.fabAdd.setOnClickListener {
           //Toda vez que for criar um novo item, reordena a lista antiga
             viewModel.ordenarRecyclerView(adapter.listaFixa)
@@ -92,7 +97,12 @@ class MainFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_top, menu)
+
+
         val item = menu.findItem(R.id.action_search)
+
+        Log.i("Chama", "onCreateOptionsMenu")
+
 
         val searchView = item.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -109,6 +119,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
 
         when (item.itemId) {
             R.id.action_search -> true
@@ -163,9 +174,5 @@ class MainFragment : Fragment() {
         iTH.attachToRecyclerView(binding.rcView)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.carregarNotas()
-     }
 
 }

@@ -18,7 +18,6 @@ import tarsila.costalonga.notasapp.utils.makeToast
 import tarsila.costalonga.notasapp.utils.showKeyboard
 import java.text.SimpleDateFormat
 
-
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
 

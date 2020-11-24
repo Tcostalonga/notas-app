@@ -30,4 +30,9 @@ class FakeNotasRepositorio : DefaultNotasRepositorio {
     override suspend fun getTodasNotas(): List<Notas> {
         return notasItems
     }
+
+    override suspend fun itemMaiorOrdem(): Int {
+        return 10
+    }
+
 }
