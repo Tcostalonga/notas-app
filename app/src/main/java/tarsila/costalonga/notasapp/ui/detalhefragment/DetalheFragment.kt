@@ -77,6 +77,12 @@ class DetalheFragment : Fragment() {
                     criarAlertDialog()
                     true
                 }
+
+                R.id.alarm -> {
+                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToAlarmFragment())
+                    true
+                }
+
                 else -> false
             }
         }

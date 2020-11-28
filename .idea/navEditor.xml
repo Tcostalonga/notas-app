@@ -29,6 +29,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="alarmFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="138" />
+                            <option name="y" value="499" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="detalheFragment">
                     <value>
                       <LayoutPositions>
@@ -40,6 +52,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_detalheFragment_to_alarmFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_detalheFragment_to_mainFragment">
                               <value>
                                 <LayoutPositions />

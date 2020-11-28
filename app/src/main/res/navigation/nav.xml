@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_detalheFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_detalheFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -65,4 +68,8 @@
         android:name="tarsila.costalonga.notasapp.ui.sobreFragment.SobreFragment"
         android:label="sobreFragment"
         tools:layout="@layout/fragment_sobre" />
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="tarsila.costalonga.notasapp.ui.alarmfragment.AlarmFragment"
+        android:label="AlarmFragment" />
 </navigation>

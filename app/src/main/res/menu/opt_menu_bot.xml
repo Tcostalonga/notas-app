@@ -16,4 +16,13 @@
         android:title="@string/remove"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/alarm"
+        android:icon="@drawable/alarm_access_24"
+        android:orderInCategory="3"
+        android:title="@string/remove"
+        app:showAsAction="always"
+        />
+
 </menu>
