@@ -18,35 +18,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintBottom_toTopOf="@+id/bt_edit_date"
+            app:layout_constraintBottom_toTopOf="@+id/bt_text_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-        <EditText
-            android:id="@+id/bt_edit_date"
+        <TextView
+            android:id="@+id/bt_text_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="false"
-            android:text="Oiiiii"
-
+            tools:text="DATA"
+            android:textSize="28sp"
+            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/bt_alarm_create"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/bt_timepicker"
+            app:layout_constraintStart_toStartOf="@+id/bt_timepicker"
             app:layout_constraintTop_toBottomOf="@+id/bt_timepicker" />
 
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/bt_alarm_create"
+            android:theme="@style/SwitchStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Desligado"
-            android:textAppearance="?android:textAppearanceSmall"
+            tools:text="@string/desligado"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_edit_date" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_text_date"
+            app:switchMinWidth="70dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

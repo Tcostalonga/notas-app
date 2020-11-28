@@ -24,7 +24,29 @@
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="colorPrimary">@color/primaryTextColor</item>
         <item name="android:textSize">16sp</item>
+        <item name="buttonBarButtonStyle">@style/ButtonsStyle</item>
+
     </style>
+
+    //DatePicker Dialog Estilo
+    <style name="PickerStyle" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/colorVerde</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/ButtonsStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/ButtonsStyle</item>
+    </style>
+
+    //ButtonStyle
+    <style name="ButtonsStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+
+    //SwitchStyle
+    <style name="SwitchStyle" parent="AppTheme">
+        <item name="colorAccent">@color/colorVerde</item>
+
+    </style>
+
 
     //TopBar
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
@@ -58,5 +80,6 @@
         <item name="backgroundTint">@color/colorVerde</item>
         <item name="tint">@color/colorbkg</item>
     </style>
+
 
 </resources>

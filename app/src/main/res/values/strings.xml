@@ -41,5 +41,7 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
+    <string name="ligado">Ligado</string>
+    <string name="desligado">Desligado</string>
 
 </resources>
