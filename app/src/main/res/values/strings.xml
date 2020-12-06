@@ -41,7 +41,15 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
+
+
+    //Alarme
     <string name="ligado">Ligado</string>
     <string name="desligado">Desligado</string>
+    <string name="configurar_alarme">Configurar alarme</string>
+    <string name="alarme">Alarme</string>
+    <string name="alarmToast">Alarme configurado com sucesso</string>
+    <string name="txtAlarmOn">Alarme configurado para:</string>
+    <string name="txtAlarmOff">Configurar alarme</string>
 
 </resources>

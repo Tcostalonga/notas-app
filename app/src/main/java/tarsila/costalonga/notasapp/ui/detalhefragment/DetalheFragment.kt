@@ -79,7 +79,7 @@ class DetalheFragment : Fragment() {
                 }
 
                 R.id.alarm -> {
-                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToAlarmFragment())
+                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToAlarmFragment(arguments.dtCriacao))
                     true
                 }
 

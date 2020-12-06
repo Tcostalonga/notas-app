@@ -71,5 +71,11 @@
     <fragment
         android:id="@+id/alarmFragment"
         android:name="tarsila.costalonga.notasapp.ui.alarmfragment.AlarmFragment"
-        android:label="AlarmFragment" />
+        android:label="AlarmFragment"
+        tools:layout="@layout/alarm_fragment"
+        >
+        <argument
+            android:name="dtCriacao"
+            app:argType="long" />
+    </fragment>
 </navigation>
