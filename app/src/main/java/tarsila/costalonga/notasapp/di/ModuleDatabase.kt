@@ -30,6 +30,7 @@ object ModuleDatabase {
     fun proverDao(dtBase: NotasRoom): NotasDao {
         return dtBase.notasDao
     }
+
 /*
     @Singleton
     @Provides

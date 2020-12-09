@@ -75,7 +75,7 @@
         tools:layout="@layout/alarm_fragment"
         >
         <argument
-            android:name="dtCriacao"
-            app:argType="long" />
+            android:name="obj_alarm"
+            app:argType="tarsila.costalonga.notasapp.bd.Notas" />
     </fragment>
 </navigation>
