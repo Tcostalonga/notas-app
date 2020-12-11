@@ -48,7 +48,8 @@
     <string name="desligado">Desligado</string>
     <string name="configurar_alarme">Configurar alarme</string>
     <string name="alarme">Alarme</string>
-    <string name="alarmToast">Alarme configurado com sucesso</string>
+    <string name="alarmToastOn">Alarme ligado</string>
+    <string name="alarmToastOff">Alarme desligado</string>
     <string name="txtAlarmOn">Alarme configurado para:</string>
     <string name="txtAlarmOff">Configurar alarme</string>
 

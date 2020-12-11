@@ -10,9 +10,8 @@ import androidx.core.content.ContextCompat
 class MyAlarmManager : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-         Log.i("alarme", "$intent")
 
-         Log.i("alarme", "${intent.getStringExtra("e")}")
+         Log.i("alarme", "$intent")
 
         val notificationManager =
             ContextCompat.getSystemService(

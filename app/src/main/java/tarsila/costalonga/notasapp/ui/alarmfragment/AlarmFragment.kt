@@ -24,7 +24,7 @@ class AlarmFragment : Fragment() {
 
     private val viewModel: AlarmViewModel by viewModels()
 
-    private lateinit var notaObj : Notas
+    private lateinit var notaObj: Notas
 
 
     override fun onCreateView(
@@ -41,19 +41,22 @@ class AlarmFragment : Fragment() {
         binding.btTextDate.text =
             SimpleDateFormat.getDateInstance(3).format(System.currentTimeMillis())
 
-
         binding.btTextDate.setOnClickListener {
             createDatePickerDialog()
         }
 
+        binding.btSwitchCreateAlarm.setOnCheckedChangeListener { switchButton, isChecked ->
 
-        binding.btSwitchCreateAlarm.setOnClickListener {
-            getTimePickerProperties()
-            viewModel.createAlarm(notaObj)
-            makeToast(requireContext(), getString(R.string.alarmToast))
+            if (isChecked) {
+                getTimePickerProperties()
+                viewModel.createAlarm(notaObj)
+                makeToast(requireContext(), getString(R.string.alarmToastOn))
 
+            } else {
+                viewModel.cancelAlarm(notaObj.dtCriacao)
+                makeToast(requireContext(), getString(R.string.alarmToastOff))
+            }
         }
-
 
         return binding.root
     }
