@@ -59,8 +59,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:switchMinWidth="70dp"
-            tools:text="@string/desligado" />
+            app:switchMinWidth="70dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

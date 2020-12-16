@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun makeToast(context: Context, msg: String): Unit {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT)
@@ -23,5 +25,18 @@ fun View.showKeyboard() {
     inputManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
 
 }
+
+
+fun hourFormatada(hora: Long): Int {
+    val horaFormatada = SimpleDateFormat("HH", Locale.getDefault())
+    return horaFormatada.format(hora).toInt()
+}
+
+fun minFormatada(min: Long): Int {
+    val minFormatada = SimpleDateFormat("mm", Locale.getDefault())
+    return minFormatada.format(min).toInt()
+
+}
+
 
 

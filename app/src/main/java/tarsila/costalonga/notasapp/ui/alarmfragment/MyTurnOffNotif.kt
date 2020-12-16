@@ -7,19 +7,16 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat
 
-class MyAlarmManager : BroadcastReceiver() {
+class MyTurnOffNotif : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-
-        Log.i("alarme", "$intent")
-
         val notificationManager =
             ContextCompat.getSystemService(
                 context,
                 NotificationManager::class.java
             ) as NotificationManager
-        notificationManager.createNotification(context, intent)
+        notificationManager.cancel(intent.getIntExtra(INTENT_TURN_OFF, 12))
 
+        Log.i("MyTurnOffNotif", "${intent.getIntExtra(INTENT_TURN_OFF, 12)}")
     }
 }
-

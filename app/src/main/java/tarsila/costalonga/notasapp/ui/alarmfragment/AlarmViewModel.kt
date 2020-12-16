@@ -7,6 +7,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -16,16 +19,20 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import tarsila.costalonga.notasapp.MainActivity
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 import java.util.*
 
-
-private const val NOTIFICATION_ID = 0
+private const val NOTIFICATION_ID = "Id de cada notif"
 const val PRIMARY_CHANNEL_ID = "Canal_primario"
 const val KEY_NOTIF_TEXT = "Texto_titulo"
 const val KEY_NOTIF_ANOTACAO = "Texto_anotacao"
+private const val REQUEST_CODE_TURNOFF = 0
+const val INTENT_TURN_OFF = "Desativar notificação"
 
-
-class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val context: Context) :
+class AlarmViewModel @ViewModelInject constructor(
+    @ApplicationContext val context: Context,
+    val repositorio: NotasRepositorio
+) :
     ViewModel() {
 
     private val _today: Calendar = Calendar.getInstance()
@@ -39,12 +46,11 @@ class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val contex
 
     fun createAlarm(notaObj: Notas) {
 
-
         intent.putExtra(KEY_NOTIF_TEXT, notaObj.titulo)
         intent.putExtra(KEY_NOTIF_ANOTACAO, notaObj.anotacao)
+        intent.putExtra(NOTIFICATION_ID, notaObj.dtCriacao)
 
         Log.i("uma", notaObj.titulo)
-
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -58,17 +64,34 @@ class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val contex
             _today.timeInMillis,
             pendingIntent
         )
+
+        notaObj.alarmClock = _today.timeInMillis
+        repositorio.updateNota(notaObj)
     }
 
-    fun cancelAlarm(dtCriacao: Long) {
+    fun cancelAlarm(notaObj: Notas) {
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            dtCriacao.toInt(),
+            notaObj.dtCriacao.toInt(),
             intent,
             PendingIntent.FLAG_ONE_SHOT
         )
         alarmManager.cancel(pendingIntent)
+
+        notaObj.alarmClock = notaObj.dtCriacao
+        repositorio.updateNota(notaObj)
+
+    }
+
+
+    fun checkAlarmsOn(dtCriacao: Long): Boolean {
+
+        return PendingIntent.getBroadcast(
+            context, dtCriacao.toInt(), intent,
+            PendingIntent.FLAG_NO_CREATE
+        ) != null
+
     }
 
     fun createChannel() {
@@ -77,7 +100,7 @@ class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val contex
             val notifChannel =
                 NotificationChannel(
                     PRIMARY_CHANNEL_ID,
-                    "Alarme",
+                    context.getString(R.string.alarme_notanota),
                     NotificationManager.IMPORTANCE_HIGH
                 )
 
@@ -85,7 +108,7 @@ class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val contex
                 it.enableVibration(true)
                 it.enableLights(true)
                 it.lightColor = Color.GREEN
-                it.description = "Alarme da nota"
+                it.description = context.getString(R.string.alarme_notanota)
             }
             val notificationManager: NotificationManager =
                 context.getSystemService(NotificationManager::class.java) as NotificationManager
@@ -97,16 +120,35 @@ class AlarmViewModel @ViewModelInject constructor(@ApplicationContext val contex
 }
 
 fun NotificationManager.createNotification(context: Context, intent: Intent) {
+
+    val notificationIdInt = intent.getLongExtra(NOTIFICATION_ID, 0).toInt()
+
     val notifBuilder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
+
     val intentShowMainActiv = Intent(context, MainActivity::class.java)
+
+    val turnOffIntent = Intent(context, MyTurnOffNotif::class.java)
+    turnOffIntent.putExtra(INTENT_TURN_OFF, notificationIdInt)
 
     //Esse pending intent é o da ação da notificação - Ao clicar, leva a MainActivity
     val pendingIntent = PendingIntent.getActivity(
         context,
-        NOTIFICATION_ID,
+        notificationIdInt,
         intentShowMainActiv,
         PendingIntent.FLAG_ONE_SHOT
     )
+
+    //Esse pending intent é o do botao acao
+    val turnOffPendindIntent = PendingIntent.getBroadcast(
+        context,
+        REQUEST_CODE_TURNOFF,
+        turnOffIntent,
+        PendingIntent.FLAG_ONE_SHOT
+    )
+
+    val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+    val mp: MediaPlayer = MediaPlayer.create(context, notification)
+    mp.start()
 
     notifBuilder.apply {
         this.setContentTitle(intent.getStringExtra(KEY_NOTIF_TEXT))
@@ -116,12 +158,9 @@ fun NotificationManager.createNotification(context: Context, intent: Intent) {
             .setAutoCancel(true)
             .setLights(Color.GREEN, 1000, 1000)
             .setContentIntent(pendingIntent)
+            .addAction(1, context.getString(R.string.dispensar), turnOffPendindIntent)
             .priority = NotificationCompat.PRIORITY_HIGH
     }
-    notify(NOTIFICATION_ID, notifBuilder.build())
+    notify(notificationIdInt, notifBuilder.build())
 }
 
-fun NotificationManager.cancelNotifications() {
-    cancelAll()
-
-}

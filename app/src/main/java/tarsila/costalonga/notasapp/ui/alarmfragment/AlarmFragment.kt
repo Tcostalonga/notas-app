@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.AlarmFragmentBinding
+import tarsila.costalonga.notasapp.utils.hourFormatada
 import tarsila.costalonga.notasapp.utils.makeToast
+import tarsila.costalonga.notasapp.utils.minFormatada
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +37,6 @@ class AlarmFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.alarm_fragment, container, false)
         notaObj = AlarmFragmentArgs.fromBundle(requireArguments()).objAlarm
 
-
         timePickerConfigs()
         viewModel.createChannel()
 
@@ -45,24 +47,28 @@ class AlarmFragment : Fragment() {
             createDatePickerDialog()
         }
 
-        binding.btSwitchCreateAlarm.setOnCheckedChangeListener { switchButton, isChecked ->
-
-            if (isChecked) {
+        binding.btSwitchCreateAlarm.setOnClickListener {
+            it as SwitchCompat
+            if (it.isChecked) {
                 getTimePickerProperties()
                 viewModel.createAlarm(notaObj)
                 makeToast(requireContext(), getString(R.string.alarmToastOn))
 
             } else {
-                viewModel.cancelAlarm(notaObj.dtCriacao)
+                viewModel.cancelAlarm(notaObj)
                 makeToast(requireContext(), getString(R.string.alarmToastOff))
+
+
             }
+
         }
 
+        checkAlarmTurnedOn()
         return binding.root
     }
 
 
-    fun datePicker(): DatePickerDialog.OnDateSetListener {
+    private fun datePicker(): DatePickerDialog.OnDateSetListener {
 
         return DatePickerDialog.OnDateSetListener { p0, p1, p2, p3 ->
 
@@ -86,17 +92,15 @@ class AlarmFragment : Fragment() {
         dateDialog.show()
     }
 
+    private fun updateTextDate() {
 
-    fun updateTextDate() {
         binding.btTextDate.text =
             SimpleDateFormat.getDateInstance(3).format(viewModel.today.timeInMillis)
-        // binding.btTextDate.text = SimpleDateFormat.getTimeInstance(3).format(viewModel.today.timeInMillis)
     }
 
-    fun timePickerConfigs() {
+    private fun timePickerConfigs() {
         binding.btTimepicker.setIs24HourView(true)
     }
-
 
 /*
     fun setLabelSwitch() {
@@ -109,8 +113,22 @@ class AlarmFragment : Fragment() {
     }
 */
 
-    fun getTimePickerProperties() {
+    private fun getTimePickerProperties() {
         viewModel.today.set(Calendar.HOUR_OF_DAY, binding.btTimepicker.hour)
         viewModel.today.set(Calendar.MINUTE, binding.btTimepicker.minute)
+    }
+
+
+    private fun checkAlarmTurnedOn() {
+
+        if (notaObj.alarmClock != notaObj.dtCriacao) {
+            binding.btTimepicker.hour = hourFormatada(notaObj.alarmClock)
+            binding.btTimepicker.minute = minFormatada(notaObj.alarmClock)
+            binding.btTextDate.text =
+                SimpleDateFormat.getDateInstance(3).format(notaObj.alarmClock)
+            binding.btSwitchCreateAlarm.isChecked = true
+            binding.btTextInfo.text = getString(R.string.txtAlarmOn)
+
+        }
     }
 }

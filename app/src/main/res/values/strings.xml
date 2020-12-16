@@ -52,5 +52,7 @@
     <string name="alarmToastOff">Alarme desligado</string>
     <string name="txtAlarmOn">Alarme configurado para:</string>
     <string name="txtAlarmOff">Configurar alarme</string>
+    <string name="dispensar">Dispensar</string>
+    <string name="alarme_notanota">Alarme NotaAnota</string>
 
 </resources>
