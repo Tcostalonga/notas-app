@@ -1,6 +1,7 @@
 package tarsila.costalonga.notasapp.ui.alarmfragment
 
 import android.app.DatePickerDialog
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -131,4 +132,17 @@ class AlarmFragment : Fragment() {
 
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+
+    }
+
 }
