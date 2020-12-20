@@ -50,19 +50,27 @@ class AlarmFragment : Fragment() {
 
         binding.btSwitchCreateAlarm.setOnClickListener {
             it as SwitchCompat
-            if (it.isChecked) {
-                getTimePickerProperties()
-                viewModel.createAlarm(notaObj)
-                makeToast(requireContext(), getString(R.string.alarmToastOn))
+            getTimePickerProperties()
 
+            if (viewModel.today.timeInMillis >= System.currentTimeMillis()) {
+                if (it.isChecked) {
+
+                    viewModel.createAlarm(notaObj)
+                    binding.btTextInfo.text = getString(R.string.txtAlarmOn)
+                    makeToast(requireContext(), getString(R.string.alarmToastOn))
+                } else {
+                    viewModel.cancelAlarm(notaObj)
+                    binding.btTextInfo.text = getString(R.string.txtAlarmOff)
+                    makeToast(requireContext(), getString(R.string.alarmToastOff))
+
+                }
             } else {
-                viewModel.cancelAlarm(notaObj)
-                makeToast(requireContext(), getString(R.string.alarmToastOff))
-
-
+                makeToast(requireContext(), "Hora inválida")
+                it.isChecked = false
             }
 
         }
+
 
         checkAlarmTurnedOn()
         return binding.root
@@ -101,18 +109,8 @@ class AlarmFragment : Fragment() {
 
     private fun timePickerConfigs() {
         binding.btTimepicker.setIs24HourView(true)
-    }
 
-/*
-    fun setLabelSwitch() {
-        if (binding.btSwitchCreateAlarm.isChecked) {
-            binding.btSwitchCreateAlarm.text = getString(R.string.ligado)
-            binding.btTextInfo.text = getString(R.string.txtAlarmOn)
-        } else
-            binding.btSwitchCreateAlarm.text = getString(R.string.desligado)
-        binding.btTextInfo.text = getString(R.string.txtAlarmOff)
     }
-*/
 
     private fun getTimePickerProperties() {
         viewModel.today.set(Calendar.HOUR_OF_DAY, binding.btTimepicker.hour)
@@ -122,7 +120,7 @@ class AlarmFragment : Fragment() {
 
     private fun checkAlarmTurnedOn() {
 
-        if (notaObj.alarmClock != notaObj.dtCriacao) {
+        if (notaObj.alarmClock != notaObj.dtCriacao && notaObj.alarmClock > System.currentTimeMillis()) {
             binding.btTimepicker.hour = hourFormatada(notaObj.alarmClock)
             binding.btTimepicker.minute = minFormatada(notaObj.alarmClock)
             binding.btTextDate.text =
