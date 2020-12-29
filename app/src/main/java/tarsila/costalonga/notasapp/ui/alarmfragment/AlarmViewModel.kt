@@ -43,7 +43,6 @@ class AlarmViewModel @ViewModelInject constructor(
 
     private val intent = Intent(context, MyAlarmManager::class.java)
 
-
     fun createAlarm(notaObj: Notas) {
 
         intent.putExtra(KEY_NOTIF_TEXT, notaObj.titulo)
@@ -81,9 +80,7 @@ class AlarmViewModel @ViewModelInject constructor(
 
         notaObj.alarmClock = notaObj.dtCriacao
         repositorio.updateNota(notaObj)
-
     }
-
 
     fun checkAlarmsOn(dtCriacao: Long): Boolean {
 
@@ -91,7 +88,6 @@ class AlarmViewModel @ViewModelInject constructor(
             context, dtCriacao.toInt(), intent,
             PendingIntent.FLAG_NO_CREATE
         ) != null
-
     }
 
     fun createChannel() {
@@ -101,8 +97,7 @@ class AlarmViewModel @ViewModelInject constructor(
                 NotificationChannel(
                     PRIMARY_CHANNEL_ID,
                     context.getString(R.string.alarme_notanota),
-                    NotificationManager.IMPORTANCE_HIGH
-                )
+                    NotificationManager.IMPORTANCE_HIGH)
 
             notifChannel.also {
                 it.enableVibration(true)
@@ -114,7 +109,6 @@ class AlarmViewModel @ViewModelInject constructor(
                 context.getSystemService(NotificationManager::class.java) as NotificationManager
 
             notificationManager.createNotificationChannel(notifChannel)
-
         }
     }
 }

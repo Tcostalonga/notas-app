@@ -4,7 +4,9 @@
     package="tarsila.costalonga.notasapp">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="replace" />
 
     <application
         android:name=".BaseApplication"
@@ -21,20 +23,26 @@
         <receiver
             android:name=".ui.alarmfragment.MyAlarmManager"
             android:enabled="true"
-            android:exported="false" />
-
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+        </intent-filter>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize" />
-    </application>
+    </receiver>
 
-</manifest>
+    <activity
+        android:name=".SplashActivity"
+        android:theme="@style/SplashTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name=".MainActivity"
+        android:windowSoftInputMode="adjustResize" />
+</application>
+
+    </manifest>

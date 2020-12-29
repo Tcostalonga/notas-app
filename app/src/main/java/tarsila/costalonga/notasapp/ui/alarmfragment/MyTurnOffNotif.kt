@@ -17,6 +17,7 @@ class MyTurnOffNotif : BroadcastReceiver() {
             ) as NotificationManager
         notificationManager.cancel(intent.getIntExtra(INTENT_TURN_OFF, 12))
 
+
         Log.i("MyTurnOffNotif", "${intent.getIntExtra(INTENT_TURN_OFF, 12)}")
     }
 }
