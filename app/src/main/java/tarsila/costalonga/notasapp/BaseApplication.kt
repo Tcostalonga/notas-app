@@ -8,6 +8,7 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+
 /*        SoLoader.init(this, false)
 
         if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {

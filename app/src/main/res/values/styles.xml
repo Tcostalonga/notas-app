@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     // Tema do app
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -10,6 +10,7 @@
         <item name="fontFamily">@font/proxima_nova_regular</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">

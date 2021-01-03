@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538551127601",
+    "project_id": "notaanota-2020",
+    "storage_bucket": "notaanota-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538551127601:android:e5e9a018f51aa6c384cf10",
+        "android_client_info": {
+          "package_name": "tarsila.costalonga.notasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538551127601-pud39hlj11g1npjr2s02jf6q28idb37v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAoK1lFlUFKn9wKbtW9JCmF2FnaX4WCGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538551127601-pud39hlj11g1npjr2s02jf6q28idb37v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

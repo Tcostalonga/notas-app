@@ -1,15 +1,9 @@
 package tarsila.costalonga.notasapp.ui.alarmfragment
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.media.MediaPlayer
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -22,7 +16,7 @@ import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 import java.util.*
 
-private const val NOTIFICATION_ID = "Id de cada notif"
+const val NOTIFICATION_ID = "Id de cada notif"
 const val PRIMARY_CHANNEL_ID = "Canal_primario"
 const val KEY_NOTIF_TEXT = "Texto_titulo"
 const val KEY_NOTIF_ANOTACAO = "Texto_anotacao"
@@ -41,7 +35,7 @@ class AlarmViewModel @ViewModelInject constructor(
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    private val intent = Intent(context, MyAlarmManager::class.java)
+    private val intent = Intent(context, AlarmBcReceiver::class.java)
 
     fun createAlarm(notaObj: Notas) {
 
@@ -58,7 +52,7 @@ class AlarmViewModel @ViewModelInject constructor(
             PendingIntent.FLAG_ONE_SHOT
         )
 
-        alarmManager.setExactAndAllowWhileIdle(
+        alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
             _today.timeInMillis,
             pendingIntent
@@ -97,7 +91,8 @@ class AlarmViewModel @ViewModelInject constructor(
                 NotificationChannel(
                     PRIMARY_CHANNEL_ID,
                     context.getString(R.string.alarme_notanota),
-                    NotificationManager.IMPORTANCE_HIGH)
+                    NotificationManager.IMPORTANCE_HIGH
+                )
 
             notifChannel.also {
                 it.enableVibration(true)
@@ -113,7 +108,7 @@ class AlarmViewModel @ViewModelInject constructor(
     }
 }
 
-fun NotificationManager.createNotification(context: Context, intent: Intent) {
+fun createNotification(context: Context, intent: Intent): Notification {
 
     val notificationIdInt = intent.getLongExtra(NOTIFICATION_ID, 0).toInt()
 
@@ -139,13 +134,8 @@ fun NotificationManager.createNotification(context: Context, intent: Intent) {
         turnOffIntent,
         PendingIntent.FLAG_ONE_SHOT
     )
-
-    val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-    val mp: MediaPlayer = MediaPlayer.create(context, notification)
-    mp.start()
-
-    notifBuilder.apply {
-        this.setContentTitle(intent.getStringExtra(KEY_NOTIF_TEXT))
+    return notifBuilder.apply {
+        setContentTitle(intent.getStringExtra(KEY_NOTIF_TEXT))
             .setContentText(intent.getStringExtra(KEY_NOTIF_ANOTACAO))
             .setDefaults(NotificationCompat.PRIORITY_HIGH)
             .setSmallIcon(R.drawable.alarm_on_24)
@@ -154,7 +144,7 @@ fun NotificationManager.createNotification(context: Context, intent: Intent) {
             .setContentIntent(pendingIntent)
             .addAction(1, context.getString(R.string.dispensar), turnOffPendindIntent)
             .priority = NotificationCompat.PRIORITY_HIGH
-    }
-    notify(notificationIdInt, notifBuilder.build())
+    }.build()
+
 }
 

@@ -1,4 +1,3 @@
-
 package tarsila.costalonga.notasapp.ui.alarmfragment
 
 import android.app.DatePickerDialog
@@ -76,7 +75,6 @@ class AlarmFragment : Fragment() {
         checkAlarmTurnedOn()
         return binding.root
     }
-
 
     private fun datePicker(): DatePickerDialog.OnDateSetListener {
 
