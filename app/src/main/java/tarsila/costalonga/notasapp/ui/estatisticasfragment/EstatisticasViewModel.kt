@@ -27,23 +27,17 @@ class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasR
         it.count()
     }
 
-
     val notasAtivas = Transformations.map(allNotas) {
         it.count { nota ->
             nota.isCompleted
         }
     }
 
-
     val notasFinalizadas = Transformations.map(allNotas) {
         it.count { nota ->
             !nota.isCompleted
         }
     }
-
-
-   //val totalCriadas = notasAtivas.value.plus(notasFinalizadas.value)
-
 }
 
 

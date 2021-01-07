@@ -47,8 +47,6 @@ class AddFragment : Fragment() {
                     makeToast(requireContext(), getString(R.string.obrigatoriedade_de_campo))
                 }
                 else -> {
-
-//                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = sizebundle passar)
                     val newNota =
                         Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = tamanhoLista)
                     viewModel.insertNota(newNota)

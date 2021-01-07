@@ -1,5 +1,6 @@
 package tarsila.costalonga.notasapp.repositorio
 
+import androidx.lifecycle.LiveData
 import tarsila.costalonga.notasapp.bd.Notas
 
 interface DefaultNotasRepositorio {
@@ -14,4 +15,6 @@ interface DefaultNotasRepositorio {
 
     suspend fun itemMaiorOrdem(): Int
 
-    }
+    fun getAlarmsOnSuspend(): LiveData<List<Notas>>
+
+}

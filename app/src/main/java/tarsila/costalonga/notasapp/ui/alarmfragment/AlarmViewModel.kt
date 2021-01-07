@@ -1,11 +1,13 @@
 package tarsila.costalonga.notasapp.ui.alarmfragment
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
@@ -14,7 +16,6 @@ import tarsila.costalonga.notasapp.MainActivity
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
-import java.util.*
 
 const val NOTIFICATION_ID = "Id de cada notif"
 const val PRIMARY_CHANNEL_ID = "Canal_primario"
@@ -29,59 +30,13 @@ class AlarmViewModel @ViewModelInject constructor(
 ) :
     ViewModel() {
 
-    private val _today: Calendar = Calendar.getInstance()
+
+/*    private val _today: Calendar = Calendar.getInstance()
     val today: Calendar
-        get() = _today
+        get() = _today*/
 
-    private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-    private val intent = Intent(context, AlarmBcReceiver::class.java)
-
-    fun createAlarm(notaObj: Notas) {
-
-        intent.putExtra(KEY_NOTIF_TEXT, notaObj.titulo)
-        intent.putExtra(KEY_NOTIF_ANOTACAO, notaObj.anotacao)
-        intent.putExtra(NOTIFICATION_ID, notaObj.dtCriacao)
-
-        Log.i("uma", notaObj.titulo)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            notaObj.dtCriacao.toInt(),
-            intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-
-        alarmManager.setExact(
-            AlarmManager.RTC_WAKEUP,
-            _today.timeInMillis,
-            pendingIntent
-        )
-
-        notaObj.alarmClock = _today.timeInMillis
-        repositorio.updateNota(notaObj)
-    }
-
-    fun cancelAlarm(notaObj: Notas) {
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            notaObj.dtCriacao.toInt(),
-            intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-        alarmManager.cancel(pendingIntent)
-
-        notaObj.alarmClock = notaObj.dtCriacao
-        repositorio.updateNota(notaObj)
-    }
-
-    fun checkAlarmsOn(dtCriacao: Long): Boolean {
-
-        return PendingIntent.getBroadcast(
-            context, dtCriacao.toInt(), intent,
-            PendingIntent.FLAG_NO_CREATE
-        ) != null
+    fun checkAlarmsOn(notaObj: Notas): Boolean {
+        return (notaObj.dtCriacao != notaObj.alarmClock)
     }
 
     fun createChannel() {
@@ -126,6 +81,9 @@ fun createNotification(context: Context, intent: Intent): Notification {
         intentShowMainActiv,
         PendingIntent.FLAG_ONE_SHOT
     )
+
+/*    val intentService = Intent(context.applicationContext, MyServiceAlarm::class.java)
+    context.applicationContext.stopService(intentService)*/
 
     //Esse pending intent é o do botao acao
     val turnOffPendindIntent = PendingIntent.getBroadcast(

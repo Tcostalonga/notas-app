@@ -19,6 +19,7 @@ import tarsila.costalonga.notasapp.utils.makeToast
 import tarsila.costalonga.notasapp.utils.minFormatada
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -28,8 +29,13 @@ class AlarmFragment : Fragment() {
 
     private val viewModel: AlarmViewModel by viewModels()
 
-    private lateinit var notaObj: Notas
+    @Inject
+    lateinit var today: Calendar
 
+    @Inject
+    lateinit var alarmUtils: AlarmUtils
+
+    private lateinit var notaObj: Notas
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,14 +58,14 @@ class AlarmFragment : Fragment() {
             it as SwitchCompat
             getTimePickerProperties()
 
-            if (viewModel.today.timeInMillis >= System.currentTimeMillis()) {
+            if (today.timeInMillis >= System.currentTimeMillis()) {
                 if (it.isChecked) {
 
-                    viewModel.createAlarm(notaObj)
+                    alarmUtils.createAlarm(notaObj)
                     binding.btTextInfo.text = getString(R.string.txtAlarmOn)
                     makeToast(requireContext(), getString(R.string.alarmToastOn))
                 } else {
-                    viewModel.cancelAlarm(notaObj)
+                    alarmUtils.cancelAlarm(notaObj)
                     binding.btTextInfo.text = getString(R.string.txtAlarmOff)
                     makeToast(requireContext(), getString(R.string.alarmToastOff))
 
@@ -78,11 +84,11 @@ class AlarmFragment : Fragment() {
 
     private fun datePicker(): DatePickerDialog.OnDateSetListener {
 
-        return DatePickerDialog.OnDateSetListener { p0, p1, p2, p3 ->
+        return DatePickerDialog.OnDateSetListener { _, p1, p2, p3 ->
 
-            viewModel.today.set(Calendar.YEAR, p1)
-            viewModel.today.set(Calendar.MONTH, p2)
-            viewModel.today.set(Calendar.DAY_OF_MONTH, p3)
+            today.set(Calendar.YEAR, p1)
+            today.set(Calendar.MONTH, p2)
+            today.set(Calendar.DAY_OF_MONTH, p3)
             updateTextDate()
         }
     }
@@ -92,9 +98,9 @@ class AlarmFragment : Fragment() {
         val dateDialog =
             DatePickerDialog(
                 requireContext(), R.style.PickerStyle,
-                datePicker(), viewModel.today.get(Calendar.YEAR),
-                viewModel.today.get(Calendar.MONTH),
-                viewModel.today.get(Calendar.DAY_OF_MONTH)
+                datePicker(), today.get(Calendar.YEAR),
+                today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH)
             )
         dateDialog.datePicker.minDate = System.currentTimeMillis()
         dateDialog.show()
@@ -103,7 +109,7 @@ class AlarmFragment : Fragment() {
     private fun updateTextDate() {
 
         binding.btTextDate.text =
-            SimpleDateFormat.getDateInstance(3).format(viewModel.today.timeInMillis)
+            SimpleDateFormat.getDateInstance(3).format(today.timeInMillis)
     }
 
     private fun timePickerConfigs() {
@@ -112,8 +118,8 @@ class AlarmFragment : Fragment() {
     }
 
     private fun getTimePickerProperties() {
-        viewModel.today.set(Calendar.HOUR_OF_DAY, binding.btTimepicker.hour)
-        viewModel.today.set(Calendar.MINUTE, binding.btTimepicker.minute)
+        today.set(Calendar.HOUR_OF_DAY, binding.btTimepicker.hour)
+        today.set(Calendar.MINUTE, binding.btTimepicker.minute)
     }
 
 
@@ -126,7 +132,6 @@ class AlarmFragment : Fragment() {
                 SimpleDateFormat.getDateInstance(3).format(notaObj.alarmClock)
             binding.btSwitchCreateAlarm.isChecked = true
             binding.btTextInfo.text = getString(R.string.txtAlarmOn)
-
         }
     }
 
