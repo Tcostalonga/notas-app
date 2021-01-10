@@ -9,7 +9,6 @@ import java.util.*
 
 fun makeToast(context: Context, msg: String): Unit {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-
         .show()
 }
 
@@ -27,7 +26,7 @@ fun View.showKeyboard() {
 }
 
 
-fun hourFormatada(hora: Long): Int {
+fun horaFormatada(hora: Long): Int {
     val horaFormatada = SimpleDateFormat("HH", Locale.getDefault())
     return horaFormatada.format(hora).toInt()
 }
@@ -35,6 +34,14 @@ fun hourFormatada(hora: Long): Int {
 fun minFormatada(min: Long): Int {
     val minFormatada = SimpleDateFormat("mm", Locale.getDefault())
     return minFormatada.format(min).toInt()
+
+}
+
+fun dataFormatada(data: Long): String {
+    val dtFormatada = SimpleDateFormat.getDateInstance(3).format(data)
+    val dayOfWeek = SimpleDateFormat("EE", Locale.getDefault()).format(data)
+
+    return "$dtFormatada, $dayOfWeek"
 
 }
 

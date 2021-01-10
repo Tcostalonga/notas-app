@@ -42,7 +42,7 @@
     </style>
 
 
-    //SwitchStyle
+    //SwitchButtonStyle
     <style name="SwitchStyle" parent="AppTheme">
         <item name="colorAccent">@color/colorVerde</item>
 
@@ -80,6 +80,16 @@
     <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/colorVerde</item>
         <item name="tint">@color/colorbkg</item>
+    </style>
+
+
+    //AlarmButton
+    <style name="AlarmButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">30dp</item>
+<item name="backgroundTint">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+
+
     </style>
 
 

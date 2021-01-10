@@ -7,14 +7,12 @@ import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
-import java.util.*
 import javax.inject.Inject
 
 
 class AlarmUtils @Inject constructor(
     @ApplicationContext val context: Context,
-     val repositorio: NotasRepositorio,
-     val today: Calendar
+     val repositorio: NotasRepositorio
 ) {
 
     private val alarmManager =
@@ -23,7 +21,7 @@ class AlarmUtils @Inject constructor(
     private val intent = Intent(context, AlarmBcReceiver::class.java)
 
 
-    fun createAlarm(notaObj: Notas) {
+    fun createAlarm(notaObj: Notas, today: Long) {
 
         intent.putExtra(KEY_NOTIF_TEXT, notaObj.titulo)
         intent.putExtra(KEY_NOTIF_ANOTACAO, notaObj.anotacao)
@@ -36,18 +34,18 @@ class AlarmUtils @Inject constructor(
             PendingIntent.FLAG_ONE_SHOT
         )
 
-        // if alarm time has already passed, increment day by 1
+/*        // if alarm time has already passed, increment day by 1
         if (today.timeInMillis <= System.currentTimeMillis()) {
             today.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH) + 1)
-        }
+        }*/
 
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            today.timeInMillis,
+            today,
             pendingIntent
         )
 
-        notaObj.alarmClock = today.timeInMillis
+        notaObj.alarmClock = today
         repositorio.updateNota(notaObj)
     }
 

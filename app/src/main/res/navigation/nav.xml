@@ -72,7 +72,7 @@
         android:id="@+id/alarmFragment"
         android:name="tarsila.costalonga.notasapp.ui.alarmfragment.AlarmFragment"
         android:label="AlarmFragment"
-        tools:layout="@layout/alarm_fragment"
+        tools:layout="@layout/fragment_alarm"
         >
         <argument
             android:name="obj_alarm"

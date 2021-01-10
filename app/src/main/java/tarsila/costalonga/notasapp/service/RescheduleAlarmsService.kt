@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
-import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
+import tarsila.costalonga.notasapp.ui.alarmfragment.AlarmUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -14,16 +14,16 @@ class RescheduleAlarmsService :
     LifecycleService() {
 
     @Inject
-    lateinit var repositorio: NotasRepositorio
+    lateinit var alarmUtils: AlarmUtils
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        val allAlarms = repositorio.getAlarmsOnSuspend()
+        val allAlarms = alarmUtils.repositorio.getAlarmsOnSuspend()
 
         allAlarms.observe(this, Observer {
-            it.forEachIndexed { index, notas ->
-           // AlarmUtils.createAlarm(notas)
-             //   Log.i("RescheduleAlarmsService", notas.titulo)
+            it.forEachIndexed { _, notas ->
+                alarmUtils.createAlarm(notas, notas.alarmClock)
+                Log.i("RescheduleAlarmsService", notas.titulo)
             }
         })
         Log.i("RescheduleAlarmsService", "titulo")

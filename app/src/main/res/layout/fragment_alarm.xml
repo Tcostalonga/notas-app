@@ -14,53 +14,52 @@
         tools:context=".ui.alarmfragment.AlarmFragment">
 
 
-        <TextView
-            android:id="@+id/bt_text_info"
-            style="@style/estatisticasEstilo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_extra_large"
-            android:text="@string/configurar_alarme"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bt_timepicker"/>
-
         <TimePicker
             android:id="@+id/bt_timepicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
+            app:layout_constraintBottom_toTopOf="@+id/view_alarm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
+        <View
+            android:id="@+id/view_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_marginStart="@dimen/margin_larga"
+            android:layout_marginEnd="@dimen/margin_larga"
             app:layout_constraintBottom_toTopOf="@+id/bt_text_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_text_info" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_timepicker" />
 
         <TextView
             android:id="@+id/bt_text_date"
             style="@style/estatisticasEstilo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
-             app:layout_constraintEnd_toEndOf="@+id/bt_timepicker"
-            app:layout_constraintStart_toStartOf="@+id/bt_timepicker"
-            app:layout_constraintTop_toBottomOf="@id/bt_timepicker"
+            app:layout_constraintBottom_toTopOf="@+id/bt_create_alarm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_alarm"
             tools:text="22/04/2017" />
 
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/bt_switch_create_alarm"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_create_alarm"
+            style="@style/AlarmButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:theme="@style/SwitchStyle"
+            android:layout_marginTop="@dimen/margin_larga"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:switchMinWidth="70dp" />
-
+            app:layout_constraintTop_toBottomOf="@+id/bt_text_date"
+            android:text="@string/desligado" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
