@@ -53,5 +53,6 @@
 
     <string name="dispensar">Dispensar</string>
     <string name="alarme_notanota">Alarme NotaAnota</string>
+    <string name="hora_invalida">Hora inválida</string>
 
 </resources>

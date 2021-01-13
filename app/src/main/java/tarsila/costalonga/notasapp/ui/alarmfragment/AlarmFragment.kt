@@ -71,10 +71,8 @@ class AlarmFragment : Fragment() {
                         it.setTextColor(requireContext().getColor(R.color.colorPrimary))
                         isAlarmOn = true
                     } else {
-                        makeToast(requireContext(), "Hora inválida")
-
+                        makeToast(requireContext(), getString(R.string.hora_invalida))
                     }
-
                 }
                 true -> {
                     alarmUtils.cancelAlarm(notaObj)
@@ -87,9 +85,6 @@ class AlarmFragment : Fragment() {
                 }
             }
         }
-
-
-
 
         checkAlarmTurnedOn()
         return binding.root

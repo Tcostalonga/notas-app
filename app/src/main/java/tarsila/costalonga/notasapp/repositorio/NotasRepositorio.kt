@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.repositorio
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.*
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.bd.NotasDao
@@ -12,6 +11,7 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
 
     private var job = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + job)
+
 
     override fun insertNota(nota: Notas) {
         uiScope.launch {
@@ -41,7 +41,9 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
         return dtDao.itemMaiorOrdem()
     }
 
-    override fun getAlarmsOnSuspend(): LiveData<List<Notas>> {
+    override suspend fun getAlarmsReschedule(): List<Notas> {
         return dtDao.getAlarmsOnBD()
     }
+
 }
+

@@ -31,10 +31,6 @@ class AlarmViewModel @ViewModelInject constructor(
     ViewModel() {
 
 
-/*    private val _today: Calendar = Calendar.getInstance()
-    val today: Calendar
-        get() = _today*/
-
     fun checkAlarmsOn(notaObj: Notas): Boolean {
         return (notaObj.dtCriacao != notaObj.alarmClock)
     }
@@ -81,9 +77,6 @@ fun createNotification(context: Context, intent: Intent): Notification {
         intentShowMainActiv,
         PendingIntent.FLAG_ONE_SHOT
     )
-
-/*    val intentService = Intent(context.applicationContext, MyServiceAlarm::class.java)
-    context.applicationContext.stopService(intentService)*/
 
     //Esse pending intent é o do botao acao
     val turnOffPendindIntent = PendingIntent.getBroadcast(

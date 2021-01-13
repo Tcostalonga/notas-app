@@ -29,6 +29,7 @@ class MyServiceAlarm : Service() {
         val notification = createNotification(this, intent)
 
         startForeground(1, notification)
+
         mp.start()
 
         return super.onStartCommand(intent, flags, startId)

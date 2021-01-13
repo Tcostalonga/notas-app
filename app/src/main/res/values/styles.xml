@@ -22,6 +22,7 @@
     -->
 
     //Alert Dialog Estilo
+
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="colorPrimary">@color/primaryTextColor</item>
         <item name="android:textSize">16sp</item>
@@ -30,6 +31,7 @@
     </style>
 
     //DatePicker Dialog Estilo
+
     <style name="PickerStyle" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorAccent">@color/colorVerde</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/ButtonsStyle</item>
@@ -37,25 +39,28 @@
     </style>
 
     //ButtonStyle
+
     <style name="ButtonsStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
 
     //SwitchButtonStyle
+
     <style name="SwitchStyle" parent="AppTheme">
         <item name="colorAccent">@color/colorVerde</item>
-
     </style>
 
 
     //TopBar
+
     <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
 
     //Datas
+
     <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/proxima_nova</item>
@@ -65,18 +70,21 @@
 
 
     //Textos Estatisticas
+
     <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:layout_margin">@dimen/margin_pequena</item>
     </style>
 
     //BottomBar
+
     <style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="iconTint">#E3E4D6</item>
     </style>
 
     //Fab
+
     <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/colorVerde</item>
         <item name="tint">@color/colorbkg</item>
@@ -84,12 +92,16 @@
 
 
     //AlarmButton
+
     <style name="AlarmButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">30dp</item>
-<item name="backgroundTint">@color/colorAccent</item>
+        <item name="backgroundTint">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
-
+    <style name="myTimePicker">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/proxima_nova_regular</item>
     </style>
 
 

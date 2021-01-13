@@ -30,7 +30,7 @@ interface NotasDao {
     @Query("SELECT MAX(ordem) FROM notas_table")
     suspend fun itemMaiorOrdem(): Int
 
-    @Query("SELECT * FROM notas_table WHERE dt_criacao <> alarmClock")
-     fun getAlarmsOnBD(): LiveData<List<Notas>>
+    @Query("SELECT * FROM notas_table WHERE dt_criacao != alarmClock")
+     suspend fun getAlarmsOnBD(): List<Notas>
 
 }

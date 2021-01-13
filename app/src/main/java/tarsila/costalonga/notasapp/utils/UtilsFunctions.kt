@@ -39,7 +39,7 @@ fun minFormatada(min: Long): Int {
 
 fun dataFormatada(data: Long): String {
     val dtFormatada = SimpleDateFormat.getDateInstance(3).format(data)
-    val dayOfWeek = SimpleDateFormat("EE", Locale.getDefault()).format(data)
+    val dayOfWeek = SimpleDateFormat("EEEE", Locale.getDefault()).format(data)
 
     return "$dtFormatada, $dayOfWeek"
 
