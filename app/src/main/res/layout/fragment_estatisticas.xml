@@ -19,15 +19,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_larga">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_larga_20">
 
             <TextView
                 android:id="@+id/notas_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_media"
+                android:layout_marginStart="@dimen/margin_media_16"
                 android:contentDescription="@string/notas_criadas"
-                android:drawablePadding="@dimen/margin_pequena"
+                android:drawablePadding="@dimen/margin_pequena_8"
                 android:gravity="center"
                 android:text="@string/notas_criadas"
                 app:drawableStartCompat="@drawable/est_criadas"
@@ -40,9 +41,9 @@
                 android:id="@+id/notas_atvs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_media"
+                android:layout_marginStart="@dimen/margin_media_16"
                 android:contentDescription="@string/notas_ativas"
-                android:drawablePadding="@dimen/margin_pequena"
+                android:drawablePadding="@dimen/margin_pequena_8"
                 android:gravity="center"
                 android:text="@string/notas_ativas"
                 app:drawableStartCompat="@drawable/est_ativas"
@@ -55,14 +56,14 @@
                 android:id="@+id/notas_fnlz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_media"
+                android:layout_marginStart="@dimen/margin_media_16"
                 android:contentDescription="@string/notas_finalizadas"
-                android:drawablePadding="@dimen/margin_pequena"
+                android:drawablePadding="@dimen/margin_pequena_8"
 
                 android:gravity="center"
                 android:text="@string/notas_finalizadas"
                 app:drawableStartCompat="@drawable/est_finalizadas"
-                app:layout_constraintBottom_toBottomOf="@id/guideline"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
@@ -119,13 +120,6 @@
                 app:layout_constraintBottom_toTopOf="@id/notas_fnlz"
                 app:layout_constraintStart_toStartOf="@id/notas_atvs"
                 app:layout_constraintTop_toBottomOf="@id/notas_atvs" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="415dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

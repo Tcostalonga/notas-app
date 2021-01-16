@@ -21,22 +21,11 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_media">
+            android:layout_margin="@dimen/margin_media_16">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <!--                <ImageView
-                                    android:id="@+id/img_view"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:adjustViewBounds="true"
-                                    android:contentDescription="@string/imagem_nota"
-                                    android:scaleType="centerCrop"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    tools:src="@drawable/img_cycling" />-->
 
                 <TextView
                     android:id="@+id/dt_criado"
@@ -62,7 +51,7 @@
                     android:id="@+id/show_titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_larga"
+                    android:layout_marginTop="@dimen/margin_larga_20"
                     android:background="@null"
                     android:contentDescription="@string/titulo"
                     android:enabled="false"
@@ -79,7 +68,7 @@
                     android:id="@+id/show_anotacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_pequena"
+                    android:layout_marginTop="@dimen/margin_pequena_8"
                     android:background="@null"
                     android:contentDescription="@string/anotacao"
                     android:enabled="false"

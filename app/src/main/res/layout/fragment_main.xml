@@ -5,7 +5,6 @@
     tools:context=".ui.mainfragment.MainFragment">
 
     <data>
-
         <variable
             name="viewModelMainF"
             type="tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel" />
@@ -20,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_margin="@dimen/margin_pequena"
+            android:layout_margin="@dimen/margin_pequena_8"
             tools:listitem="@layout/list_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/margin_larga"
+            android:layout_margin="@dimen/margin_larga_20"
             app:srcCompat="@drawable/add_24" />
 
     </RelativeLayout>

@@ -8,68 +8,74 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_larga_30"
         tools:context=".ui.alarmfragment.AlarmFragment">
 
 
-        <View
-            android:id="@+id/view_top_alarm"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_layout"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="@dimen/margin_larga"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/bt_timepicker"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-
-        <TimePicker
-            android:id="@+id/bt_timepicker"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/myTimePicker"
-            android:timePickerMode="spinner"
-            app:layout_constraintBottom_toTopOf="@+id/bt_text_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_top_alarm" />
-
-        <View
-            android:id="@+id/view_bottom_alarm"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="@dimen/margin_larga"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/bt_create_alarm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_text_date" />
+            android:layout_gravity="center">
 
 
-        <TextView
-            android:id="@+id/bt_text_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-style="@style/myTimePicker"            app:layout_constraintBottom_toTopOf="@+id/view_bottom_alarm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_timepicker"
-            tools:text="53/04/2017" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_time"
+                style="@style/myCardStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/card_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_create_alarm"
-            style="@style/AlarmButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/desligado"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_bottom_alarm" />
+                <TimePicker
+                    android:id="@+id/bt_timepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/myTimePicker"
+                    android:timePickerMode="spinner" />
+            </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_date"
+                style="@style/myCardStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/bt_create_alarm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_time">
+
+                <TextView
+                    android:id="@+id/bt_text_date"
+                    style="@style/myTimePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_media_16"
+                    android:textAlignment="center"
+                    tools:text="53/04/2017, terça feira" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_create_alarm"
+                style="@style/AlarmButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/desligado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

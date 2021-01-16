@@ -1,19 +1,19 @@
-package tarsila.costalonga.notasapp.ui.alarmfragment
+package tarsila.costalonga.notasapp.broadcast
 
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.PowerManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.BuildConfig
 import tarsila.costalonga.notasapp.bd.Notas
-import tarsila.costalonga.notasapp.service.MyServiceAlarm
 import javax.inject.Inject
 
 const val TAGWAKELOCK = BuildConfig.APPLICATION_ID + ":wakeLock"
@@ -31,6 +31,8 @@ class AlarmBcReceiver : BroadcastReceiver() {
     @SuppressLint("WakelockTimeout")
     override fun onReceive(context: Context, intent: Intent) {
 
+        Log.i("AlarmBcReceiver", "Entrou no onReceiveBdc")
+
         val pm = context
             .getSystemService(Context.POWER_SERVICE) as PowerManager
         val wl = pm.newWakeLock(
@@ -45,6 +47,7 @@ class AlarmBcReceiver : BroadcastReceiver() {
             startAlarmsReschedule()
 
         } else {
+            Log.i("AlarmBcReceiver", "chegou no metodo do Bcreceiver")
             startAlarmsService(context, intent)
         }
 
@@ -53,20 +56,21 @@ class AlarmBcReceiver : BroadcastReceiver() {
 
     private fun startAlarmsService(context: Context, intent: Intent) {
 
-        /*       intent.putExtra(KEY_NOTIF_TEXT, intent.getStringExtra(KEY_NOTIF_TEXT))
-               intent.putExtra(KEY_NOTIF_ANOTACAO, intent.getStringExtra(KEY_NOTIF_ANOTACAO))
-               intent.putExtra(NOTIFICATION_ID, intent.getLongExtra(NOTIFICATION_ID, 0))
-               createNotification(context, intent)
-       */
-        val intentService = Intent(context, MyServiceAlarm::class.java)
-        intentService.putExtra(KEY_NOTIF_TEXT, intent.getStringExtra(KEY_NOTIF_TEXT))
-        intentService.putExtra(KEY_NOTIF_ANOTACAO, intent.getStringExtra(KEY_NOTIF_ANOTACAO))
-        intentService.putExtra(NOTIFICATION_ID, intent.getLongExtra(NOTIFICATION_ID, 0))
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService)
-        } else {
-            context.startService(intentService)
-        }
+        intent.putExtra(KEY_NOTIF_TEXT, intent.getStringExtra(KEY_NOTIF_TEXT))
+        intent.putExtra(KEY_NOTIF_ANOTACAO, intent.getStringExtra(KEY_NOTIF_ANOTACAO))
+        intent.putExtra(NOTIFICATION_ID, intent.getLongExtra(NOTIFICATION_ID, 0))
+        Log.i("AlarmBcReceiver", "criar notif")
+
+        val notificationManager =
+            ContextCompat.getSystemService(
+                context,
+                NotificationManager::class.java
+            ) as NotificationManager
+
+        val n = createNotification(context, intent)
+        notificationManager.notify(intent.getLongExtra(NOTIFICATION_ID, 0).toInt(), n)
+        Log.i("AlarmBcReceiver", "criou e exibiu notif")
+
     }
 
     private fun startAlarmsReschedule() {
