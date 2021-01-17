@@ -4,8 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
@@ -13,12 +12,10 @@ import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) :
     ViewModel() {
 
-    private var uiScope = CoroutineScope(Dispatchers.Main)
-
-     val allNotas = MutableLiveData<List<Notas>>()
+     private val allNotas = MutableLiveData<List<Notas>>()
 
     fun carregarNotas() {
-        uiScope.launch {
+        viewModelScope.launch {
             allNotas.value = repositorio.getTodasNotas()
         }
     }

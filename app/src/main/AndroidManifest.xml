@@ -19,20 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".service.RescheduleAlarmsService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
             android:name=".service.MyServiceAlarm"
-            android:enabled="true"
-            android:exported="true" />
-
+            android:enabled="false"
+            android:exported="false" />
         <receiver
-            android:name=".ui.alarmfragment.MyTurnOffNotif"
+            android:name=".broadcast.TurnOffNotifBcReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".ui.alarmfragment.AlarmBcReceiver"
+            android:name=".broadcast.AlarmBcReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

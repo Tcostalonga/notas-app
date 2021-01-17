@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.BuildConfig
 import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.ui.alarmfragment.*
 import javax.inject.Inject
 
 const val TAGWAKELOCK = BuildConfig.APPLICATION_ID + ":wakeLock"
@@ -78,8 +79,9 @@ class AlarmBcReceiver : BroadcastReceiver() {
         uiScope.launch {
             allNotasAlarm = alarmUtils.repositorio.getAlarmsReschedule()
             allNotasAlarm.forEachIndexed { index, notas ->
-                Log.i("RescheduleAlarmsService", "${allNotasAlarm[index]}")
                 alarmUtils.createAlarm(notas, notas.alarmClock)
+
+                Log.i("RescheduleAlarmsService", "${allNotasAlarm[index]}")
             }
         }
     }

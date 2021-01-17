@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="6"
         android:contentDescription="@string/icone_do_aplicativo"
-        android:src="@drawable/ic_icone_circular" />
+        app:srcCompat="@drawable/ic_icone_circular" />
 
     <ScrollView
         android:layout_width="match_parent"

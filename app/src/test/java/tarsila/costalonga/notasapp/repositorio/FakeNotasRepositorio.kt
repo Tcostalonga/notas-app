@@ -22,7 +22,7 @@ class FakeNotasRepositorio : DefaultNotasRepositorio {
         refreshLiveData()
     }
 
-    override fun deleteUmaNota(nota: Notas) {
+    override suspend fun deleteUmaNota(nota: Notas) {
         notasItems.remove(nota)
         refreshLiveData()
     }

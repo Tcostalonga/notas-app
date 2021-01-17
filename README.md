@@ -9,7 +9,7 @@
 
 - Criar, editar e remover uma anotação;
 
-- Marcar uma nota como finalizada (através de um checkbox);
+- Controlar o status de uma nota (ativa/finalizada);
 
 - Exibir a data e hora em que uma nota foi criada e atualizada por último;
 
@@ -18,6 +18,8 @@
 - Exibir estatísticas com o total de notas criadas, ativas e finalizadas;
 
 - Trocar tema light e dark do app.
+
+- Adicionar um alarme para as anotações;
 
 
 
@@ -29,8 +31,8 @@ Para instalar o app:
 
 
 Para executar o código: 
-- Android Studio: 4.0
-- Gradle: 4.0
+- Android Studio: mín. 4.0
+- Gradle: mín. 4.0
 
 
 ## Imagens

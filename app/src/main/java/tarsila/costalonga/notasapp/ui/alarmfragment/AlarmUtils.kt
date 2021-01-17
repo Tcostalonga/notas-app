@@ -4,12 +4,17 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.broadcast.AlarmBcReceiver
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 import javax.inject.Inject
 
+const val NOTIFICATION_ID = "Id da nota"
+const val PRIMARY_CHANNEL_ID = "Canal_primario"
+const val KEY_NOTIF_TEXT = "Titulo da nota"
+const val KEY_NOTIF_ANOTACAO = "Texto da nota"
+const val INTENT_TURN_OFF = "Id para desativar notif. igual ao id da nota"
 
 class AlarmUtils @Inject constructor(
     @ApplicationContext val context: Context,
@@ -23,7 +28,6 @@ class AlarmUtils @Inject constructor(
 
     fun createAlarm(notaObj: Notas, todayParam: Long) {
         var today = todayParam
-        Log.i("AlarmUtils", "$todayParam")
 
         intent.putExtra(KEY_NOTIF_TEXT, notaObj.titulo)
         intent.putExtra(KEY_NOTIF_ANOTACAO, notaObj.anotacao)
@@ -37,7 +41,7 @@ class AlarmUtils @Inject constructor(
         )
 
 
-        // if alarm time has already passed, increment day by 1
+        // Se o alarme já passou, add 1 dia para o proximo a ser scheduled.
         if (today <= System.currentTimeMillis()) {
             today += 24 * 60 * 60 * 1000
         }
@@ -62,7 +66,7 @@ class AlarmUtils @Inject constructor(
         )
         alarmManager.cancel(pendingIntent)
 
-        // resetarAlarmClockValue
+        // resetar valor de alarmClock
         notaObj.alarmClock = notaObj.dtCriacao
         repositorio.updateNota(notaObj)
     }

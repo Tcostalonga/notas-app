@@ -15,13 +15,11 @@
         android:layout_margin="@dimen/margin_larga_30"
         tools:context=".ui.alarmfragment.AlarmFragment">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/const_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_time"

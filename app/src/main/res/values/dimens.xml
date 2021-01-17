@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_extra_pequena">5dp</dimen>
-    <dimen name="margin_pequena">8dp</dimen>
-    <dimen name="margin_larga">20dp</dimen>
-    <dimen name="margin_media">16dp</dimen>
-    <dimen name="margin_extra_large">50dp</dimen>
+    <dimen name="margin_pequena_5">5dp</dimen>
+    <dimen name="margin_pequena_8">8dp</dimen>
+    <dimen name="margin_larga_20">20dp</dimen>
+    <dimen name="margin_larga_30">30dp</dimen>
+    <dimen name="margin_media_16">16dp</dimen>
+    <dimen name="margin_larga_50">50dp</dimen>
 </resources>

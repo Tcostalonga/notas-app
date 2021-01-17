@@ -4,11 +4,17 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun makeToast(context: Context, msg: String): Unit {
+fun makeToast(context: Context, msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+        .show()
+}
+
+fun makeSnackbar(view: View, msg: String){
+Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
         .show()
 }
 

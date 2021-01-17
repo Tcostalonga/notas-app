@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="itemView"
             type="tarsila.costalonga.notasapp.bd.Notas" />
@@ -13,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -21,27 +22,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            app:srcCompat="@drawable/drag_indicator_24" />
+            android:paddingStart="@dimen/margin_pequena_5"
+            app:srcCompat="@drawable/drag_indicator_24"
+            tools:ignore="RtlSymmetry" />
 
         <CheckBox
             android:id="@+id/show_checkbox"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:checked="true"
             android:checked="@{itemView.finalizado}"
-            android:contentDescription="@string/botao_check" />
+            android:contentDescription="@string/botao_check"
+            tools:checked="true" />
 
         <TextView
             android:id="@+id/show_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_pequena_8"
+            android:layout_marginStart="@dimen/margin_pequena_5"
+            android:layout_marginEnd="@dimen/margin_pequena_5"
             android:contentDescription="@string/titulo"
             android:ellipsize="marquee"
             android:maxLines="2"
+            android:paddingTop="@dimen/margin_pequena_8"
+            android:paddingBottom="@dimen/margin_pequena_8"
             android:text="@{itemView.titulo}"
             tools:text="@string/titulo" />
 

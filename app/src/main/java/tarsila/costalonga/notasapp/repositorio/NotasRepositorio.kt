@@ -1,6 +1,9 @@
 package tarsila.costalonga.notasapp.repositorio
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.bd.NotasDao
 import javax.inject.Inject
@@ -10,15 +13,11 @@ import javax.inject.Singleton
 class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRepositorio {
 
     private var job = Job()
+
     private var uiScope = CoroutineScope(Dispatchers.Main + job)
 
-
-    override fun insertNota(nota: Notas) {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                dtDao.insertNota(nota)
-            }
-        }
+    override suspend fun insertNota(nota: Notas) {
+        dtDao.insertNota(nota)
     }
 
     override fun updateNota(nota: Notas) {
@@ -27,10 +26,8 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
         }
     }
 
-    override fun deleteUmaNota(nota: Notas) {
-        uiScope.launch {
-            dtDao.deleteUmaNota(nota)
-        }
+    override suspend fun deleteUmaNota(nota: Notas) {
+        dtDao.deleteUmaNota(nota)
     }
 
     override suspend fun getTodasNotas(): List<Notas> {
@@ -44,6 +41,7 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
     override suspend fun getAlarmsReschedule(): List<Notas> {
         return dtDao.getAlarmsOnBD()
     }
+
 
 }
 

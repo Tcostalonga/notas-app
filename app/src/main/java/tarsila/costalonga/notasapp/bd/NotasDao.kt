@@ -7,7 +7,7 @@ import androidx.room.*
 interface NotasDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNota(nota: Notas)
+    suspend fun insertNota(nota: Notas)
 
     @Update
     suspend fun updateNota(nota: Notas)

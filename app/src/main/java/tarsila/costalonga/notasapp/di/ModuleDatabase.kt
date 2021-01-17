@@ -5,13 +5,13 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import tarsila.costalonga.notasapp.bd.NotasDao
 import tarsila.costalonga.notasapp.bd.NotasRoom
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 
 object ModuleDatabase {
@@ -31,11 +31,4 @@ object ModuleDatabase {
         return dtBase.notasDao
     }
 
-/*
-    @Singleton
-    @Provides
-    fun provideDefaultDao(
-        dtBase: NotasDao
-    ) = NotasRepositorio(dtBase) as DefaultNotasRepositorio
-*/
 }

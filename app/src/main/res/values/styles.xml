@@ -9,6 +9,7 @@
         <item name="android:windowBackground">@color/colorbkg</item>
         <item name="fontFamily">@font/proxima_nova_regular</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:datePickerDialogTheme">@style/PickerStyle</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
@@ -32,23 +33,18 @@
 
     //DatePicker Dialog Estilo
 
-    <style name="PickerStyle" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="PickerStyle" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="colorAccent">@color/colorVerde</item>
-        <item name="android:buttonBarNegativeButtonStyle">@style/ButtonsStyle</item>
+         <item name="android:buttonBarNegativeButtonStyle">@style/ButtonsStyle</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/ButtonsStyle</item>
-    </style>
+      </style>
 
     //ButtonStyle
 
     <style name="ButtonsStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/primaryTextColor</item>
-    </style>
+        <item name="rippleColor">@color/colorAccent</item>
 
-
-    //SwitchButtonStyle
-
-    <style name="SwitchStyle" parent="AppTheme">
-        <item name="colorAccent">@color/colorVerde</item>
     </style>
 
 
@@ -65,7 +61,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/proxima_nova</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
+        <item name="android:layout_marginTop">@dimen/margin_pequena_8</item>
     </style>
 
 
@@ -73,7 +69,7 @@
 
     <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:layout_margin">@dimen/margin_pequena</item>
+        <item name="android:layout_margin">@dimen/margin_pequena_8</item>
     </style>
 
     //BottomBar
@@ -97,11 +93,28 @@
         <item name="cornerRadius">30dp</item>
         <item name="backgroundTint">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_marginTop">@dimen/margin_larga_50</item>
     </style>
+
+    //TimePickereDatePickerBox
 
     <style name="myTimePicker">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/proxima_nova_regular</item>
+    </style>
+
+    //CardsAlarmFragment
+
+    <style name="myCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="android:backgroundTint">@color/colorbkg</item>
+        <item name="cardCornerRadius">@dimen/margin_pequena_8</item>
+        <item name="android:layout_marginStart">@dimen/margin_pequena_8</item>
+        <item name="android:layout_marginEnd">@dimen/margin_pequena_8</item>
+        <item name="android:layout_marginTop">@dimen/margin_larga_20</item>
+        <item name="strokeColor">@color/colorVerde</item>
+        <item name="strokeWidth">1dp</item>
+
+
     </style>
 
 

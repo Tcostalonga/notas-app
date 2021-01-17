@@ -1,13 +1,13 @@
-package tarsila.costalonga.notasapp.ui.alarmfragment
+package tarsila.costalonga.notasapp.broadcast
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import tarsila.costalonga.notasapp.service.MyServiceAlarm
+import tarsila.costalonga.notasapp.ui.alarmfragment.INTENT_TURN_OFF
 
-class MyTurnOffNotif : BroadcastReceiver() {
+class TurnOffNotifBcReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationManager =
@@ -15,10 +15,6 @@ class MyTurnOffNotif : BroadcastReceiver() {
                 context,
                 NotificationManager::class.java
             ) as NotificationManager
-        notificationManager.cancel(intent.getIntExtra(INTENT_TURN_OFF, 12))
-
-        val intentService = Intent(context.applicationContext, MyServiceAlarm::class.java)
-        context.applicationContext.stopService(intentService)
-
+        notificationManager.cancel(intent.getIntExtra(INTENT_TURN_OFF, 0))
     }
 }

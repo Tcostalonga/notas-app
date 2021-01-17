@@ -16,7 +16,7 @@ import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentAlarmBinding
 import tarsila.costalonga.notasapp.utils.dataFormatada
 import tarsila.costalonga.notasapp.utils.horaFormatada
-import tarsila.costalonga.notasapp.utils.makeToast
+import tarsila.costalonga.notasapp.utils.makeSnackbar
 import tarsila.costalonga.notasapp.utils.minFormatada
 import java.util.*
 import javax.inject.Inject
@@ -29,13 +29,13 @@ class AlarmFragment : Fragment() {
 
     private val viewModel: AlarmViewModel by viewModels()
 
-    private var isAlarmOn: Boolean = false
-
     @Inject
     lateinit var today: Calendar
 
     @Inject
     lateinit var alarmUtils: AlarmUtils
+
+    private var isAlarmOn: Boolean = false
 
     private lateinit var notaObj: Notas
 
@@ -50,7 +50,6 @@ class AlarmFragment : Fragment() {
         updateTextDate()
         viewModel.createChannel()
 
-
         binding.btTextDate.setOnClickListener {
             createDatePickerDialog()
         }
@@ -64,19 +63,19 @@ class AlarmFragment : Fragment() {
                     if (today.timeInMillis >= System.currentTimeMillis()) {
 
                         alarmUtils.createAlarm(notaObj, today.timeInMillis)
-                        makeToast(requireContext(), getString(R.string.alarmToastOn))
+                        makeSnackbar(it, getString(R.string.alarmToastOn))
 
                         it.text = getString(R.string.ligado)
                         it.setBackgroundColor(requireContext().getColor(R.color.colorVerde))
                         it.setTextColor(requireContext().getColor(R.color.colorPrimary))
                         isAlarmOn = true
                     } else {
-                        makeToast(requireContext(), getString(R.string.hora_invalida))
+                        makeSnackbar(it, getString(R.string.hora_invalida))
                     }
                 }
                 true -> {
                     alarmUtils.cancelAlarm(notaObj)
-                    makeToast(requireContext(), getString(R.string.alarmToastOff))
+                    makeSnackbar(it, getString(R.string.alarmToastOff))
 
                     it.text = getString(R.string.desligado)
                     it.setBackgroundColor(requireContext().getColor(R.color.colorAccent))
@@ -85,13 +84,11 @@ class AlarmFragment : Fragment() {
                 }
             }
         }
-
         checkAlarmTurnedOn()
         return binding.root
     }
 
     private fun datePicker(): DatePickerDialog.OnDateSetListener {
-
         return DatePickerDialog.OnDateSetListener { _, p1, p2, p3 ->
 
             today.set(Calendar.YEAR, p1)
@@ -102,7 +99,6 @@ class AlarmFragment : Fragment() {
     }
 
     private fun createDatePickerDialog() {
-
         val dateDialog =
             DatePickerDialog(
                 requireContext(), R.style.PickerStyle,
@@ -115,7 +111,6 @@ class AlarmFragment : Fragment() {
     }
 
     private fun updateTextDate() {
-
         binding.btTextDate.text = dataFormatada(today.timeInMillis)
     }
 
@@ -131,7 +126,6 @@ class AlarmFragment : Fragment() {
 
 
     private fun checkAlarmTurnedOn() {
-
         if (notaObj.alarmClock != notaObj.dtCriacao && notaObj.alarmClock > System.currentTimeMillis()) {
             binding.btTimepicker.hour = horaFormatada(notaObj.alarmClock)
             binding.btTimepicker.minute = minFormatada(notaObj.alarmClock)
