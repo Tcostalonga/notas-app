@@ -1,5 +1,6 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,13 +16,17 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
     fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
         objNota.finalizado = checkStatus
         repositorio.updateNota(objNota)
+
     }
 
     fun carregarNotas() {
             viewModelScope.launch {
+
                 allNotas.value = repositorio.getTodasNotas()
+                Log.i("MainFragment", "rodou o carregarNotas ${allNotas.value}")
             }
     }
+
 
     fun updateNota(nota: Notas) {
         repositorio.updateNota(nota)
@@ -34,5 +39,4 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
             updateNota(nota)
         }
     }
-
 }

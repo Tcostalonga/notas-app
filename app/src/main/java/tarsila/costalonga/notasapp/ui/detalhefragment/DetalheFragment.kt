@@ -61,7 +61,7 @@ class DetalheFragment : Fragment() {
                     it.hideKeyboard()
                     viewModel.updateNota(obj)
                     makeToast(requireContext(), getString(R.string.nota_update))
-                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
+                    findNavController().popBackStack()
                     btAcao = 0
                 }
             }
@@ -118,7 +118,7 @@ class DetalheFragment : Fragment() {
             .setPositiveButton("OK") { _, _ ->
                 viewModel.removerNota(arguments)
                 makeToast(requireContext(), getString(R.string.nota_delete))
-                findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
+                findNavController().popBackStack()
             }
             .show()
     }

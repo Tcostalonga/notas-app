@@ -1,6 +1,7 @@
 package tarsila.costalonga.notasapp.ui.addfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,10 +51,11 @@ class AddFragment : Fragment() {
                     val newNota =
                         Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = tamanhoLista)
                     viewModel.insertNota(newNota)
-                    makeToast(requireContext(), getString(R.string.nota_insert))
-                    findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
-                }
+                    Log.i("AddFragment", "inserindo Nota")
 
+                    makeToast(requireContext(), getString(R.string.nota_insert))
+                    findNavController().popBackStack()
+                }
             }
         }
     }

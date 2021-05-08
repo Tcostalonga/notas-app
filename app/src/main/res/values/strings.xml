@@ -43,16 +43,16 @@
     <string name="alert_message">Clique OK para excluir.</string>
 
 
-    //Alarme
+    //Alarme-Lembrete
     <string name="ligado">Ligado</string>
     <string name="desligado">Desligado</string>
-    <string name="configurar_alarme">Configurar alarme</string>
-    <string name="alarme">Alarme</string>
-    <string name="alarmToastOn">Alarme ligado</string>
-    <string name="alarmToastOff">Alarme desligado</string>
+    <string name="configurar_alarme">Configurar lembrete</string>
+    <string name="alarme">Lembrete</string>
+    <string name="alarmToastOn">Lembrete ativo</string>
+    <string name="alarmToastOff">Lembrete desativado</string>
 
     <string name="dispensar">Dispensar</string>
-    <string name="alarme_notanota">Alarme NotaAnota</string>
-    <string name="hora_invalida">Hora inválida</string>
+    <string name="alarme_notanota">Lembrete NotaAnota</string>
+    <string name="hora_invalida">Hora/Data inválida</string>
 
 </resources>

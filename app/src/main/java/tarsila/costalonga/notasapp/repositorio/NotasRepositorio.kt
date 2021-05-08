@@ -41,7 +41,5 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
     override suspend fun getAlarmsReschedule(): List<Notas> {
         return dtDao.getAlarmsOnBD()
     }
-
-
 }
 

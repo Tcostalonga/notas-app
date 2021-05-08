@@ -32,7 +32,7 @@ class AlarmBcReceiver : BroadcastReceiver() {
     @SuppressLint("WakelockTimeout")
     override fun onReceive(context: Context, intent: Intent) {
 
-        Log.i("AlarmBcReceiver", "Entrou no onReceiveBdc")
+         Log.i("AlarmBcReceiver", "Entrou no onReceiveBdc")
 
         val pm = context
             .getSystemService(Context.POWER_SERVICE) as PowerManager

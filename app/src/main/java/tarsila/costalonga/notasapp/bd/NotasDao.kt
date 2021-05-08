@@ -25,6 +25,7 @@ interface NotasDao {
     fun numTotalNotas(): LiveData<Int>
 
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
+    @Transaction
     suspend fun getTodasNotas(): List<Notas>
 
     @Query("SELECT MAX(ordem) FROM notas_table")

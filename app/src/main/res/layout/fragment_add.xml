@@ -21,7 +21,7 @@
             android:id="@+id/linear_layout_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_pequena_8"
+            android:layout_margin="@dimen/margin_media_16"
             android:orientation="vertical">
 
             <EditText
@@ -31,11 +31,13 @@
                 android:layout_weight="0"
                 android:background="@null"
                 android:textStyle="bold"
+                android:paddingTop="@dimen/margin_pequena_8"
+                android:paddingBottom="@dimen/margin_pequena_8"
                 android:hint="@string/titulo"
                 android:inputType="textAutoComplete|textCapSentences"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:padding="@dimen/margin_media_16" />
+         />
 
             <EditText
                 android:id="@+id/add_anotacao"
@@ -47,7 +49,8 @@
                 android:hint="@string/anotacao"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textMultiLine|textCapSentences"
-                android:padding="@dimen/margin_media_16" />
+                android:paddingTop="@dimen/margin_pequena_5"
+                 />
 
         </LinearLayout>
 

@@ -3,14 +3,12 @@ package tarsila.costalonga.notasapp.ui.mainfragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +18,6 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 import java.util.*
-import kotlin.collections.ArrayList
 
 const val TEMACOR = "Mudar tema"
 
@@ -35,11 +32,11 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: MainAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        Log.i("Chama", "onCreateView")
+    ): View {
 
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
@@ -47,6 +44,8 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModelMainF = viewModel
 
+        viewModel.carregarNotas()
+        arrastarNotas()
         //Configuracao da recycler_view
         adapter = MainAdapter(NotasListener {
             findNavController().navigate(
@@ -65,12 +64,10 @@ class MainFragment : Fragment() {
         binding.rcView.layoutManager = LinearLayoutManager(requireContext())
         binding.rcView.adapter = adapter
 
-
-        val observer = Observer<List<Notas>> {
+        viewModel.allNotas.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.listaFixa = it
             adapter.listaDoFiltro = ArrayList(it)
-        }
-        viewModel.allNotas.observe(viewLifecycleOwner, observer)
+        })
 
         //Iniciando SharedPrefs e atribuindo valor default
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -81,15 +78,18 @@ class MainFragment : Fragment() {
             )
         )
 
-        arrastarNotas()
-
-        viewModel.carregarNotas()
+        binding.rcView.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcView.adapter = adapter
 
         binding.fabAdd.setOnClickListener {
-          //Toda vez que for criar um novo item, reordena a lista antiga
+            //Toda vez que for criar um novo item, reordena a lista antiga
             viewModel.ordenarRecyclerView(adapter.listaFixa)
 
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment(adapter.listaFixa.size))
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddFragment(
+                    adapter.listaFixa.size
+                )
+            )
         }
 
         return binding.root
@@ -98,11 +98,7 @@ class MainFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_top, menu)
 
-
         val item = menu.findItem(R.id.action_search)
-
-        Log.i("Chama", "onCreateOptionsMenu")
-
 
         val searchView = item.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -114,12 +110,10 @@ class MainFragment : Fragment() {
                 adapter.filter.filter(newText)
                 return false
             }
-
         })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
 
         when (item.itemId) {
             R.id.action_search -> true
@@ -146,7 +140,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun arrastarNotas() {
+    private fun arrastarNotas() {
 
         val iTH = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
@@ -173,6 +167,4 @@ class MainFragment : Fragment() {
 
         iTH.attachToRecyclerView(binding.rcView)
     }
-
-
 }

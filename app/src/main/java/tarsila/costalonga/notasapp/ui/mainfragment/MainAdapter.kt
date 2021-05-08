@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -17,7 +16,6 @@ class MainAdapter(val clickListener: NotasListener) :
 
     var listaFixa = listOf<Notas>()
         set(value) {
-            Log.i("Chama", "listaFixa: $value")
             field = value
             notifyDataSetChanged()
         }
@@ -25,8 +23,6 @@ class MainAdapter(val clickListener: NotasListener) :
 
     var listaDoFiltro = ArrayList<Notas>()
         set(value) {
-            Log.i("Chama", "listadoFiltro: $value")
-
             field = value
             notifyDataSetChanged()
         }
@@ -87,13 +83,10 @@ class MainAdapter(val clickListener: NotasListener) :
                 val filterResults = FilterResults()
                 filterResults.values = filteredList
 
-                Log.i("Chama", "Perform Filtering: $constraint")
-
                 return filterResults
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                Log.i("Chama", "Publish results: $constraint")
                 listaDoFiltro.clear()
                 listaDoFiltro.addAll(results?.values as Collection<Notas>)
                 notifyDataSetChanged()

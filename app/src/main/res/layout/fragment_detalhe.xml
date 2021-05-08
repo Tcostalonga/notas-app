@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/data_criacao_nota"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Criado: 03/08/2020  " />
 
                 <TextView
@@ -51,8 +50,10 @@
                     android:id="@+id/show_titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_larga_20"
+                    android:layout_marginTop="@dimen/margin_media_16"
                     android:background="@null"
+                    android:paddingTop="@dimen/margin_pequena_5"
+                    android:paddingBottom="@dimen/margin_pequena_5"
                     android:contentDescription="@string/titulo"
                     android:enabled="false"
                     android:inputType="textCapSentences|textMultiLine"
