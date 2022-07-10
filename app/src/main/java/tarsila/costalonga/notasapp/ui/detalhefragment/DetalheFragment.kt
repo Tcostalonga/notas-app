@@ -2,7 +2,11 @@ package tarsila.costalonga.notasapp.ui.detalhefragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +22,6 @@ import tarsila.costalonga.notasapp.utils.makeToast
 import tarsila.costalonga.notasapp.utils.showKeyboard
 import java.text.SimpleDateFormat
 
-
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
 
@@ -31,9 +34,10 @@ class DetalheFragment : Fragment() {
     private lateinit var arguments: Notas
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detalhe, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
 

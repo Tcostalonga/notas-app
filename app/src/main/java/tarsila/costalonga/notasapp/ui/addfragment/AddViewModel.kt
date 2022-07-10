@@ -1,12 +1,13 @@
 package tarsila.costalonga.notasapp.ui.addfragment
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
+import javax.inject.Inject
 
-
-class AddViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
+@HiltViewModel
+class AddViewModel @Inject constructor(val repositorio: NotasRepositorio) : ViewModel() {
 
     fun insertNota(nota: Notas) {
         repositorio.insertNota(nota)

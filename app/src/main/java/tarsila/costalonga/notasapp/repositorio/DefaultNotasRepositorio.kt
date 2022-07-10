@@ -11,5 +11,4 @@ interface DefaultNotasRepositorio {
     fun deleteUmaNota(nota: Notas)
 
     suspend fun getTodasNotas(): List<Notas>
-
-    }
+}

@@ -23,7 +23,8 @@ class AddFragment : Fragment() {
     private val viewModel: AddViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(false)
@@ -31,7 +32,6 @@ class AddFragment : Fragment() {
 
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,11 +56,7 @@ class AddFragment : Fragment() {
                     makeToast(requireContext(), getString(R.string.nota_insert))
                     findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
                 }
-
             }
         }
     }
-
 }
-
-

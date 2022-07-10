@@ -19,7 +19,8 @@ class EstatisticasFragment : Fragment() {
     private val viewModel: EstatisticasViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(false)

@@ -1,6 +1,10 @@
 package tarsila.costalonga.notasapp.repositorio
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.bd.NotasDao
 import javax.inject.Inject
@@ -37,7 +41,4 @@ class NotasRepositorio @Inject constructor(val dtDao: NotasDao) : DefaultNotasRe
     override suspend fun getTodasNotas(): List<Notas> {
         return dtDao.getTodasNotas()
     }
-
-
 }
-

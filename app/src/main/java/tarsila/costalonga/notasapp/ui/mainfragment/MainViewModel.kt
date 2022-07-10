@@ -1,16 +1,18 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : ViewModel() {
 
     val allNotas = MutableLiveData<List<Notas>>()
 
@@ -35,7 +37,6 @@ class MainViewModel @ViewModelInject constructor(val repositorio: NotasRepositor
     fun updateNota(nota: Notas) {
         repositorio.updateNota(nota)
     }
-
 
     fun ordenarRecyclerView(lista: List<Notas>) {
 
