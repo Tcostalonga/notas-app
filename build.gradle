@@ -1,22 +1,18 @@
 buildscript {
-    ext.kotlin_version = "1.4.0"
-    ext.hilt_version = '2.28-alpha'
-
+    ext.kotlin_version = "1.7.0"
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:4.0.2"
 
         //Navigation
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0"
 
         //Hilt
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.41'
 
     }
 }
@@ -24,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 

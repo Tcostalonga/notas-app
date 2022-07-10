@@ -1,21 +1,23 @@
 package tarsila.costalonga.notasapp.ui.estatisticasfragment
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
+import javax.inject.Inject
 
-class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasRepositorio) :
+@HiltViewModel
+class EstatisticasViewModel @Inject constructor(val repositorio: NotasRepositorio) :
     ViewModel() {
 
     private var uiScope = CoroutineScope(Dispatchers.Main)
 
-     val allNotas = MutableLiveData<List<Notas>>()
+    val allNotas = MutableLiveData<List<Notas>>()
 
     fun carregarNotas() {
         uiScope.launch {
@@ -23,10 +25,9 @@ class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasR
         }
     }
 
-    val totalCriadas = Transformations.map(allNotas){
+    val totalCriadas = Transformations.map(allNotas) {
         it.count()
     }
-
 
     val notasAtivas = Transformations.map(allNotas) {
         it.count { nota ->
@@ -34,16 +35,11 @@ class EstatisticasViewModel @ViewModelInject constructor(val repositorio: NotasR
         }
     }
 
-
     val notasFinalizadas = Transformations.map(allNotas) {
         it.count { nota ->
             !nota.isCompleted
         }
     }
 
-
-   //val totalCriadas = notasAtivas.value.plus(notasFinalizadas.value)
-
+    // val totalCriadas = notasAtivas.value.plus(notasFinalizadas.value)
 }
-
-

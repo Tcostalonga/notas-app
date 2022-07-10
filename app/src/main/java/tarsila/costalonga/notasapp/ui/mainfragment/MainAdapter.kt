@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.databinding.ListItemBinding
 import tarsila.costalonga.notasapp.utils.setHachura
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 class MainAdapter(val clickListener: NotasListener) :
     RecyclerView.Adapter<MainAdapter.NotasViewHolder>(), Filterable {
@@ -18,7 +17,7 @@ class MainAdapter(val clickListener: NotasListener) :
 
     var listaDoFiltro = ArrayList<Notas>()
 
-   // lateinit var onCheckNote: (Notas, Boolean) -> Unit
+    // lateinit var onCheckNote: (Notas, Boolean) -> Unit
 
     lateinit var listener: ClicksAcao
 
@@ -31,7 +30,7 @@ class MainAdapter(val clickListener: NotasListener) :
                 clickListener.onClick(item)
             }
             binding.showCheckbox.setOnCheckedChangeListener { _, b ->
-                 listener.checkClick(item, b)
+                listener.checkClick(item, b)
                 binding.showTitulo.setHachura(b)
             }
 
@@ -66,12 +65,11 @@ class MainAdapter(val clickListener: NotasListener) :
                         constraint.toString().toLowerCase(Locale.getDefault()).trim()
                     for (item in listaFixa) {
                         if (item.titulo.toLowerCase(Locale.getDefault())
-                                .startsWith(patternFiltrar)
+                            .startsWith(patternFiltrar)
                         ) {
                             filteredList.add(item)
                         }
                     }
-
                 }
                 val filterResults = FilterResults()
                 filterResults.values = filteredList
@@ -95,5 +93,4 @@ interface ClicksAcao {
 
 class NotasListener(val clickListener: (notasObj: Notas) -> Unit) {
     fun onClick(nota: Notas) = clickListener(nota)
-
 }
