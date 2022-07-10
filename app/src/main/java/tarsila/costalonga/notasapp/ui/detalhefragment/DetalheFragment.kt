@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,16 +37,12 @@ class DetalheFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detalhe, container, false)
+        binding = FragmentDetalheBinding.inflate(inflater, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModelDetalheF = viewModel
 
         setarCamposDetalheFragm()
 
         binding.fabEdit.setOnClickListener {
-
             when (btAcao) {
                 0 -> {
                     binding.showTitulo.isEnabled = true
@@ -93,7 +88,6 @@ class DetalheFragment : Fragment() {
     }
 
     private fun setarCamposDetalheFragm() {
-
         binding.showTitulo.setText(arguments.titulo)
         binding.showAnotacao.setText(arguments.anotacao)
         binding.dtCriado.text = getString(
@@ -107,7 +101,6 @@ class DetalheFragment : Fragment() {
     }
 
     private fun criarAlertDialog() {
-
         MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
             .setTitle(resources.getString(R.string.alert_title))
             .setMessage(resources.getString(R.string.alert_message))
@@ -123,7 +116,6 @@ class DetalheFragment : Fragment() {
     }
 
     private fun criarShare() {
-
         val textsArray = "${binding.showTitulo.text}\n${binding.showAnotacao.text}"
 
         val shareIntent = Intent().apply {
