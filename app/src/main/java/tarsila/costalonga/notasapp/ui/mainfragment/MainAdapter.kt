@@ -25,7 +25,8 @@ class MainAdapter(val clickListener: NotasListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Notas, clickListener: NotasListener) {
-            binding.itemView = item
+            binding.showTitulo.text = item.titulo
+            binding.showCheckbox.isChecked = item.finalizado
             binding.showTitulo.setOnClickListener {
                 clickListener.onClick(item)
             }
@@ -33,8 +34,6 @@ class MainAdapter(val clickListener: NotasListener) :
                 listener.checkClick(item, b)
                 binding.showTitulo.setHachura(b)
             }
-
-            binding.executePendingBindings()
         }
     }
 
@@ -87,7 +86,6 @@ class MainAdapter(val clickListener: NotasListener) :
 }
 
 interface ClicksAcao {
-
     fun checkClick(nota: Notas, boolean: Boolean)
 }
 

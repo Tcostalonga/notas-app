@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,9 +25,9 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(false)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
+        binding = FragmentAddBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -48,7 +47,6 @@ class AddFragment : Fragment() {
                     makeToast(requireContext(), getString(R.string.obrigatoriedade_de_campo))
                 }
                 else -> {
-
 //                    val newNota = Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = sizebundle passar)
                     val newNota =
                         Notas(titulo = edtTitulo, anotacao = edtAnotacao, ordem = tamanhoLista)

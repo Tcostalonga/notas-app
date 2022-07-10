@@ -1,79 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.addfragment.AddFragment">
 
-    <data>
-
-        <variable
-            name="viewModelAddF"
-            type="tarsila.costalonga.notasapp.ui.addfragment.AddViewModel" />
-
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
+        android:id="@+id/linear_layout_add"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_media"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_add"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_media"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/img_anexo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/margin_extra_pequena"
-                android:alpha="0.6"
-                android:contentDescription="@string/adicionar_imagem"
-                tools:src="@drawable/clips_24" />
-
-            <EditText
-                android:id="@+id/add_titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="@null"
-                android:textStyle="bold"
-                android:hint="@string/titulo"
-                android:inputType="textAutoComplete|textCapSentences"
-                android:maxLength="50"
-                android:maxLines="1"
-                android:padding="@dimen/margin_pequena" />
-
-            <EditText
-                android:id="@+id/add_anotacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="start"
-                android:hint="@string/anotacao"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="textMultiLine|textCapSentences"
-                android:padding="@dimen/margin_pequena" />
-
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/save_task_fab"
-            style="@style/FAB"
+        <ImageView
+            android:id="@+id/img_anexo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_larga"
-            android:contentDescription="@string/salvar_nota"
-            android:src="@drawable/done_24"
-            app:fabSize="normal"
-            app:layout_anchor="@id/linear_layout_add"
-            app:layout_anchorGravity="bottom|end" />
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/margin_extra_pequena"
+            android:alpha="0.6"
+            android:contentDescription="@string/adicionar_imagem"
+            tools:src="@drawable/clips_24" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <EditText
+            android:id="@+id/add_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@null"
+            android:hint="@string/titulo"
+            android:inputType="textAutoComplete|textCapSentences"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:padding="@dimen/margin_pequena"
+            android:textStyle="bold" />
 
-</layout>
+        <EditText
+            android:id="@+id/add_anotacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/anotacao"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textMultiLine|textCapSentences"
+            android:padding="@dimen/margin_pequena" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_task_fab"
+        style="@style/FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_larga"
+        android:contentDescription="@string/salvar_nota"
+        android:src="@drawable/done_24"
+        app:fabSize="normal"
+        app:layout_anchor="@id/linear_layout_add"
+        app:layout_anchorGravity="bottom|end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

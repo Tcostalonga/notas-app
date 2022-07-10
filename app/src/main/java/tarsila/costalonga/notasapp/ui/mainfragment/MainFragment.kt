@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -42,20 +41,15 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModelMainF = viewModel
+        binding = FragmentMainBinding.inflate(inflater, container, false)
 
         // Configuração da recycler_view
         adapter = MainAdapter(
             NotasListener {
                 findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToDetalheFragment(
-                        it
-                    )
+                    MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
                 )
             }
         )
