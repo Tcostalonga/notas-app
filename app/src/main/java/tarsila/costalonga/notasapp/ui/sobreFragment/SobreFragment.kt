@@ -20,7 +20,7 @@ class SobreFragment : Fragment() {
         setHasOptionsMenu(false)
         binding = FragmentSobreBinding.inflate(inflater, container, false)
 
-        binding.composeView.setContent {
+        binding.composeViewSobre.setContent {
             NotaComposeTheme {
                 SobreDescription()
             }

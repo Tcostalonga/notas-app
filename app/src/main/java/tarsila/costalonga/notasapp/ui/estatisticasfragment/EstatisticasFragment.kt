@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import tarsila.costalonga.notasapp.compose.EstatisticasCompose
+import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentEstatisticasBinding
 
 @AndroidEntryPoint
@@ -25,12 +27,21 @@ class EstatisticasFragment : Fragment() {
         binding = FragmentEstatisticasBinding.inflate(inflater, container, false)
 
         viewModel.carregarNotas()
-        setupObservers()
+        // setupObservers()
+
+        binding.composeViewEstatisticas.setContent {
+            NotaComposeTheme {
+                EstatisticasCompose()
+            }
+        }
 
         return binding.root
     }
 
-    private fun setupObservers() {
+/*
+ TODO: Enviar os dados via view model para a função compose
+
+ private fun setupObservers() {
         viewModel.totalCriadas.observe(viewLifecycleOwner) {
             binding.numCriadas.text = it.toString()
         }
@@ -41,5 +52,5 @@ class EstatisticasFragment : Fragment() {
         viewModel.notasFinalizadas.observe(viewLifecycleOwner) {
             binding.numFnlz.text = it.toString()
         }
-    }
+    }*/
 }
