@@ -1,11 +1,12 @@
 package tarsila.costalonga.notasapp.ui.sobreFragment
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import tarsila.costalonga.notasapp.compose.SobreDescription
+import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentSobreBinding
 
 class SobreFragment : Fragment() {
@@ -19,11 +20,19 @@ class SobreFragment : Fragment() {
         setHasOptionsMenu(false)
         binding = FragmentSobreBinding.inflate(inflater, container, false)
 
+        binding.composeView.setContent {
+            NotaComposeTheme {
+                SobreDescription()
+            }
+        }
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+/*
+    TODO: Adicionar clicável em link
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.txtConteudo.movementMethod = LinkMovementMethod.getInstance()
-    }
+    }*/
 }
