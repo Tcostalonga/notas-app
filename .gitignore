@@ -179,6 +179,7 @@ obj/
 .idea/uiDesigner.xml
 .idea/assetWizardSettings.xml
 .idea/sonarlint
+.idea
 
 # OS-specific files
 .DS_Store
