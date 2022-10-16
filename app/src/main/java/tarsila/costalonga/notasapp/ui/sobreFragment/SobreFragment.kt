@@ -29,14 +29,6 @@ class SobreFragment : Fragment() {
                 }
             }
         }
-
         return binding.root
     }
-
-/*
-    TODO: Adicionar clicável em link
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.txtConteudo.movementMethod = LinkMovementMethod.getInstance()
-    }*/
 }
