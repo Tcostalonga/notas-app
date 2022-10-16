@@ -110,7 +110,6 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.action_search -> true
             R.id.estatisticas -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToEstatisticasFragment())
@@ -121,7 +120,6 @@ class MainFragment : Fragment() {
     }
 
     private fun changeTema() {
-
         if (sharedPref.getInt(
                 TEMACOR,
                 AppCompatDelegate.MODE_NIGHT_NO
@@ -137,14 +135,14 @@ class MainFragment : Fragment() {
 
     fun arrastarNotas() {
         val iTH = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            0
         ) {
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder
                 ): Boolean {
-
                     val from = viewHolder.adapterPosition
                     val to = target.adapterPosition
 

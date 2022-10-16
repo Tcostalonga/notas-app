@@ -3,7 +3,10 @@ package tarsila.costalonga.notasapp.ui.addfragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 import javax.inject.Inject
@@ -28,7 +31,9 @@ class AddViewModel @Inject constructor(val repositorio: NotasRepositorio) : View
     }
 
     private fun insertNota(nota: Notas) {
-        repositorio.insertNota(nota)
+        viewModelScope.launch(Dispatchers.IO) {
+            repositorio.insertNota(nota)
+        }
     }
 }
 
