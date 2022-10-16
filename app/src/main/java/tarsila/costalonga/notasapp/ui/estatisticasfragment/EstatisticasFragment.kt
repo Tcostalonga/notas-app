@@ -28,33 +28,16 @@ class EstatisticasFragment : Fragment() {
         binding = FragmentEstatisticasBinding.inflate(inflater, container, false)
 
         viewModel.carregarNotas()
-        // setupObservers()
 
         binding.composeViewEstatisticas.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    EstatisticasCompose()
+                    EstatisticasCompose(viewModel)
                 }
             }
         }
 
         return binding.root
     }
-
-/*
- TODO: Enviar os dados via view model para a função compose
-
- private fun setupObservers() {
-        viewModel.totalCriadas.observe(viewLifecycleOwner) {
-            binding.numCriadas.text = it.toString()
-        }
-
-        viewModel.notasAtivas.observe(viewLifecycleOwner) {
-            binding.numAtvs.text = it.toString()
-        }
-        viewModel.notasFinalizadas.observe(viewLifecycleOwner) {
-            binding.numFnlz.text = it.toString()
-        }
-    }*/
 }
