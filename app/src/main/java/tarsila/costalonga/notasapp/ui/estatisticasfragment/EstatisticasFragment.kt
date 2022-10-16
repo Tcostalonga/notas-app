@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,9 +30,12 @@ class EstatisticasFragment : Fragment() {
         viewModel.carregarNotas()
         // setupObservers()
 
-        binding.composeViewEstatisticas.setContent {
-            NotaComposeTheme {
-                EstatisticasCompose()
+        binding.composeViewEstatisticas.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                NotaComposeTheme {
+                    EstatisticasCompose()
+                }
             }
         }
 

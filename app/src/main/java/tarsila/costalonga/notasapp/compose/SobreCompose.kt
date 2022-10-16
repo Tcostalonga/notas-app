@@ -34,7 +34,7 @@ fun SobreDescription() {
 
 @Preview(showBackground = true)
 @Composable
-fun previewSobreCompose() {
+fun PreviewSobreCompose() {
     NotaComposeTheme() {
         SobreDescription()
     }

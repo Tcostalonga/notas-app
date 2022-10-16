@@ -85,7 +85,7 @@ fun EstatisticasRow(icon: Int, text: Int, numNota: String) {
 
 @Preview(showBackground = true, uiMode = 1)
 @Composable
-fun previewEstatisticasCompose() {
+fun PreviewEstatisticasCompose() {
     NotaComposeTheme() {
         EstatisticasCompose()
     }
