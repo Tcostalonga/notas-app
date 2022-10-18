@@ -19,11 +19,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.estatisticasfragment.EstatisticasViewModel
 
 @Composable
-fun EstatisticasCompose() {
+fun EstatisticasCompose(viewModel: EstatisticasViewModel = viewModel()) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -33,19 +35,19 @@ fun EstatisticasCompose() {
             EstatisticasRow(
                 icon = R.drawable.est_criadas,
                 text = R.string.notas_criadas,
-                numNota = "7"
+                numNota = viewModel.totalCriadas()
             )
             ViewSpacer()
             EstatisticasRow(
                 icon = R.drawable.est_ativas,
                 text = R.string.notas_ativas,
-                numNota = "5"
+                numNota = viewModel.notasAtivas()
             )
             ViewSpacer()
             EstatisticasRow(
                 icon = R.drawable.est_finalizadas,
                 text = R.string.notas_finalizadas,
-                numNota = "2"
+                numNota = viewModel.notasFinalizadas()
             )
         }
     }
@@ -85,7 +87,7 @@ fun EstatisticasRow(icon: Int, text: Int, numNota: String) {
 
 @Preview(showBackground = true, uiMode = 1)
 @Composable
-fun previewEstatisticasCompose() {
+fun PreviewEstatisticasCompose() {
     NotaComposeTheme() {
         EstatisticasCompose()
     }

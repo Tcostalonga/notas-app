@@ -1,19 +1,20 @@
 package tarsila.costalonga.notasapp.compose
 
+import android.text.method.LinkMovementMethod
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidViewBinding
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.databinding.SobreTextBinding
 
 @Composable
 fun SobreDescription() {
@@ -25,16 +26,19 @@ fun SobreDescription() {
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 16.dp)
         )
-        Text(
-            color = MaterialTheme.colors.onPrimary,
-            text = stringResource(id = R.string.disclaimer)
-        )
+
+        AndroidViewBinding(
+            factory = SobreTextBinding::inflate,
+            modifier = Modifier.wrapContentHeight()
+        ) {
+            txtConteudo.movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun previewSobreCompose() {
+fun PreviewSobreCompose() {
     NotaComposeTheme() {
         SobreDescription()
     }

@@ -9,7 +9,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "notas_table")
 data class Notas constructor(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
+    val id: Long = 0,
     @ColumnInfo(name = "titulo") var titulo: String,
     @ColumnInfo(name = "anotacao") var anotacao: String,
     @ColumnInfo(name = "dt_criacao") val dtCriacao: Long = System.currentTimeMillis(),
@@ -17,7 +18,4 @@ data class Notas constructor(
     @ColumnInfo(name = "img_path") var imgPath: String? = "",
     @ColumnInfo(name = "finalizado") var finalizado: Boolean = false,
     @ColumnInfo(name = "ordem") var ordem: Int
-
-) : Parcelable {
-    val isCompleted get() = !finalizado
-}
+) : Parcelable

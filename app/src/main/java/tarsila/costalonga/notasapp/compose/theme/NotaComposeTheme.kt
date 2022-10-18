@@ -56,6 +56,11 @@ private val ProximaNovaCondensed = FontFamily(
 )
 
 val NotaTypography = Typography(
+    subtitle1 = TextStyle(
+        fontFamily = ProximaNova,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    ),
     body1 = TextStyle(
         fontFamily = ProximaNova,
         fontSize = 18.sp

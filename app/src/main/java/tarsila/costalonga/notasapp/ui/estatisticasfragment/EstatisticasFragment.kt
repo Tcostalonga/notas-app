@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,30 +28,16 @@ class EstatisticasFragment : Fragment() {
         binding = FragmentEstatisticasBinding.inflate(inflater, container, false)
 
         viewModel.carregarNotas()
-        // setupObservers()
 
-        binding.composeViewEstatisticas.setContent {
-            NotaComposeTheme {
-                EstatisticasCompose()
+        binding.composeViewEstatisticas.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                NotaComposeTheme {
+                    EstatisticasCompose(viewModel)
+                }
             }
         }
 
         return binding.root
     }
-
-/*
- TODO: Enviar os dados via view model para a função compose
-
- private fun setupObservers() {
-        viewModel.totalCriadas.observe(viewLifecycleOwner) {
-            binding.numCriadas.text = it.toString()
-        }
-
-        viewModel.notasAtivas.observe(viewLifecycleOwner) {
-            binding.numAtvs.text = it.toString()
-        }
-        viewModel.notasFinalizadas.observe(viewLifecycleOwner) {
-            binding.numFnlz.text = it.toString()
-        }
-    }*/
 }

@@ -15,10 +15,10 @@ interface NotasDao {
     fun insertNota(nota: Notas)
 
     @Update
-    suspend fun updateNota(nota: Notas)
+    fun updateNota(nota: Notas)
 
     @Delete
-    suspend fun deleteUmaNota(nota: Notas)
+    fun deleteUmaNota(nota: Notas)
 
     @Query("SELECT * from notas_table WHERE id = :key")
     fun getUmaNota(key: Long): Notas
@@ -30,5 +30,5 @@ interface NotasDao {
     fun numTotalNotas(): LiveData<Int>
 
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
-    suspend fun getTodasNotas(): List<Notas>
+    fun getTodasNotas(): List<Notas>
 }
