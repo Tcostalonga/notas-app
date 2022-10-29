@@ -1,95 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.compose.ui.platform.ComposeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/composeViewDetalhe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detalhefragment.DetalheFragment">
+    tools:context="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragment" />
 
-    <androidx.core.widget.NestedScrollView
+    <!--
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_media">
+        tools:context=".ui.detalhefragment.DetalheFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_media">
 
-            <TextView
-                android:id="@+id/dt_criado"
-                style="@style/datasEstilo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/data_criacao_nota"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Criado: 03/08/2020  " />
-
-            <TextView
-                android:id="@+id/dt_atualizado"
-                style="@style/datasEstilo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/data_atualizacao_nota"
-                app:layout_constraintBaseline_toBaselineOf="@+id/dt_criado"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Atualizado: 04/08/2020" />
-
-            <EditText
-                android:id="@+id/show_titulo"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_larga"
-                android:background="@null"
-                android:contentDescription="@string/titulo"
-                android:enabled="false"
-                android:inputType="textCapSentences|textMultiLine"
-                android:maxLength="50"
-                android:textColor="@color/text_detalhe"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dt_atualizado"
-                tools:text="@string/titulo" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/show_anotacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_pequena"
-                android:background="@null"
-                android:contentDescription="@string/anotacao"
-                android:enabled="false"
-                android:inputType="textCapSentences|textMultiLine"
-                android:textColor="@color/text_detalhe"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/show_titulo"
-                tools:text="@string/tools_nota" />
+                <TextView
+                    android:id="@+id/dt_criado"
+                    style="@style/datasEstilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/data_criacao_nota"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Criado: 03/08/2020  " />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/dt_atualizado"
+                    style="@style/datasEstilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/data_atualizacao_nota"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dt_criado"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Atualizado: 04/08/2020" />
 
-    </androidx.core.widget.NestedScrollView>
+                <EditText
+                    android:id="@+id/show_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_larga"
+                    android:background="@null"
+                    android:contentDescription="@string/titulo"
+                    android:enabled="false"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="50"
+                    android:textColor="@color/text_detalhe"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dt_atualizado"
+                    tools:text="@string/titulo" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_bar"
-        style="@style/BottomAppBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="end"
-        app:hideOnScroll="true"
-        app:menu="@menu/opt_menu_bot">
+                <EditText
+                    android:id="@+id/show_anotacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequena"
+                    android:background="@null"
+                    android:contentDescription="@string/anotacao"
+                    android:enabled="false"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textColor="@color/text_detalhe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/show_titulo"
+                    tools:text="@string/tools_nota" />
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_edit"
-        style="@style/FAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/editar_nota"
-        android:src="@drawable/edit_24"
-        app:layout_anchor="@id/bottom_bar" />
+        </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            style="@style/BottomAppBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="end"
+            app:hideOnScroll="true"
+            app:menu="@menu/opt_menu_bot">
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_edit"
+            style="@style/FAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/editar_nota"
+            android:src="@drawable/edit_24"
+            app:layout_anchor="@id/bottom_bar" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->

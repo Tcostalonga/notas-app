@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.compose.DetalheCompose
+import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
 import tarsila.costalonga.notasapp.utils.hideKeyboard
 import tarsila.costalonga.notasapp.utils.makeToast
@@ -40,7 +43,16 @@ class DetalheFragment : Fragment() {
         binding = FragmentDetalheBinding.inflate(inflater, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
 
-        setarCamposDetalheFragm()
+        binding.composeViewDetalhe.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                NotaComposeTheme {
+                    DetalheCompose()
+                }
+            }
+        }
+
+       /* setarCamposDetalheFragm()
 
         binding.fabEdit.setOnClickListener {
             when (btAcao) {
@@ -79,10 +91,10 @@ class DetalheFragment : Fragment() {
                 }
                 else -> false
             }
-        }
+        }*/
         return binding.root
     }
-
+/*
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.opt_menu_bot, menu)
     }
@@ -124,5 +136,5 @@ class DetalheFragment : Fragment() {
             type = "text/plain"
         }
         startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
-    }
+    }*/
 }
