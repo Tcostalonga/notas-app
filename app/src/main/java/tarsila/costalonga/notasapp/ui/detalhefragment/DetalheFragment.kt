@@ -3,8 +3,6 @@ package tarsila.costalonga.notasapp.ui.detalhefragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -12,17 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.compose.DetalheCompose
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
-import tarsila.costalonga.notasapp.utils.hideKeyboard
 import tarsila.costalonga.notasapp.utils.makeToast
-import tarsila.costalonga.notasapp.utils.showKeyboard
-import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
@@ -47,13 +41,25 @@ class DetalheFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    DetalheCompose()
+                    DetalheCompose(
+                        onMenuClicked = { menuType ->
+                            when (menuType) {
+                                MenuType.SHARE -> criarShare()
+                                MenuType.DELETE -> criarAlertDialog()
+                            }
+                        },
+                        onFabClicked = { titulo, anotacao ->
+                            viewModel.onEditNota(titulo, anotacao)
+                            makeToast(requireContext(), getString(R.string.nota_update))
+                            findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
+                        }
+                    )
                 }
             }
         }
 
-       /* setarCamposDetalheFragm()
-
+        setarCamposDetalheFragm()
+/*
         binding.fabEdit.setOnClickListener {
             when (btAcao) {
                 0 -> {
@@ -79,37 +85,12 @@ class DetalheFragment : Fragment() {
             }
         }
 
-        binding.bottomBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.share -> {
-                    criarShare()
-                    true
-                }
-                R.id.remove -> {
-                    criarAlertDialog()
-                    true
-                }
-                else -> false
-            }
-        }*/
+ */
         return binding.root
-    }
-/*
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.opt_menu_bot, menu)
     }
 
     private fun setarCamposDetalheFragm() {
-        binding.showTitulo.setText(arguments.titulo)
-        binding.showAnotacao.setText(arguments.anotacao)
-        binding.dtCriado.text = getString(
-            R.string.text_dtCriacao_format,
-            SimpleDateFormat.getDateInstance(3).format(arguments.dtCriacao)
-        )
-        binding.dtAtualizado.text = getString(
-            R.string.text_dtAtualizado_format,
-            SimpleDateFormat.getDateInstance(3).format(arguments.dtAtualizado)
-        )
+        viewModel.setNotaDetalhe(arguments)
     }
 
     private fun criarAlertDialog() {
@@ -128,7 +109,7 @@ class DetalheFragment : Fragment() {
     }
 
     private fun criarShare() {
-        val textsArray = "${binding.showTitulo.text}\n${binding.showAnotacao.text}"
+        val textsArray = "${arguments.titulo}\n${arguments.anotacao}"
 
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -136,5 +117,5 @@ class DetalheFragment : Fragment() {
             type = "text/plain"
         }
         startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
-    }*/
+    }
 }

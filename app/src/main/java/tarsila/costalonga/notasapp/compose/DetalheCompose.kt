@@ -1,8 +1,6 @@
 package tarsila.costalonga.notasapp.compose
 
-import android.annotation.SuppressLint
 import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.FabPosition
@@ -24,45 +23,92 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetailMode
+import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
+import tarsila.costalonga.notasapp.ui.detalhefragment.MenuType
 
 @Composable
-fun DetalheCompose() {
-    BottomBarWithFab()
+fun DetalheCompose(
+    onMenuClicked: (MenuType) -> Unit = {},
+    onFabClicked: (String, String) -> Unit = { _, _ -> }
+) {
+    BottomBarWithFab(onMenuClicked = onMenuClicked, onFabClicked = onFabClicked)
 }
 
 @Composable
 fun InsertText(
     modifier: Modifier,
-    @StringRes text: Int,
+    text: String,
     @ColorRes textColor: Color = Color.Unspecified,
     textStyle: TextStyle
 ) {
     Text(
         modifier = modifier,
-        text = stringResource(id = text, 3),
+        text = text,
         color = textColor,
         style = textStyle
     )
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun BottomBarWithFab() {
+fun NotasShowAndEdit(
+    text: String,
+    onTextChange: (String) -> Unit,
+    modifier: Modifier,
+    isEnabled: Boolean,
+    textStyle: TextStyle
+) {
+    BasicTextField(
+        value = text,
+        onValueChange = onTextChange,
+        modifier = modifier,
+        enabled = isEnabled,
+        textStyle = textStyle
+    )
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun BottomBarWithFab(
+    viewModel: DetalheViewModel = hiltViewModel(),
+    onMenuClicked: (MenuType) -> Unit,
+    onFabClicked: (String, String) -> Unit
+) {
+    val notaDetalhe by viewModel.notaDetalhe.collectAsState()
+    var titulo by remember { mutableStateOf(notaDetalhe.titulo) }
+    var anotacao by remember { mutableStateOf(notaDetalhe.anotacao) }
+
+    var editNotaClick by remember { mutableStateOf(DetailMode.VIEW) }
+    var fabIcon by remember { mutableStateOf(R.drawable.edit_24) }
+
+    val inputService = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
     Scaffold(
         scaffoldState = rememberScaffoldState(),
         bottomBar = {
             BottomAppBar(cutoutShape = CircleShape, content = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                     Icon(
                         painterResource(id = R.drawable.share_24),
                         contentDescription = null
@@ -70,7 +116,7 @@ fun BottomBarWithFab() {
                 }
                 Spacer(Modifier.padding(end = 8.dp))
 
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                     Icon(
                         painterResource(id = R.drawable.delete_24),
                         contentDescription = null
@@ -83,21 +129,35 @@ fun BottomBarWithFab() {
         floatingActionButton = {
             FloatingActionButton(
                 shape = CircleShape,
-                onClick = {}
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painterResource(id = R.drawable.edit_24),
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.background
-                    )
+                onClick = {
+                    when (editNotaClick) {
+                        DetailMode.VIEW -> {
+                            editNotaClick = DetailMode.EDIT
+                            fabIcon = R.drawable.done_24
+                            inputService?.show()
+                            focusRequester.requestFocus()
+                        }
+                        DetailMode.EDIT -> {
+                            editNotaClick = DetailMode.VIEW
+                            fabIcon = R.drawable.edit_24
+                            inputService?.hide()
+                            onFabClicked(titulo, anotacao)
+                        }
+                    }
                 }
+            ) {
+                Icon(
+                    painterResource(id = fabIcon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.background
+                )
             }
         },
-        content = {
+        content = { paddingValues ->
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .padding(bottom = paddingValues.calculateBottomPadding())
                     .padding(dimensionResource(id = R.dimen.margin_media))
             ) {
                 Row(
@@ -107,34 +167,42 @@ fun BottomBarWithFab() {
                     InsertText(
                         modifier = Modifier.wrapContentSize(),
                         textStyle = MaterialTheme.typography.overline,
-                        text = R.string.text_dtCriacao_format
+                        text = stringResource(
+                            R.string.text_dtCriacao_format,
+                            viewModel.getFormattedData(notaDetalhe.dtCriacao)
+                        )
                     )
+
                     InsertText(
                         modifier = Modifier.wrapContentSize(),
                         textStyle = MaterialTheme.typography.overline,
-                        text = R.string.text_dtAtualizado_format
+                        text = stringResource(
+                            R.string.text_dtAtualizado_format,
+                            viewModel.getFormattedData(notaDetalhe.dtAtualizado)
+                        )
                     )
                 }
 
-                InsertText(
+                NotasShowAndEdit(
+                    text = titulo,
+                    onTextChange = { titulo = it },
                     modifier = Modifier
                         .padding(top = dimensionResource(id = R.dimen.margin_larga))
+                        .focusRequester(focusRequester)
                         .fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.subtitle1,
-                    text = R.string.titulo,
-                    textColor = MaterialTheme.colors.onPrimary
+                    isEnabled = editNotaClick == DetailMode.EDIT,
+                    textStyle = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.onPrimary)
+
                 )
 
-                InsertText(
+                NotasShowAndEdit(
+                    text = anotacao,
+                    onTextChange = { anotacao = it },
                     modifier = Modifier
-                        .padding(
-                            top = dimensionResource(id = R.dimen.margin_pequena),
-                            bottom = 74.dp
-                        )
+                        .padding(top = dimensionResource(id = R.dimen.margin_pequena))
                         .fillMaxSize(),
-                    textStyle = MaterialTheme.typography.body1,
-                    text = R.string.tools_nota,
-                    textColor = MaterialTheme.colors.onPrimary
+                    isEnabled = editNotaClick == DetailMode.EDIT,
+                    textStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary)
                 )
             }
         }
