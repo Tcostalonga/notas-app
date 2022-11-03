@@ -27,11 +27,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
@@ -41,6 +43,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.detalhefragment.DetailMode
@@ -103,6 +107,7 @@ fun BottomBarWithFab(
 
     val inputService = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         scaffoldState = rememberScaffoldState(),
@@ -134,13 +139,14 @@ fun BottomBarWithFab(
                         DetailMode.VIEW -> {
                             editNotaClick = DetailMode.EDIT
                             fabIcon = R.drawable.done_24
-                            inputService?.show()
-                            focusRequester.requestFocus()
+                            scope.launch {
+                                delay(200)
+                                focusRequester.requestFocus()
+                            }
                         }
                         DetailMode.EDIT -> {
                             editNotaClick = DetailMode.VIEW
                             fabIcon = R.drawable.edit_24
-                            inputService?.hide()
                             onFabClicked(titulo, anotacao)
                         }
                     }
@@ -182,17 +188,23 @@ fun BottomBarWithFab(
                         )
                     )
                 }
-
                 NotasShowAndEdit(
                     text = titulo,
                     onTextChange = { titulo = it },
                     modifier = Modifier
                         .padding(top = dimensionResource(id = R.dimen.margin_larga))
                         .focusRequester(focusRequester)
+                        .onFocusChanged {
+                            println(it.hasFocus)
+                            if (it.hasFocus) {
+                                inputService?.show()
+                            } else {
+                                inputService?.hide()
+                            }
+                        }
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.onPrimary)
-
                 )
 
                 NotasShowAndEdit(
