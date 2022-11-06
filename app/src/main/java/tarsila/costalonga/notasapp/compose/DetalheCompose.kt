@@ -21,6 +21,11 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,7 +42,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -103,7 +107,7 @@ fun BottomBarWithFab(
     var anotacao by remember { mutableStateOf(notaDetalhe.anotacao) }
 
     var editNotaClick by remember { mutableStateOf(DetailMode.VIEW) }
-    var fabIcon by remember { mutableStateOf(R.drawable.edit_24) }
+    var fabIcon by remember { mutableStateOf(Icons.Default.Edit) }
 
     val inputService = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -115,7 +119,7 @@ fun BottomBarWithFab(
             BottomAppBar(cutoutShape = CircleShape, content = {
                 IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                     Icon(
-                        painterResource(id = R.drawable.share_24),
+                        Icons.Default.Share,
                         contentDescription = null
                     )
                 }
@@ -123,7 +127,7 @@ fun BottomBarWithFab(
 
                 IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                     Icon(
-                        painterResource(id = R.drawable.delete_24),
+                        Icons.Default.Delete,
                         contentDescription = null
                     )
                 }
@@ -138,7 +142,7 @@ fun BottomBarWithFab(
                     when (editNotaClick) {
                         DetailMode.VIEW -> {
                             editNotaClick = DetailMode.EDIT
-                            fabIcon = R.drawable.done_24
+                            fabIcon = Icons.Default.Done
                             scope.launch {
                                 delay(200)
                                 focusRequester.requestFocus()
@@ -146,14 +150,14 @@ fun BottomBarWithFab(
                         }
                         DetailMode.EDIT -> {
                             editNotaClick = DetailMode.VIEW
-                            fabIcon = R.drawable.edit_24
+                            fabIcon = Icons.Default.Edit
                             onFabClicked(titulo, anotacao)
                         }
                     }
                 }
             ) {
                 Icon(
-                    painterResource(id = fabIcon),
+                    fabIcon,
                     contentDescription = null,
                     tint = MaterialTheme.colors.background
                 )
