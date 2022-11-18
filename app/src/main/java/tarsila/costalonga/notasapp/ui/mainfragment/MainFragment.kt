@@ -11,16 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.compose.MainCompose
+import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 import java.util.Collections
 
@@ -45,30 +45,25 @@ class MainFragment : Fragment() {
         setHasOptionsMenu(true)
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        // Configuração da recycler_view
-        adapter = MainAdapter(
-            NotasListener {
-                findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
-                )
-            }
-        )
-
-        adapter.listener = object : ClicksAcao {
-            override fun checkClick(nota: Notas, boolean: Boolean) {
-                viewModel.checkboxStatus(nota, boolean)
+        binding.composeViewMain.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                NotaComposeTheme {
+                    MainCompose(
+                        onFabClicked = {
+                            findNavController().navigate(
+                                MainFragmentDirections.actionMainFragmentToAddFragment(it)
+                            )
+                        },
+                        onItemListClicked = {
+                            findNavController().navigate(
+                                MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
+                            )
+                        }
+                    )
+                }
             }
         }
-
-        binding.rcView.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcView.adapter = adapter
-
-        val observer = Observer<List<Notas>> {
-            adapter.listaFixa = it
-            adapter.listaDoFiltro = ArrayList(it)
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.allNotas.observe(viewLifecycleOwner, observer)
 
         // Iniciando SharedPrefs e atribuindo valor default
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -80,14 +75,6 @@ class MainFragment : Fragment() {
         )
 
         arrastarNotas()
-
-        binding.fabAdd.setOnClickListener {
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToAddFragment(
-                    adapter.listaFixa.size
-                )
-            )
-        }
 
         return binding.root
     }
@@ -157,7 +144,7 @@ class MainFragment : Fragment() {
                 }
             })
 
-        iTH.attachToRecyclerView(binding.rcView)
+//        iTH.attachToRecyclerView(binding.rcView)
     }
 
     override fun onResume() {
