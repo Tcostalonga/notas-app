@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.compose.ui.platform.ComposeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/composeViewMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mainfragment.MainFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/margin_pequena"
-        tools:listitem="@layout/list_item" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        style="@style/FAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/margin_larga"
-        android:contentDescription="@string/criar_anotacao"
-        app:srcCompat="@drawable/add_24" />
-
-</RelativeLayout>
+    tools:context=".ui.mainfragment.MainFragment" />
