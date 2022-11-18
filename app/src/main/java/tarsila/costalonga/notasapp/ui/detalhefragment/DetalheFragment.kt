@@ -59,33 +59,6 @@ class DetalheFragment : Fragment() {
         }
 
         setarCamposDetalheFragm()
-/*
-        binding.fabEdit.setOnClickListener {
-            when (btAcao) {
-                0 -> {
-                    binding.showTitulo.isEnabled = true
-                    binding.showAnotacao.isEnabled = true
-                    binding.showTitulo.requestFocus(1)
-                    it.showKeyboard()
-                    it as FloatingActionButton
-                    it.setImageResource(R.drawable.done_24)
-                    btAcao = 1
-                }
-                1 -> {
-                    val obj = arguments
-                    obj.titulo = binding.showTitulo.text.toString()
-                    obj.anotacao = binding.showAnotacao.text.toString()
-                    obj.dtAtualizado = System.currentTimeMillis()
-                    it.hideKeyboard()
-                    viewModel.updateNota(obj)
-                    makeToast(requireContext(), getString(R.string.nota_update))
-                    findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
-                    btAcao = 0
-                }
-            }
-        }
-
- */
         return binding.root
     }
 
