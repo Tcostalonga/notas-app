@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : Vie
         }
     }
 
-    fun updateNota(nota: Notas) {
+    private fun updateNota(nota: Notas) {
         viewModelScope.launch(Dispatchers.IO) {
             repositorio.updateNota(nota)
         }

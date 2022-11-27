@@ -40,6 +40,7 @@ fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
     val keyboard = LocalSoftwareKeyboardController.current
 
     Scaffold(
+        topBar = { MyTopAppBar() },
         modifier = Modifier
             .fillMaxSize()
             .padding(top = dimensionResource(id = R.dimen.margin_pequena)),

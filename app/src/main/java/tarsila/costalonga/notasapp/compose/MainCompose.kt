@@ -41,11 +41,15 @@ import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 fun MainCompose(
     onFabClicked: (Int) -> Unit = {},
     onItemListClicked: (Notas) -> Unit = {},
+    onMenuClick: (ItemMenuType) -> Unit = {},
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val allNotas by viewModel.allNotas.collectAsState()
 
     Scaffold(
+        topBar = {
+            MyTopAppBar(true, onMenuClick)
+        },
         scaffoldState = rememberScaffoldState(),
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {

@@ -4,19 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.compose.ItemMenuType
 import tarsila.costalonga.notasapp.compose.MainCompose
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
@@ -52,6 +48,9 @@ class MainFragment : Fragment() {
                                 MainFragmentDirections.actionMainFragmentToAddFragment(it)
                             )
                         },
+                        onMenuClick = {
+                            handleOnMenuClick(it)
+                        },
                         onItemListClicked = {
                             findNavController().navigate(
                                 MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
@@ -74,31 +73,23 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.opt_menu_top, menu)
-        val item = menu.findItem(R.id.action_search)
-
-        val searchView = item.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+    private fun handleOnMenuClick(itemMenu: ItemMenuType) {
+        when (itemMenu) {
+            ItemMenuType.SEARCH -> {}
+            ItemMenuType.ESTATISTICAS -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToEstatisticasFragment()
+                )
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
-                return false
+            ItemMenuType.SOBRE -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToSobreFragment()
+                )
             }
-        })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_search -> true
-            R.id.estatisticas -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToEstatisticasFragment())
-            R.id.sobre -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToSobreFragment())
-            R.id.theme -> changeTema()
+            ItemMenuType.TEMA -> {
+                changeTema()
+            }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun changeTema() {

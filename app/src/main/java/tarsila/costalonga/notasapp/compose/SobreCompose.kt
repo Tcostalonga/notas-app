@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,20 +19,23 @@ import tarsila.costalonga.notasapp.databinding.SobreTextBinding
 
 @Composable
 fun SobreDescription() {
-    Column(Modifier.padding(16.dp)) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_icone_circular),
-            contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(vertical = 16.dp)
-        )
+    Scaffold(topBar = { MyTopAppBar() }) {
+        Column(Modifier.padding(16.dp)) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_icone_circular),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 16.dp)
+                    .padding(it)
+            )
 
-        AndroidViewBinding(
-            factory = SobreTextBinding::inflate,
-            modifier = Modifier.wrapContentHeight()
-        ) {
-            txtConteudo.movementMethod = LinkMovementMethod.getInstance()
+            AndroidViewBinding(
+                factory = SobreTextBinding::inflate,
+                modifier = Modifier.wrapContentHeight()
+            ) {
+                txtConteudo.movementMethod = LinkMovementMethod.getInstance()
+            }
         }
     }
 }
