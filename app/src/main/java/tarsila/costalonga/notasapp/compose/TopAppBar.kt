@@ -6,6 +6,7 @@ import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -60,27 +61,36 @@ fun MyTopAppBar(
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
-                    offset = DpOffset(x = 10.dp, y = (-60).dp)
+                    offset = DpOffset(x = 5.dp, y = (-10).dp)
                 ) {
                     DropdownMenuItem(onClick = {
+                        expanded = false
                         onMenuClick(ItemMenuType.ESTATISTICAS)
-                        expanded = false
                     }) {
-                        Text(stringResource(id = R.string.estatisticas))
+                        Text(
+                            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+                            text = stringResource(id = R.string.estatisticas)
+                        )
                     }
 
                     DropdownMenuItem(onClick = {
+                        expanded = false
                         onMenuClick(ItemMenuType.SOBRE)
-                        expanded = false
                     }) {
-                        Text(stringResource(id = R.string.sobre))
+                        Text(
+                            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+                            text = stringResource(id = R.string.sobre)
+                        )
                     }
 
                     DropdownMenuItem(onClick = {
-                        onMenuClick(ItemMenuType.TEMA)
                         expanded = false
+                        onMenuClick(ItemMenuType.TEMA)
                     }) {
-                        Text(stringResource(id = R.string.trocar_tema))
+                        Text(
+                            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+                            text = stringResource(id = R.string.trocar_tema)
+                        )
                     }
                 }
             }
