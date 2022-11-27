@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -91,11 +90,12 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
             .fillMaxWidth()
             .padding(dimensionResource(id = R.dimen.margin_extra_pequena))
     ) {
-        Icon(
+/*   TODO: drag and drop is disabled until a solution for compose is released
+     Icon(
             painter = painterResource(id = R.drawable.drag_indicator_24),
             contentDescription = null,
             tint = MaterialTheme.colors.primaryVariant
-        )
+        )*/
         Checkbox(
             checked = checkedState,
             colors = CheckboxDefaults.colors(
