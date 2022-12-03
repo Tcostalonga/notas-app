@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.compose
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
@@ -60,7 +58,7 @@ fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) {
-        Column {
+        Column(Modifier.padding(top = dimensionResource(id = R.dimen.margin_pequena) + it.calculateTopPadding())) {
             CustomAddTextField(
                 value = titleState,
                 onValueChange = { titleState = it },
