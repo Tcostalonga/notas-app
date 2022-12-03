@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -94,12 +95,12 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
             .fillMaxWidth()
             .padding(dimensionResource(id = R.dimen.margin_extra_pequena))
     ) {
-/*   TODO: drag and drop is disabled until a solution for compose is released
-     Icon(
-            painter = painterResource(id = R.drawable.drag_indicator_24),
-            contentDescription = null,
-            tint = MaterialTheme.colors.primaryVariant
-        )*/
+        /* TODO: drag and drop is disabled until a solution for compose is released
+         Icon(
+                painter = painterResource(id = R.drawable.drag_indicator_24),
+                contentDescription = null,
+                tint = MaterialTheme.colors.primaryVariant
+            ) */
         Checkbox(
             checked = checkedState,
             colors = CheckboxDefaults.colors(
@@ -116,10 +117,22 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
                 .fillMaxWidth()
                 .clickable { onItemClicked() },
             text = nota.titulo,
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+            style = MaterialTheme.typography.body1.copy(
+                color = MaterialTheme.colors.onPrimary,
+                textDecoration = getTexDecoration(checkedState)
+            ),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
+    }
+}
+
+@Composable
+private fun getTexDecoration(finalizado: Boolean): TextDecoration {
+    return if (finalizado) {
+        TextDecoration.LineThrough
+    } else {
+        TextDecoration.None
     }
 }
 
