@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,10 +47,24 @@ fun MainCompose(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val allNotas by viewModel.allNotas.collectAsState()
+    val isSearchEnabled by viewModel.isSearchEnabled.collectAsState()
+    var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
+    var filteredNotas: List<Notas>
 
     Scaffold(
         topBar = {
-            MyTopAppBar(true, onMenuClick)
+            if (isSearchEnabled) {
+                SearchLayoutBar(
+                    onArrowBackClicked = {
+                        viewModel.isSearchEnabled.value = false
+                        searchTerm = ""
+                    },
+                    searchTerm = searchTerm,
+                    onSearchTermChanged = { searchTerm = it }
+                )
+            } else {
+                MyTopAppBar(true, onMenuClick)
+            }
         },
         scaffoldState = rememberScaffoldState(),
         floatingActionButtonPosition = FabPosition.End,
@@ -69,8 +84,10 @@ fun MainCompose(
         LazyColumn(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.margin_pequena)),
             content = {
-                items(allNotas.size) {
-                    val nota = allNotas[it]
+                filteredNotas = performFilterInTitle(searchTerm, allNotas)
+
+                items(filteredNotas.size) {
+                    val nota = filteredNotas[it]
                     ItemList(
                         nota = nota,
                         onItemClicked = { onItemListClicked(nota) },
@@ -81,6 +98,20 @@ fun MainCompose(
                 }
             }
         )
+    }
+}
+
+fun performFilterInTitle(searchedText: String, allNotas: List<Notas>): List<Notas> {
+    return if (searchedText != PESQUISAR && searchedText.isNotEmpty()) {
+        val resultList = mutableListOf<Notas>()
+        for (nota in allNotas) {
+            if (nota.titulo.lowercase().contains(searchedText.lowercase())) {
+                resultList.add(nota)
+            }
+        }
+        resultList.toList()
+    } else {
+        allNotas
     }
 }
 

@@ -15,6 +15,8 @@ class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : Vie
 
     val allNotas = MutableStateFlow<List<Notas>>(emptyList())
 
+    var isSearchEnabled = MutableStateFlow(false)
+
     fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
         objNota.finalizado = checkStatus
         viewModelScope.launch(Dispatchers.IO) {

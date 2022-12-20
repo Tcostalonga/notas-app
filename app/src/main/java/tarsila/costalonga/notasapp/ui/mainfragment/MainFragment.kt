@@ -28,14 +28,11 @@ class MainFragment : Fragment() {
 
     private lateinit var sharedPref: SharedPreferences
 
-    private lateinit var adapter: MainAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
         binding.composeViewMain.apply {
@@ -75,7 +72,9 @@ class MainFragment : Fragment() {
 
     private fun handleOnMenuClick(itemMenu: ItemMenuType) {
         when (itemMenu) {
-            ItemMenuType.SEARCH -> {}
+            ItemMenuType.SEARCH -> {
+                viewModel.isSearchEnabled.value = true
+            }
             ItemMenuType.ESTATISTICAS -> {
                 findNavController().navigate(
                     MainFragmentDirections.actionMainFragmentToEstatisticasFragment()
