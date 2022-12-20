@@ -2,9 +2,12 @@ package tarsila.costalonga.notasapp.compose
 
 import android.text.method.LinkMovementMethod
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,12 +25,16 @@ fun SobreDescription() {
     Scaffold(topBar = { MyTopAppBar() }) {
         Column(Modifier.padding(16.dp)) {
             Image(
-                painter = painterResource(id = R.drawable.ic_icone_circular),
+                painter = painterResource(id = R.drawable.ic_icone_splash),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(vertical = 16.dp)
                     .padding(it)
+                    .background(
+                        MaterialTheme.colors.secondary,
+                        shape = RoundedCornerShape(percent = 100)
+                    )
             )
 
             AndroidViewBinding(
