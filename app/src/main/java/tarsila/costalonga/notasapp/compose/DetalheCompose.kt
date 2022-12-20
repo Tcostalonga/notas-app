@@ -114,6 +114,7 @@ fun BottomBarWithFab(
     val scope = rememberCoroutineScope()
 
     Scaffold(
+        topBar = { MyTopAppBar() },
         scaffoldState = rememberScaffoldState(),
         bottomBar = {
             BottomAppBar(cutoutShape = CircleShape, content = {

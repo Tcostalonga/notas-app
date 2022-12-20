@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,29 +27,34 @@ import tarsila.costalonga.notasapp.ui.estatisticasfragment.EstatisticasViewModel
 
 @Composable
 fun EstatisticasCompose(viewModel: EstatisticasViewModel = viewModel()) {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.margin_gigante))
+    Scaffold(
+        topBar = { MyTopAppBar() }
     ) {
-        Column() {
-            EstatisticasRow(
-                icon = R.drawable.est_criadas,
-                text = R.string.notas_criadas,
-                numNota = viewModel.totalCriadas()
-            )
-            ViewSpacer()
-            EstatisticasRow(
-                icon = R.drawable.est_ativas,
-                text = R.string.notas_ativas,
-                numNota = viewModel.notasAtivas()
-            )
-            ViewSpacer()
-            EstatisticasRow(
-                icon = R.drawable.est_finalizadas,
-                text = R.string.notas_finalizadas,
-                numNota = viewModel.notasFinalizadas()
-            )
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.margin_gigante))
+                .padding(it.calculateBottomPadding())
+        ) {
+            Column() {
+                EstatisticasRow(
+                    icon = R.drawable.est_criadas,
+                    text = R.string.notas_criadas,
+                    numNota = viewModel.totalCriadas()
+                )
+                ViewSpacer()
+                EstatisticasRow(
+                    icon = R.drawable.est_ativas,
+                    text = R.string.notas_ativas,
+                    numNota = viewModel.notasAtivas()
+                )
+                ViewSpacer()
+                EstatisticasRow(
+                    icon = R.drawable.est_finalizadas,
+                    text = R.string.notas_finalizadas,
+                    numNota = viewModel.notasFinalizadas()
+                )
+            }
         }
     }
 }

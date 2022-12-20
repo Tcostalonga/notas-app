@@ -4,25 +4,18 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.bd.Notas
+import tarsila.costalonga.notasapp.compose.ItemMenuType
+import tarsila.costalonga.notasapp.compose.MainCompose
+import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
-import java.util.Collections
 
 const val TEMACOR = "Mudar tema"
 
@@ -35,40 +28,35 @@ class MainFragment : Fragment() {
 
     private lateinit var sharedPref: SharedPreferences
 
-    private lateinit var adapter: MainAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        // Configuração da recycler_view
-        adapter = MainAdapter(
-            NotasListener {
-                findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
-                )
-            }
-        )
-
-        adapter.listener = object : ClicksAcao {
-            override fun checkClick(nota: Notas, boolean: Boolean) {
-                viewModel.checkboxStatus(nota, boolean)
+        binding.composeViewMain.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                NotaComposeTheme {
+                    MainCompose(
+                        onFabClicked = {
+                            findNavController().navigate(
+                                MainFragmentDirections.actionMainFragmentToAddFragment(it)
+                            )
+                        },
+                        onMenuClick = {
+                            handleOnMenuClick(it)
+                        },
+                        onItemListClicked = {
+                            findNavController().navigate(
+                                MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
+                            )
+                        }
+                    )
+                }
             }
         }
-
-        binding.rcView.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcView.adapter = adapter
-
-        val observer = Observer<List<Notas>> {
-            adapter.listaFixa = it
-            adapter.listaDoFiltro = ArrayList(it)
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.allNotas.observe(viewLifecycleOwner, observer)
 
         // Iniciando SharedPrefs e atribuindo valor default
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -79,44 +67,28 @@ class MainFragment : Fragment() {
             )
         )
 
-        arrastarNotas()
-
-        binding.fabAdd.setOnClickListener {
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToAddFragment(
-                    adapter.listaFixa.size
-                )
-            )
-        }
-
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.opt_menu_top, menu)
-        val item = menu.findItem(R.id.action_search)
-
-        val searchView = item.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+    private fun handleOnMenuClick(itemMenu: ItemMenuType) {
+        when (itemMenu) {
+            ItemMenuType.SEARCH -> {
+                viewModel.isSearchEnabled.value = true
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
-                return false
+            ItemMenuType.ESTATISTICAS -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToEstatisticasFragment()
+                )
             }
-        })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_search -> true
-            R.id.estatisticas -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToEstatisticasFragment())
-            R.id.sobre -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToSobreFragment())
-            R.id.theme -> changeTema()
+            ItemMenuType.SOBRE -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToSobreFragment()
+                )
+            }
+            ItemMenuType.TEMA -> {
+                changeTema()
+            }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun changeTema() {
@@ -131,33 +103,6 @@ class MainFragment : Fragment() {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_YES).apply()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
-    }
-
-    fun arrastarNotas() {
-        val iTH = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-            0
-        ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    val from = viewHolder.adapterPosition
-                    val to = target.adapterPosition
-
-                    Collections.swap(adapter.listaFixa, from, to)
-                    viewModel.ordenarRecyclerView(adapter.listaFixa)
-                    adapter.notifyItemMoved(from, to)
-
-                    return true
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                }
-            })
-
-        iTH.attachToRecyclerView(binding.rcView)
     }
 
     override fun onResume() {
