@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,6 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -49,6 +50,10 @@ fun MainCompose(
     val isSearchEnabled by viewModel.isSearchEnabled.collectAsStateWithLifecycle()
     var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
     var filteredNotas: List<Notas>
+
+    LaunchedEffect(Unit) {
+        viewModel.carregarNotas()
+    }
 
     Scaffold(
         topBar = {
@@ -154,15 +159,6 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-    }
-}
-
-@Composable
-private fun getTextDecoration(finalizado: Boolean): TextDecoration {
-    return if (finalizado) {
-        TextDecoration.LineThrough
-    } else {
-        TextDecoration.None
     }
 }
 

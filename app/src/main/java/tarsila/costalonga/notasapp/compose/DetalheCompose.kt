@@ -31,8 +31,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -58,7 +58,7 @@ import tarsila.costalonga.notasapp.ui.detalhefragment.MenuType
 @Composable
 fun DetalheCompose(
     onMenuClicked: (MenuType) -> Unit = {},
-    onFabClicked: (String, String) -> Unit = { _, _ -> }
+    onFabClicked: (String, String) -> Unit = { _, _ -> },
 ) {
     BottomBarWithFab(onMenuClicked = onMenuClicked, onFabClicked = onFabClicked)
 }
@@ -68,13 +68,13 @@ fun InsertText(
     modifier: Modifier,
     text: String,
     @ColorRes textColor: Color = Color.Unspecified,
-    textStyle: TextStyle
+    textStyle: TextStyle,
 ) {
     Text(
         modifier = modifier,
         text = text,
         color = textColor,
-        style = textStyle
+        style = textStyle,
     )
 }
 
@@ -84,14 +84,14 @@ fun NotasShowAndEdit(
     onTextChange: (String) -> Unit,
     modifier: Modifier,
     isEnabled: Boolean,
-    textStyle: TextStyle
+    textStyle: TextStyle,
 ) {
     BasicTextField(
         value = text,
         onValueChange = onTextChange,
         modifier = modifier,
         enabled = isEnabled,
-        textStyle = textStyle
+        textStyle = textStyle,
     )
 }
 
@@ -100,17 +100,17 @@ fun NotasShowAndEdit(
 fun BottomBarWithFab(
     viewModel: DetalheViewModel = hiltViewModel(),
     onMenuClicked: (MenuType) -> Unit,
-    onFabClicked: (String, String) -> Unit
+    onFabClicked: (String, String) -> Unit,
 ) {
     val notaDetalhe by viewModel.notaDetalhe.collectAsState()
-    var titulo by remember { mutableStateOf(notaDetalhe.titulo) }
-    var anotacao by remember { mutableStateOf(notaDetalhe.anotacao) }
+    var titulo by rememberSaveable { mutableStateOf(notaDetalhe.titulo) }
+    var anotacao by rememberSaveable { mutableStateOf(notaDetalhe.anotacao) }
 
-    var editNotaClick by remember { mutableStateOf(DetailMode.VIEW) }
-    var fabIcon by remember { mutableStateOf(Icons.Default.Edit) }
+    var editNotaClick by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
+    var fabIcon by rememberSaveable { mutableStateOf(Icons.Default.Edit) }
 
     val inputService = LocalSoftwareKeyboardController.current
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberSaveable { FocusRequester() }
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -121,7 +121,7 @@ fun BottomBarWithFab(
                 IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                     Icon(
                         Icons.Default.Share,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
                 Spacer(Modifier.padding(end = 8.dp))
@@ -129,7 +129,7 @@ fun BottomBarWithFab(
                 IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                     Icon(
                         Icons.Default.Delete,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             })
@@ -149,18 +149,19 @@ fun BottomBarWithFab(
                                 focusRequester.requestFocus()
                             }
                         }
+
                         DetailMode.EDIT -> {
                             editNotaClick = DetailMode.VIEW
                             fabIcon = Icons.Default.Edit
                             onFabClicked(titulo, anotacao)
                         }
                     }
-                }
+                },
             ) {
                 Icon(
                     fabIcon,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.background
+                    tint = MaterialTheme.colors.background,
                 )
             }
         },
@@ -169,19 +170,19 @@ fun BottomBarWithFab(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .padding(bottom = paddingValues.calculateBottomPadding())
-                    .padding(dimensionResource(id = R.dimen.margin_media))
+                    .padding(dimensionResource(id = R.dimen.margin_media)),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     InsertText(
                         modifier = Modifier.wrapContentSize(),
                         textStyle = MaterialTheme.typography.overline,
                         text = stringResource(
                             R.string.text_dtCriacao_format,
-                            viewModel.getFormattedData(notaDetalhe.dtCriacao)
-                        )
+                            viewModel.getFormattedData(notaDetalhe.dtCriacao),
+                        ),
                     )
 
                     InsertText(
@@ -189,8 +190,8 @@ fun BottomBarWithFab(
                         textStyle = MaterialTheme.typography.overline,
                         text = stringResource(
                             R.string.text_dtAtualizado_format,
-                            viewModel.getFormattedData(notaDetalhe.dtAtualizado)
-                        )
+                            viewModel.getFormattedData(notaDetalhe.dtAtualizado),
+                        ),
                     )
                 }
                 NotasShowAndEdit(
@@ -209,7 +210,7 @@ fun BottomBarWithFab(
                         }
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.onPrimary)
+                    textStyle = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.onPrimary),
                 )
 
                 NotasShowAndEdit(
@@ -219,10 +220,10 @@ fun BottomBarWithFab(
                         .padding(top = dimensionResource(id = R.dimen.margin_pequena))
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary)
+                    textStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
                 )
             }
-        }
+        },
     )
 }
 
