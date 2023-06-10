@@ -19,9 +19,7 @@ class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : Vie
 
     fun checkboxStatus(objNota: Notas, checkStatus: Boolean) {
         objNota.finalizado = checkStatus
-        viewModelScope.launch(Dispatchers.IO) {
-            repositorio.updateNota(objNota)
-        }
+        updateNota(objNota)
     }
 
     fun carregarNotas() {

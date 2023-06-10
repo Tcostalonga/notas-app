@@ -20,22 +20,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -44,12 +44,16 @@ fun MainCompose(
     onFabClicked: (Int) -> Unit = {},
     onItemListClicked: (Notas) -> Unit = {},
     onMenuClick: (ItemMenuType) -> Unit = {},
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
-    val allNotas by viewModel.allNotas.collectAsState()
-    val isSearchEnabled by viewModel.isSearchEnabled.collectAsState()
+    val allNotas by viewModel.allNotas.collectAsStateWithLifecycle()
+    val isSearchEnabled by viewModel.isSearchEnabled.collectAsStateWithLifecycle()
     var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
     var filteredNotas: List<Notas>
+
+    LaunchedEffect(Unit) {
+        viewModel.carregarNotas()
+    }
 
     Scaffold(
         topBar = {
@@ -60,7 +64,7 @@ fun MainCompose(
                         searchTerm = ""
                     },
                     searchTerm = searchTerm,
-                    onSearchTermChanged = { searchTerm = it }
+                    onSearchTermChanged = { searchTerm = it },
                 )
             } else {
                 MyTopAppBar(true, onMenuClick)
@@ -71,15 +75,15 @@ fun MainCompose(
         floatingActionButton = {
             FloatingActionButton(
                 shape = CircleShape,
-                onClick = { onFabClicked(allNotas.size) }
+                onClick = { onFabClicked(allNotas.size) },
             ) {
                 Icon(
                     Icons.Default.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.background
+                    tint = MaterialTheme.colors.background,
                 )
             }
-        }
+        },
     ) {
         LazyColumn(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.margin_pequena)),
@@ -93,10 +97,10 @@ fun MainCompose(
                         onItemClicked = { onItemListClicked(nota) },
                         onCheckedChange = { checkedStatus ->
                             viewModel.checkboxStatus(nota, checkedStatus)
-                        }
+                        },
                     )
                 }
-            }
+            },
         )
     }
 }
@@ -117,14 +121,14 @@ fun performFilterInTitle(searchedText: String, allNotas: List<Notas>): List<Nota
 
 @Composable
 fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) -> Unit) {
-    var checkedState by remember { mutableStateOf(nota.finalizado) }
+    var checkedState by rememberSaveable { mutableStateOf(nota.finalizado) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(dimensionResource(id = R.dimen.margin_extra_pequena))
+            .padding(dimensionResource(id = R.dimen.margin_extra_pequena)),
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(
@@ -136,12 +140,12 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
             checked = checkedState,
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colors.secondaryVariant,
-                uncheckedColor = MaterialTheme.colors.primaryVariant
+                uncheckedColor = MaterialTheme.colors.primaryVariant,
             ),
             onCheckedChange = {
                 checkedState = it
                 onCheckedChange(it)
-            }
+            },
         )
         Text(
             modifier = Modifier
@@ -150,20 +154,11 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
             text = nota.titulo,
             style = MaterialTheme.typography.body1.copy(
                 color = MaterialTheme.colors.onPrimary,
-                textDecoration = getTexDecoration(checkedState)
+                textDecoration = getTextDecoration(checkedState),
             ),
             maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
-    }
-}
-
-@Composable
-private fun getTexDecoration(finalizado: Boolean): TextDecoration {
-    return if (finalizado) {
-        TextDecoration.LineThrough
-    } else {
-        TextDecoration.None
     }
 }
 

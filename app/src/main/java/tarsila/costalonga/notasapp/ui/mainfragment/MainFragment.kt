@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
@@ -42,7 +42,7 @@ class MainFragment : Fragment() {
                     MainCompose(
                         onFabClicked = {
                             findNavController().navigate(
-                                MainFragmentDirections.actionMainFragmentToAddFragment(it)
+                                MainFragmentDirections.actionMainFragmentToAddFragment(it),
                             )
                         },
                         onMenuClick = {
@@ -50,9 +50,9 @@ class MainFragment : Fragment() {
                         },
                         onItemListClicked = {
                             findNavController().navigate(
-                                MainFragmentDirections.actionMainFragmentToDetalheFragment(it)
+                                MainFragmentDirections.actionMainFragmentToDetalheFragment(it),
                             )
-                        }
+                        },
                     )
                 }
             }
@@ -63,8 +63,8 @@ class MainFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(
             sharedPref.getInt(
                 TEMACOR,
-                AppCompatDelegate.MODE_NIGHT_NO
-            )
+                AppCompatDelegate.MODE_NIGHT_NO,
+            ),
         )
 
         return binding.root
@@ -75,16 +75,19 @@ class MainFragment : Fragment() {
             ItemMenuType.SEARCH -> {
                 viewModel.isSearchEnabled.value = true
             }
+
             ItemMenuType.ESTATISTICAS -> {
                 findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToEstatisticasFragment()
+                    MainFragmentDirections.actionMainFragmentToEstatisticasFragment(),
                 )
             }
+
             ItemMenuType.SOBRE -> {
                 findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToSobreFragment()
+                    MainFragmentDirections.actionMainFragmentToSobreFragment(),
                 )
             }
+
             ItemMenuType.TEMA -> {
                 changeTema()
             }
@@ -94,7 +97,7 @@ class MainFragment : Fragment() {
     private fun changeTema() {
         if (sharedPref.getInt(
                 TEMACOR,
-                AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.MODE_NIGHT_NO,
             ) == AppCompatDelegate.MODE_NIGHT_YES
         ) {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_NO).apply()
@@ -103,10 +106,5 @@ class MainFragment : Fragment() {
             sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_YES).apply()
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.carregarNotas()
     }
 }
