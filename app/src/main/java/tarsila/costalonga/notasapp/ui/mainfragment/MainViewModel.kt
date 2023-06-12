@@ -1,5 +1,7 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +13,10 @@ import tarsila.costalonga.notasapp.repositorio.NotasRepositorio
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val repositorio: NotasRepositorio,
+    private val sharedPreferences: SharedPreferences,
+) : ViewModel() {
 
     val allNotas = MutableStateFlow<List<Notas>>(emptyList())
 
@@ -39,5 +44,27 @@ class MainViewModel @Inject constructor(val repositorio: NotasRepositorio) : Vie
             nota.ordem = index
             updateNota(nota)
         }
+    }
+
+    fun getThemePreferences() = sharedPreferences.getInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_NO)
+
+    private fun putThemePreferences(value: Int) {
+        sharedPreferences.edit().putInt(TEMACOR, value).apply()
+    }
+
+    fun changeTheme(): Int {
+        return if (getThemePreferences() == AppCompatDelegate.MODE_NIGHT_YES) {
+            val night = AppCompatDelegate.MODE_NIGHT_NO
+            putThemePreferences(night)
+            night
+        } else {
+            val light = AppCompatDelegate.MODE_NIGHT_YES
+            putThemePreferences(AppCompatDelegate.MODE_NIGHT_YES)
+            light
+        }
+    }
+
+    companion object {
+        private const val TEMACOR = "mudar_tema"
     }
 }
