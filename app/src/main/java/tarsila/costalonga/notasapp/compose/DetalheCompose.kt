@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -107,10 +108,10 @@ fun BottomBarWithFab(
     var anotacao by rememberSaveable { mutableStateOf(notaDetalhe.anotacao) }
 
     var editNotaClick by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
-    var fabIcon by rememberSaveable { mutableStateOf(Icons.Default.Edit) }
+    var fabIcon by remember { mutableStateOf(Icons.Default.Edit) }
 
     val inputService = LocalSoftwareKeyboardController.current
-    val focusRequester = rememberSaveable { FocusRequester() }
+    val focusRequester = remember { FocusRequester() }
     val scope = rememberCoroutineScope()
 
     Scaffold(
