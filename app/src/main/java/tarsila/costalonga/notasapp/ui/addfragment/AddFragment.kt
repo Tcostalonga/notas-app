@@ -27,7 +27,7 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(false)
         binding = FragmentAddBinding.inflate(inflater, container, false)
@@ -37,9 +37,10 @@ class AddFragment : Fragment() {
             setContent {
                 NotaComposeTheme {
                     AddCompose(
+                        viewModel,
                         onAddNoteClickButton = { title, description ->
                             viewModel.addNota(title, description, args.tamanhoLista)
-                        }
+                        },
                     )
                 }
             }
@@ -57,6 +58,7 @@ class AddFragment : Fragment() {
                     makeToast(requireContext(), getString(R.string.nota_insert))
                     findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
                 }
+
                 AddNotaStatus.Error -> {
                     makeToast(requireContext(), getString(R.string.obrigatoriedade_de_campo))
                 }
