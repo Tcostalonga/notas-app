@@ -45,7 +45,6 @@ class AddFragment : Fragment() {
                 }
             }
         }
-
         return binding.root
     }
 

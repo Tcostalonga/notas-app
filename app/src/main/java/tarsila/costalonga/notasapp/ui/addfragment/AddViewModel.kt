@@ -17,12 +17,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    val repositorio: NotasRepositorio,
-    val sharedPreferences: SharedPreferences,
+    private val repositorio: NotasRepositorio,
+    private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
 
     private val _rascunho = MutableStateFlow(Rascunho())
     val rascunho: StateFlow<Rascunho> = _rascunho
+
+    private val _showScratchAlert = MutableStateFlow(false)
+    val showScratchAlert: StateFlow<Boolean> = _showScratchAlert
 
     private var isRascunho = true
 
@@ -38,8 +41,8 @@ class AddViewModel @Inject constructor(
             else -> {
                 val newNota = Notas(titulo = title, anotacao = description, ordem = listSize)
                 insertNota(newNota)
-                isRascunho = false
-                putRascunho("", "")
+                clearSharedPreferences()
+                setIsRascunhoDisabled()
                 _addNotaStatus.postValue(AddNotaStatus.Success)
             }
         }
@@ -52,7 +55,9 @@ class AddViewModel @Inject constructor(
     }
 
     fun addRascunho(title: String, description: String) {
-        if (isRascunho) putRascunho(title, description)
+        if (isRascunho && (title.isNotEmpty() || description.isNotEmpty())) {
+            putRascunho(title, description)
+        }
     }
 
     private fun putRascunho(titulo: String, descricao: String) {
@@ -63,21 +68,40 @@ class AddViewModel @Inject constructor(
     }
 
     fun getRascunho() {
+        val title = sharedPreferences.getString(RASCUNHO_TITULO, "") ?: ""
+        val description = sharedPreferences.getString(RASCUNHO_ANOTACAO, "") ?: ""
+
         _rascunho.update {
             it.copy(
-                title = sharedPreferences.getString(RASCUNHO_TITULO, "") ?: "",
-                description = sharedPreferences.getString(RASCUNHO_ANOTACAO, "") ?: "",
+                title = title,
+                description = description,
             )
+        }
+
+        if (title.isNotEmpty() || description.isNotEmpty()) {
+            _showScratchAlert.update { true }
         }
     }
 
-    fun updateTitle(title: String) {
+    fun clearSharedPreferences() {
+        sharedPreferences.edit().clear().apply()
+    }
+
+    private fun setIsRascunhoDisabled() {
+        isRascunho = false
+    }
+
+    fun hideScratchAlert() {
+        _showScratchAlert.update { false }
+    }
+
+    fun updateTitle(title: String = "") {
         _rascunho.update {
             it.copy(title = title)
         }
     }
 
-    fun updateDescription(description: String) {
+    fun updateDescription(description: String = "") {
         _rascunho.update {
             it.copy(description = description)
         }

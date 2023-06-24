@@ -29,6 +29,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.compose.alert.ShowScratchAlert
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.compose.util.rememberLifecycleEvent
 import tarsila.costalonga.notasapp.ui.addfragment.AddViewModel
@@ -40,6 +41,7 @@ fun AddCompose(
     onAddNoteClickButton: (String, String) -> Unit,
 ) {
     val rascunho by viewModel.rascunho.collectAsStateWithLifecycle()
+    val showScratchAlert by viewModel.showScratchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
     val lifecycle = rememberLifecycleEvent()
 
@@ -51,6 +53,21 @@ fun AddCompose(
 
     LaunchedEffect(true) {
         viewModel.getRascunho()
+    }
+
+    if (showScratchAlert) {
+        ShowScratchAlert(
+            showScratchAlert = {
+                if (!it) {
+                    viewModel.hideScratchAlert()
+                }
+            },
+            onDismissDialogButton = {
+                viewModel.clearSharedPreferences()
+                viewModel.updateTitle()
+                viewModel.updateDescription()
+            },
+        )
     }
 
     Scaffold(
@@ -98,7 +115,7 @@ fun AddCompose(
 @Composable
 fun PreviewAddCompose() {
     NotaComposeTheme() {
-        AddCompose(viewModel()) { _, _ -> }
+        AddCompose(viewModel(), { _, _ -> })
     }
 }
 
