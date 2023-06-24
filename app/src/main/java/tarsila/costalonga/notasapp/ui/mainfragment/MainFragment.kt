@@ -1,7 +1,5 @@
 package tarsila.costalonga.notasapp.ui.mainfragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,16 +15,12 @@ import tarsila.costalonga.notasapp.compose.MainCompose
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 
-const val TEMACOR = "Mudar tema"
-
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
 
     private val viewModel: MainViewModel by viewModels()
-
-    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,14 +52,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        // Iniciando SharedPrefs e atribuindo valor default
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        AppCompatDelegate.setDefaultNightMode(
-            sharedPref.getInt(
-                TEMACOR,
-                AppCompatDelegate.MODE_NIGHT_NO,
-            ),
-        )
+        AppCompatDelegate.setDefaultNightMode(viewModel.getThemePreferences())
 
         return binding.root
     }
@@ -89,22 +76,8 @@ class MainFragment : Fragment() {
             }
 
             ItemMenuType.TEMA -> {
-                changeTema()
+                AppCompatDelegate.setDefaultNightMode(viewModel.changeTheme())
             }
-        }
-    }
-
-    private fun changeTema() {
-        if (sharedPref.getInt(
-                TEMACOR,
-                AppCompatDelegate.MODE_NIGHT_NO,
-            ) == AppCompatDelegate.MODE_NIGHT_YES
-        ) {
-            sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_NO).apply()
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        } else {
-            sharedPref.edit().putInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_YES).apply()
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 }

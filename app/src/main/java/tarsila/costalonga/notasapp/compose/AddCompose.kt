@@ -15,10 +15,8 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,15 +25,50 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.compose.alert.ShowScratchAlert
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.compose.util.rememberLifecycleEvent
+import tarsila.costalonga.notasapp.ui.addfragment.AddViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
-    var titleState by remember { mutableStateOf("") }
-    var descriptionState by remember { mutableStateOf("") }
+fun AddCompose(
+    viewModel: AddViewModel,
+    onAddNoteClickButton: (String, String) -> Unit,
+) {
+    val rascunho by viewModel.rascunho.collectAsStateWithLifecycle()
+    val showScratchAlert by viewModel.showScratchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
+    val lifecycle = rememberLifecycleEvent()
+
+    LaunchedEffect(lifecycle) {
+        if (lifecycle == Lifecycle.Event.ON_STOP) {
+            viewModel.addRascunho(rascunho.title, rascunho.description)
+        }
+    }
+
+    LaunchedEffect(true) {
+        viewModel.getRascunho()
+    }
+
+    if (showScratchAlert) {
+        ShowScratchAlert(
+            showScratchAlert = {
+                if (!it) {
+                    viewModel.hideScratchAlert()
+                }
+            },
+            onDismissDialogButton = {
+                viewModel.clearSharedPreferences()
+                viewModel.updateTitle()
+                viewModel.updateDescription()
+            },
+        )
+    }
 
     Scaffold(
         topBar = { MyTopAppBar() },
@@ -46,35 +79,33 @@ fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
             FloatingActionButton(
                 onClick = {
                     keyboard?.hide()
-                    onAddNoteClickButton(titleState, descriptionState)
-                }
+                    onAddNoteClickButton(rascunho.title, rascunho.description)
+                },
             ) {
                 Icon(
                     Icons.Default.Done,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.background
+                    tint = MaterialTheme.colors.background,
                 )
             }
         },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.End,
     ) {
         Column(Modifier.padding(top = dimensionResource(id = R.dimen.margin_pequena) + it.calculateTopPadding())) {
             CustomAddTextField(
-                value = titleState,
-                onValueChange = { titleState = it },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                value = rascunho.title,
+                onValueChange = { viewModel.updateTitle(it) },
+                modifier = Modifier.fillMaxWidth(),
                 labelText = R.string.titulo,
                 textStyle = MaterialTheme.typography.subtitle1,
-                singleLine = true
+                singleLine = true,
             )
-
             CustomAddTextField(
-                value = descriptionState,
-                onValueChange = { descriptionState = it },
+                value = rascunho.description,
+                onValueChange = { viewModel.updateDescription(it) },
                 modifier = Modifier.fillMaxSize(),
                 labelText = R.string.anotacao,
-                textStyle = MaterialTheme.typography.body1
+                textStyle = MaterialTheme.typography.body1,
             )
         }
     }
@@ -84,7 +115,7 @@ fun AddCompose(onAddNoteClickButton: (String, String) -> Unit) {
 @Composable
 fun PreviewAddCompose() {
     NotaComposeTheme() {
-        AddCompose(onAddNoteClickButton = { _, _ -> })
+        AddCompose(viewModel(), { _, _ -> })
     }
 }
 
@@ -95,14 +126,14 @@ fun CustomAddTextField(
     modifier: Modifier,
     labelText: Int,
     textStyle: TextStyle,
-    singleLine: Boolean = false
+    singleLine: Boolean = false,
 ) {
     val textFieldColors = TextFieldDefaults.textFieldColors(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         backgroundColor = Color.Transparent,
         cursorColor = MaterialTheme.colors.primaryVariant,
-        focusedLabelColor = MaterialTheme.colors.primaryVariant
+        focusedLabelColor = MaterialTheme.colors.primaryVariant,
     )
 
     TextField(
@@ -113,10 +144,10 @@ fun CustomAddTextField(
         label = {
             Text(
                 text = stringResource(id = labelText),
-                style = textStyle
+                style = textStyle,
             )
         },
         singleLine = singleLine,
-        colors = textFieldColors
+        colors = textFieldColors,
     )
 }
