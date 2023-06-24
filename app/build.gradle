@@ -14,8 +14,8 @@ android {
         applicationId "tarsila.costalonga.notasapp"
         minSdk 23
         targetSdk 33
-        versionCode 10
-        versionName "1.0-jetpack"
+        versionCode 11
+        versionName "1.1-jetpack"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
