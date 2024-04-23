@@ -18,7 +18,6 @@ import tarsila.costalonga.notasapp.utils.makeToast
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
-
     private lateinit var binding: FragmentAddBinding
 
     private val viewModel: AddViewModel by viewModels()
@@ -38,17 +37,19 @@ class AddFragment : Fragment() {
                 NotaComposeTheme {
                     AddCompose(
                         viewModel,
-                        onAddNoteClickButton = { title, description ->
-                            viewModel.addNota(title, description, args.tamanhoLista)
-                        },
-                    )
+                    ) { title, description ->
+                        viewModel.addNota(title, description, args.tamanhoLista)
+                    }
                 }
             }
         }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.addNotaStatus.observe(this.viewLifecycleOwner) {

@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import tarsila.costalonga.notasapp.compose.EstatisticasCompose
+import tarsila.costalonga.notasapp.compose.EstatisticasScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentEstatisticasBinding
 
@@ -33,7 +33,7 @@ class EstatisticasFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    EstatisticasCompose(viewModel)
+                    EstatisticasScreen(viewModel)
                 }
             }
         }

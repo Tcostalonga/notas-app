@@ -2,31 +2,30 @@ package tarsila.costalonga.notasapp.compose
 
 import androidx.annotation.ColorRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,7 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -96,7 +95,6 @@ fun NotasShowAndEdit(
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BottomBarWithFab(
     viewModel: DetalheViewModel = hiltViewModel(),
@@ -108,64 +106,13 @@ fun BottomBarWithFab(
     var anotacao by rememberSaveable { mutableStateOf(notaDetalhe.anotacao) }
 
     var editNotaClick by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
-    var fabIcon by remember { mutableStateOf(Icons.Default.Edit) }
 
     val inputService = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
-    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = { MyTopAppBar() },
-        scaffoldState = rememberScaffoldState(),
-        bottomBar = {
-            BottomAppBar(cutoutShape = CircleShape, content = {
-                IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
-                    Icon(
-                        Icons.Default.Share,
-                        contentDescription = null,
-                    )
-                }
-                Spacer(Modifier.padding(end = 8.dp))
-
-                IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
-                    Icon(
-                        Icons.Default.Delete,
-                        contentDescription = null,
-                    )
-                }
-            })
-        },
-        floatingActionButtonPosition = FabPosition.End,
-        isFloatingActionButtonDocked = true,
-        floatingActionButton = {
-            FloatingActionButton(
-                shape = CircleShape,
-                onClick = {
-                    when (editNotaClick) {
-                        DetailMode.VIEW -> {
-                            editNotaClick = DetailMode.EDIT
-                            fabIcon = Icons.Default.Done
-                            scope.launch {
-                                delay(200)
-                                focusRequester.requestFocus()
-                            }
-                        }
-
-                        DetailMode.EDIT -> {
-                            editNotaClick = DetailMode.VIEW
-                            fabIcon = Icons.Default.Edit
-                            onFabClicked(titulo, anotacao)
-                        }
-                    }
-                },
-            ) {
-                Icon(
-                    fabIcon,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.background,
-                )
-            }
-        },
+        bottomBar = { CustomBottomAppBar(onMenuClicked, onFabClicked) },
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -179,7 +126,7 @@ fun BottomBarWithFab(
                 ) {
                     InsertText(
                         modifier = Modifier.wrapContentSize(),
-                        textStyle = MaterialTheme.typography.overline,
+                        textStyle = MaterialTheme.typography.labelSmall,
                         text = stringResource(
                             R.string.text_dtCriacao_format,
                             viewModel.getFormattedData(notaDetalhe.dtCriacao),
@@ -188,7 +135,7 @@ fun BottomBarWithFab(
 
                     InsertText(
                         modifier = Modifier.wrapContentSize(),
-                        textStyle = MaterialTheme.typography.overline,
+                        textStyle = MaterialTheme.typography.labelSmall,
                         text = stringResource(
                             R.string.text_dtAtualizado_format,
                             viewModel.getFormattedData(notaDetalhe.dtAtualizado),
@@ -211,7 +158,7 @@ fun BottomBarWithFab(
                         }
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.onPrimary),
+                    textStyle = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onPrimary),
                 )
 
                 NotasShowAndEdit(
@@ -221,17 +168,80 @@ fun BottomBarWithFab(
                         .padding(top = dimensionResource(id = R.dimen.margin_pequena))
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onPrimary),
                 )
             }
         },
     )
 }
 
+@Composable
+fun CustomBottomAppBar(
+    onMenuClicked: (MenuType) -> Unit,
+    onFabClicked: (String, String) -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    var fabIcon by remember { mutableStateOf(Icons.Filled.Edit) }
+    val focusRequester = remember { FocusRequester() }
+    var editNotaClick by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
+
+    Box {
+        BottomAppBar(
+            modifier = Modifier
+                .align(Alignment.BottomCenter),
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ) {
+            IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
+                Icon(
+                    Icons.Filled.Share,
+                    contentDescription = null,
+                )
+            }
+            Spacer(Modifier.padding(end = 8.dp))
+
+            IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
+                Icon(
+                    Icons.Filled.Delete,
+                    contentDescription = null,
+                )
+            }
+        }
+        FloatingActionButton(
+            onClick = {
+                when (editNotaClick) {
+                    DetailMode.VIEW -> {
+                        editNotaClick = DetailMode.EDIT
+                        fabIcon = Icons.Filled.Done
+                        scope.launch {
+                            delay(200)
+                            focusRequester.requestFocus()
+                        }
+                    }
+
+                    DetailMode.EDIT -> {
+                        editNotaClick = DetailMode.VIEW
+                        fabIcon = Icons.Filled.Edit
+                        onFabClicked("titulo", "anotacao")
+                    }
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = (-30).dp),
+        ) {
+            Icon(
+                fabIcon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.background,
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true, uiMode = 1)
 @Composable
 fun PreviewDetalheCompose() {
-    NotaComposeTheme() {
+    NotaComposeTheme {
         DetalheCompose()
     }
 }

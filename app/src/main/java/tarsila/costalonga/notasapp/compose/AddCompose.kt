@@ -4,22 +4,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -34,7 +31,6 @@ import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.compose.util.rememberLifecycleEvent
 import tarsila.costalonga.notasapp.ui.addfragment.AddViewModel
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddCompose(
     viewModel: AddViewModel,
@@ -83,9 +79,9 @@ fun AddCompose(
                 },
             ) {
                 Icon(
-                    Icons.Default.Done,
+                    Icons.Filled.Done,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.background,
+                    tint = MaterialTheme.colorScheme.background,
                 )
             }
         },
@@ -97,7 +93,7 @@ fun AddCompose(
                 onValueChange = { viewModel.updateTitle(it) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = R.string.titulo,
-                textStyle = MaterialTheme.typography.subtitle1,
+                textStyle = MaterialTheme.typography.titleSmall,
                 singleLine = true,
             )
             CustomAddTextField(
@@ -105,7 +101,7 @@ fun AddCompose(
                 onValueChange = { viewModel.updateDescription(it) },
                 modifier = Modifier.fillMaxSize(),
                 labelText = R.string.anotacao,
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.bodyLarge,
             )
         }
     }
@@ -114,8 +110,8 @@ fun AddCompose(
 @Preview(showBackground = true, uiMode = 1)
 @Composable
 fun PreviewAddCompose() {
-    NotaComposeTheme() {
-        AddCompose(viewModel(), { _, _ -> })
+    NotaComposeTheme {
+        AddCompose(viewModel()) { _, _ -> }
     }
 }
 
@@ -128,13 +124,13 @@ fun CustomAddTextField(
     textStyle: TextStyle,
     singleLine: Boolean = false,
 ) {
-    val textFieldColors = TextFieldDefaults.textFieldColors(
-        focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent,
-        backgroundColor = Color.Transparent,
-        cursorColor = MaterialTheme.colors.primaryVariant,
-        focusedLabelColor = MaterialTheme.colors.primaryVariant,
-    )
+    /*    val textFieldColors = TextFieldDefaults.colors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            background = Color.Transparent,
+            cursorColor = MaterialTheme.colorScheme.secondary,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+        )*/
 
     TextField(
         value = value,
@@ -148,6 +144,6 @@ fun CustomAddTextField(
             )
         },
         singleLine = singleLine,
-        colors = textFieldColors,
+        //   colors = textFieldColors,
     )
 }

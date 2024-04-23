@@ -7,18 +7,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,18 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainCompose(
+internal fun MainComposeScreen(
     onFabClicked: (Int) -> Unit = {},
     onItemListClicked: (Notas) -> Unit = {},
     onMenuClick: (ItemMenuType) -> Unit = {},
@@ -48,19 +47,41 @@ fun MainCompose(
 ) {
     val allNotas by viewModel.allNotas.collectAsStateWithLifecycle()
     val isSearchEnabled by viewModel.isSearchEnabled.collectAsStateWithLifecycle()
-    var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
-    var filteredNotas: List<Notas>
 
     LaunchedEffect(Unit) {
         viewModel.carregarNotas()
     }
+
+    MainCompose(
+        isSearchEnabled,
+        allNotas,
+        onMenuClick,
+        onFabClicked,
+        onItemListClicked,
+        onCheckedChange = { nota, checkedStatus -> viewModel.checkboxStatus(nota, checkedStatus) },
+        onArrowBackClicked = { viewModel.isSearchEnabled.value = false },
+    )
+}
+
+@Composable
+private fun MainCompose(
+    isSearchEnabled: Boolean,
+    allNotas: List<Notas>,
+    onMenuClick: (ItemMenuType) -> Unit = {},
+    onFabClicked: (Int) -> Unit = {},
+    onItemListClicked: (Notas) -> Unit = {},
+    onCheckedChange: (Notas, Boolean) -> Unit = { _, _ -> },
+    onArrowBackClicked: () -> Unit = {},
+) {
+    var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
+    var filteredNotas: List<Notas>
 
     Scaffold(
         topBar = {
             if (isSearchEnabled) {
                 SearchLayoutBar(
                     onArrowBackClicked = {
-                        viewModel.isSearchEnabled.value = false
+                        onArrowBackClicked()
                         searchTerm = ""
                     },
                     searchTerm = searchTerm,
@@ -70,23 +91,22 @@ fun MainCompose(
                 MyTopAppBar(true, onMenuClick)
             }
         },
-        scaffoldState = rememberScaffoldState(),
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                shape = CircleShape,
                 onClick = { onFabClicked(allNotas.size) },
             ) {
                 Icon(
-                    Icons.Default.Add,
+                    Icons.Filled.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.background,
                 )
             }
         },
     ) {
         LazyColumn(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.margin_pequena)),
+            modifier = Modifier
+                .padding(it)
+                .padding(dimensionResource(id = R.dimen.margin_pequena)),
             content = {
                 filteredNotas = performFilterInTitle(searchTerm, allNotas)
 
@@ -96,7 +116,7 @@ fun MainCompose(
                         nota = nota,
                         onItemClicked = { onItemListClicked(nota) },
                         onCheckedChange = { checkedStatus ->
-                            viewModel.checkboxStatus(nota, checkedStatus)
+                            onCheckedChange(nota, checkedStatus)
                         },
                     )
                 }
@@ -105,7 +125,10 @@ fun MainCompose(
     }
 }
 
-fun performFilterInTitle(searchedText: String, allNotas: List<Notas>): List<Notas> {
+fun performFilterInTitle(
+    searchedText: String,
+    allNotas: List<Notas>,
+): List<Notas> {
     return if (searchedText != PESQUISAR && searchedText.isNotEmpty()) {
         val resultList = mutableListOf<Notas>()
         for (nota in allNotas) {
@@ -120,7 +143,11 @@ fun performFilterInTitle(searchedText: String, allNotas: List<Notas>): List<Nota
 }
 
 @Composable
-fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) -> Unit) {
+fun ItemList(
+    nota: Notas,
+    onItemClicked: () -> Unit,
+    onCheckedChange: (Boolean) -> Unit,
+) {
     var checkedState by rememberSaveable { mutableStateOf(nota.finalizado) }
 
     Row(
@@ -134,14 +161,10 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
          Icon(
                 painter = painterResource(id = R.drawable.drag_indicator_24),
                 contentDescription = null,
-                tint = MaterialTheme.colors.primaryVariant
+                tint = MaterialTheme.colorScheme.primaryVariant
             ) */
         Checkbox(
             checked = checkedState,
-            colors = CheckboxDefaults.colors(
-                checkedColor = MaterialTheme.colors.secondaryVariant,
-                uncheckedColor = MaterialTheme.colors.primaryVariant,
-            ),
             onCheckedChange = {
                 checkedState = it
                 onCheckedChange(it)
@@ -152,8 +175,7 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
                 .fillMaxWidth()
                 .clickable { onItemClicked() },
             text = nota.titulo,
-            style = MaterialTheme.typography.body1.copy(
-                color = MaterialTheme.colors.onPrimary,
+            style = MaterialTheme.typography.bodyLarge.copy(
                 textDecoration = getTextDecoration(checkedState),
             ),
             maxLines = 2,
@@ -162,10 +184,12 @@ fun ItemList(nota: Notas, onItemClicked: () -> Unit, onCheckedChange: (Boolean) 
     }
 }
 
-@Preview(showBackground = true, uiMode = 1)
+@PreviewLightDark
 @Composable
-fun PreviewMainCompose() {
+fun PreviewMainCompose(
+    @PreviewParameter(PreviewParams::class) listOfNotas: List<Notas>,
+) {
     NotaComposeTheme {
-        MainCompose()
+        MainCompose(false, listOfNotas)
     }
 }

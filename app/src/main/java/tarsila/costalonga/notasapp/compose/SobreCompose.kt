@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import tarsila.costalonga.notasapp.R
@@ -32,14 +32,14 @@ fun SobreDescription() {
                     .padding(vertical = 16.dp)
                     .padding(it)
                     .background(
-                        MaterialTheme.colors.secondary,
-                        shape = RoundedCornerShape(percent = 100)
-                    )
+                        MaterialTheme.colorScheme.primaryContainer,
+                        shape = RoundedCornerShape(percent = 100),
+                    ),
             )
 
             AndroidViewBinding(
                 factory = SobreTextBinding::inflate,
-                modifier = Modifier.wrapContentHeight()
+                modifier = Modifier.wrapContentHeight(),
             ) {
                 txtConteudo.movementMethod = LinkMovementMethod.getInstance()
             }
@@ -47,10 +47,10 @@ fun SobreDescription() {
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 fun PreviewSobreCompose() {
-    NotaComposeTheme() {
+    NotaComposeTheme {
         SobreDescription()
     }
 }
