@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#9FD824</color>
+    <color name="colorOnPrimary">#243600</color>
+    <color name="colorPrimaryContainer">#364E00</color>
+    <color name="colorOnPrimaryContainer">#B9F543</color>
 
-    //Dark theme
-    <color name="colorPrimary">#383838</color>
-    <color name="colorPrimaryDark">#828282</color>
-    <color name="colorAccent">#828282</color>
-    <color name="colorbkg">#4A4A4A</color>
-    <color name="colorVerde">#ade836</color>
-    <color name="primaryTextColor">#E3E4D6</color>
-    <color name="secondaryTextColor">#5C5C5C</color>
+    <color name="colorSecondary">#C1CAAB</color>
+    <color name="colorOnSecondary">#2B331D</color>
+    <color name="colorSecondaryContainer">#424A32</color>
+    <color name="colorOnSecondaryContainer">#DDE6C6</color>
 
+    <color name="background">#1B1C17</color>
+    <color name="onBackground">#E4E3DB</color>
+    <color name="surface">#101801</color>
+    <color name="onSurface">#E4E3DB</color>
+    <color name="outline">#8F9284</color>
 </resources>
