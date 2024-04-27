@@ -11,8 +11,8 @@
     <color name="colorOnSecondaryContainer">#DDE6C6</color>
 
     <color name="background">#1B1C17</color>
-    <color name="onBackground">#E4E3DB</color>
-    <color name="surface">#101801</color>
+    <color name="onBackground">#D5D4D0</color>
+    <color name="surface">#131310</color>
     <color name="onSurface">#E4E3DB</color>
     <color name="outline">#8F9284</color>
 </resources>

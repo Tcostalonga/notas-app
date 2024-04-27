@@ -13,7 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
-import tarsila.costalonga.notasapp.compose.DetalheCompose
+import tarsila.costalonga.notasapp.compose.DetailScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
 import tarsila.costalonga.notasapp.utils.makeToast
@@ -40,7 +40,7 @@ class DetalheFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    DetalheCompose(
+                    DetailScreen(
                         onMenuClicked = { menuType ->
                             when (menuType) {
                                 MenuType.SHARE -> criarShare()

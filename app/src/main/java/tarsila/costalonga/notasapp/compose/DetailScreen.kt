@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
@@ -44,31 +43,51 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.bd.Notas
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detalhefragment.DetailMode
 import tarsila.costalonga.notasapp.ui.detalhefragment.DetalheViewModel
 import tarsila.costalonga.notasapp.ui.detalhefragment.MenuType
 
 @Composable
-fun DetalheCompose(
+internal fun DetailScreen(
+    viewModel: DetalheViewModel = hiltViewModel(),
     onMenuClicked: (MenuType) -> Unit = {},
     onFabClicked: (String, String) -> Unit = { _, _ -> },
 ) {
-    BottomBarWithFab(onMenuClicked = onMenuClicked, onFabClicked = onFabClicked)
+    val notaDetalhe by viewModel.notaDetalhe.collectAsState()
+
+    val formattedDtCriacao by remember {
+        mutableStateOf(viewModel.getFormattedData(notaDetalhe.dtCriacao))
+    }
+
+    val formattedDtAtualizado by remember {
+        mutableStateOf(viewModel.getFormattedData(notaDetalhe.dtAtualizado))
+    }
+
+    BottomBarWithFab(
+        notaDetalhe,
+        formattedDtCriacao,
+        formattedDtAtualizado,
+        onMenuClicked = onMenuClicked,
+        onFabClicked = onFabClicked,
+    )
 }
 
 @Composable
 fun InsertText(
-    modifier: Modifier,
     text: String,
-    @ColorRes textColor: Color = Color.Unspecified,
     textStyle: TextStyle,
+    modifier: Modifier = Modifier,
+    @ColorRes textColor: Color = Color.Unspecified,
 ) {
     Text(
         modifier = modifier,
@@ -97,11 +116,12 @@ fun NotasShowAndEdit(
 
 @Composable
 fun BottomBarWithFab(
-    viewModel: DetalheViewModel = hiltViewModel(),
+    notaDetalhe: Notas,
+    formattedDtCriacao: String,
+    formattedDtAtualizado: String,
     onMenuClicked: (MenuType) -> Unit,
     onFabClicked: (String, String) -> Unit,
 ) {
-    val notaDetalhe by viewModel.notaDetalhe.collectAsState()
     var titulo by rememberSaveable { mutableStateOf(notaDetalhe.titulo) }
     var anotacao by rememberSaveable { mutableStateOf(notaDetalhe.anotacao) }
 
@@ -117,7 +137,7 @@ fun BottomBarWithFab(
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
-                    .padding(bottom = paddingValues.calculateBottomPadding())
+                    .padding(paddingValues)
                     .padding(dimensionResource(id = R.dimen.margin_media)),
             ) {
                 Row(
@@ -125,21 +145,19 @@ fun BottomBarWithFab(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     InsertText(
-                        modifier = Modifier.wrapContentSize(),
-                        textStyle = MaterialTheme.typography.labelSmall,
                         text = stringResource(
                             R.string.text_dtCriacao_format,
-                            viewModel.getFormattedData(notaDetalhe.dtCriacao),
+                            formattedDtCriacao,
                         ),
+                        textStyle = MaterialTheme.typography.labelSmall,
                     )
 
                     InsertText(
-                        modifier = Modifier.wrapContentSize(),
-                        textStyle = MaterialTheme.typography.labelSmall,
                         text = stringResource(
                             R.string.text_dtAtualizado_format,
-                            viewModel.getFormattedData(notaDetalhe.dtAtualizado),
+                            formattedDtAtualizado,
                         ),
+                        textStyle = MaterialTheme.typography.labelSmall,
                     )
                 }
                 NotasShowAndEdit(
@@ -158,7 +176,7 @@ fun BottomBarWithFab(
                         }
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onPrimary),
+                    textStyle = MaterialTheme.typography.titleMedium,
                 )
 
                 NotasShowAndEdit(
@@ -168,7 +186,7 @@ fun BottomBarWithFab(
                         .padding(top = dimensionResource(id = R.dimen.margin_pequena))
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onPrimary),
+                    textStyle = MaterialTheme.typography.bodyLarge,
                 )
             }
         },
@@ -189,12 +207,12 @@ fun CustomBottomAppBar(
         BottomAppBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                 Icon(
                     Icons.Filled.Share,
                     contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             }
             Spacer(Modifier.padding(end = 8.dp))
@@ -202,6 +220,7 @@ fun CustomBottomAppBar(
             IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                 Icon(
                     Icons.Filled.Delete,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     contentDescription = null,
                 )
             }
@@ -232,16 +251,17 @@ fun CustomBottomAppBar(
             Icon(
                 fabIcon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.background,
             )
         }
     }
 }
 
-@Preview(showBackground = true, uiMode = 1)
+@PreviewLightDark
 @Composable
-fun PreviewDetalheCompose() {
+fun PreviewDetalheCompose(
+    @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Notas>,
+) {
     NotaComposeTheme {
-        DetalheCompose()
+        BottomBarWithFab(nota[0], "123", "1234", {}, { _, _ -> })
     }
 }

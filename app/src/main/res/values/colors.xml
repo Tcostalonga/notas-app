@@ -10,7 +10,7 @@
     <color name="colorSecondaryContainer">#DDE6C6</color>
     <color name="colorOnSecondaryContainer">#171E0A</color>
 
-    <color name="background">#FAFAFA</color>
+    <color name="background">#F6F8F0</color>
     <color name="onBackground">#001F25</color>
     <color name="surface">#E2E4D4</color>
     <color name="onSurface">#45483D</color>
