@@ -1,17 +1,16 @@
 package tarsila.costalonga.notasapp.compose
 
 import androidx.annotation.ColorRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text2.BasicTextField2
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -19,6 +18,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,12 +33,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -97,6 +97,7 @@ fun InsertText(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotasShowAndEdit(
     text: String,
@@ -105,17 +106,18 @@ fun NotasShowAndEdit(
     isEnabled: Boolean,
     textStyle: TextStyle,
 ) {
-    BasicTextField(
+    BasicTextField2(
         value = text,
         onValueChange = onTextChange,
         modifier = modifier,
         enabled = isEnabled,
         textStyle = textStyle,
+        cursorBrush = SolidColor(Color.Red),
     )
 }
 
 @Composable
-fun BottomBarWithFab(
+private fun BottomBarWithFab(
     notaDetalhe: Notas,
     formattedDtCriacao: String,
     formattedDtAtualizado: String,
@@ -176,7 +178,9 @@ fun BottomBarWithFab(
                         }
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.titleMedium,
+                    textStyle = MaterialTheme.typography.titleMedium.copy(
+                        color = MaterialTheme.colorScheme.onBackground,
+                    ),
                 )
 
                 NotasShowAndEdit(
@@ -186,7 +190,7 @@ fun BottomBarWithFab(
                         .padding(top = dimensionResource(id = R.dimen.margin_pequena))
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.bodyLarge,
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                 )
             }
         },
@@ -203,16 +207,13 @@ fun CustomBottomAppBar(
     val focusRequester = remember { FocusRequester() }
     var editNotaClick by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
 
-    Box {
-        BottomAppBar(
-            modifier = Modifier
-                .align(Alignment.BottomCenter),
-        ) {
+    BottomAppBar(
+        actions = {
             IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                 Icon(
                     Icons.Filled.Share,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
             Spacer(Modifier.padding(end = 8.dp))
@@ -220,40 +221,40 @@ fun CustomBottomAppBar(
             IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                 Icon(
                     Icons.Filled.Delete,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     contentDescription = null,
                 )
             }
-        }
-        FloatingActionButton(
-            onClick = {
-                when (editNotaClick) {
-                    DetailMode.VIEW -> {
-                        editNotaClick = DetailMode.EDIT
-                        fabIcon = Icons.Filled.Done
-                        scope.launch {
-                            delay(200)
-                            focusRequester.requestFocus()
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    when (editNotaClick) {
+                        DetailMode.VIEW -> {
+                            editNotaClick = DetailMode.EDIT
+                            fabIcon = Icons.Filled.Done
+                            scope.launch {
+                                delay(200)
+                                focusRequester.requestFocus()
+                            }
+                        }
+
+                        DetailMode.EDIT -> {
+                            editNotaClick = DetailMode.VIEW
+                            fabIcon = Icons.Filled.Edit
+                            onFabClicked("titulo", "anotacao")
                         }
                     }
-
-                    DetailMode.EDIT -> {
-                        editNotaClick = DetailMode.VIEW
-                        fabIcon = Icons.Filled.Edit
-                        onFabClicked("titulo", "anotacao")
-                    }
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-30).dp),
-        ) {
-            Icon(
-                fabIcon,
-                contentDescription = null,
-            )
-        }
-    }
+                },
+                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+            ) {
+                Icon(
+                    fabIcon,
+                    contentDescription = null,
+                )
+            }
+        },
+    )
 }
 
 @PreviewLightDark
