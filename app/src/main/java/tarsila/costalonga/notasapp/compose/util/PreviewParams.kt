@@ -8,14 +8,17 @@ class PreviewParams : PreviewParameterProvider<List<Notas>> {
         get() = sequenceOf(
             listOf(
                 Notas(
-                    id = 9150,
-                    titulo = "pericula",
-                    anotacao = "doming",
-                    dtCriacao = 4455,
-                    dtAtualizado = 9991,
+                    id = 4244,
+                    titulo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    anotacao = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales nulla auctor " +
+                        "turpis luctus placerat. Mauris hendrerit consequat massa, quis volutpat elit lacinia a. " +
+                        "Donec posuere congue nisl, vitae vehicula ex posuere sed. Fusce maximus purus at magna " +
+                        "rhoncus, ultricies dictum nibh tristique. ",
+                    dtCriacao = 3553,
+                    dtAtualizado = 2122,
                     imgPath = null,
-                    finalizado = true,
-                    ordem = 9827,
+                    finalizado = false,
+                    ordem = 9030,
                 ),
                 Notas(
                     id = 7137,

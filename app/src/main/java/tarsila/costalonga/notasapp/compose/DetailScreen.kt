@@ -26,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,6 +46,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.R
@@ -63,7 +63,7 @@ internal fun DetailScreen(
     onMenuClicked: (MenuType) -> Unit = {},
     onFabClicked: (String, String) -> Unit = { _, _ -> },
 ) {
-    val notaDetalhe by viewModel.notaDetalhe.collectAsState()
+    val notaDetalhe by viewModel.notaDetalhe.collectAsStateWithLifecycle()
 
     val formattedDtCriacao by remember {
         mutableStateOf(viewModel.getFormattedData(notaDetalhe.dtCriacao))
@@ -73,7 +73,7 @@ internal fun DetailScreen(
         mutableStateOf(viewModel.getFormattedData(notaDetalhe.dtAtualizado))
     }
 
-    BottomBarWithFab(
+    DetailCompose(
         notaDetalhe,
         formattedDtCriacao,
         formattedDtAtualizado,
@@ -83,41 +83,7 @@ internal fun DetailScreen(
 }
 
 @Composable
-fun InsertText(
-    text: String,
-    textStyle: TextStyle,
-    modifier: Modifier = Modifier,
-    @ColorRes textColor: Color = Color.Unspecified,
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        color = textColor,
-        style = textStyle,
-    )
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun NotasShowAndEdit(
-    text: String,
-    onTextChange: (String) -> Unit,
-    modifier: Modifier,
-    isEnabled: Boolean,
-    textStyle: TextStyle,
-) {
-    BasicTextField2(
-        value = text,
-        onValueChange = onTextChange,
-        modifier = modifier,
-        enabled = isEnabled,
-        textStyle = textStyle,
-        cursorBrush = SolidColor(Color.Red),
-    )
-}
-
-@Composable
-private fun BottomBarWithFab(
+private fun DetailCompose(
     notaDetalhe: Notas,
     formattedDtCriacao: String,
     formattedDtAtualizado: String,
@@ -257,12 +223,46 @@ fun CustomBottomAppBar(
     )
 }
 
+@Composable
+fun InsertText(
+    text: String,
+    textStyle: TextStyle,
+    modifier: Modifier = Modifier,
+    @ColorRes textColor: Color = Color.Unspecified,
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = textColor,
+        style = textStyle,
+    )
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun NotasShowAndEdit(
+    text: String,
+    onTextChange: (String) -> Unit,
+    modifier: Modifier,
+    isEnabled: Boolean,
+    textStyle: TextStyle,
+) {
+    BasicTextField2(
+        value = text,
+        onValueChange = onTextChange,
+        modifier = modifier,
+        enabled = isEnabled,
+        textStyle = textStyle,
+        cursorBrush = SolidColor(Color.Red),
+    )
+}
+
 @PreviewLightDark
 @Composable
 fun PreviewDetalheCompose(
     @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Notas>,
 ) {
     NotaComposeTheme {
-        BottomBarWithFab(nota[0], "123", "1234", {}, { _, _ -> })
+        DetailCompose(nota[0], "123", "1234", {}, { _, _ -> })
     }
 }
