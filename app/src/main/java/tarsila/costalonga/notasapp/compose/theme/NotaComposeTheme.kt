@@ -1,77 +1,51 @@
 package tarsila.costalonga.notasapp.compose.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import tarsila.costalonga.notasapp.R
 
 @Composable
 fun NotaComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     MaterialTheme(
-        colors = if (darkTheme) DarkColors else LightColors,
+        colorScheme = if (darkTheme) DarkColors else LightColors,
         typography = NotaTypography,
-        content = content
+        content = content,
     )
 }
 
-private val LightColors = lightColors(
+private val LightColors = lightColorScheme(
     primary = colorPrimaryLight,
-    onPrimary = primaryTextColorLight,
-    primaryVariant = colorPrimaryDarkLight,
-    background = colorbkgLight,
-    surface = colorbkgLight,
-    secondary = colorVerde,
-    onSecondary = secondaryTextColorLight,
-    secondaryVariant = colorAccentLight
+    onPrimary = colorOnPrimaryLight,
+    primaryContainer = colorPrimaryContainerLight,
+    onPrimaryContainer = colorOnPrimaryContainerLight,
+    secondary = colorSecondaryLight,
+    onSecondary = colorOnSecondaryLight,
+    secondaryContainer = colorSecondaryContainerLight,
+    onSecondaryContainer = colorOnSecondaryContainerLight,
+    background = backgroundLight,
+    onBackground = onBackgroundLight,
+    surface = surfaceLight,
+    onSurface = onSurfaceLight,
+    outline = outlineLight,
 )
 
-private val DarkColors = darkColors(
+private val DarkColors = darkColorScheme(
     primary = colorPrimaryDark,
-    onPrimary = primaryTextColorDark,
-    primaryVariant = colorPrimaryDarkLight,
-    background = colorbkgDark,
-    surface = colorbkgDark,
-    secondary = colorVerde,
-    onSecondary = secondaryTextColorDark,
-    secondaryVariant = colorAccentDark
-)
-
-private val ProximaNova = FontFamily(
-    Font(R.font.proxima_nova_regular, FontWeight.Normal)
-)
-
-private val ProximaNovaCondensed = FontFamily(
-    Font(R.font.proxima_nova, FontWeight.Normal)
-)
-
-val NotaTypography = Typography(
-    subtitle1 = TextStyle(
-        fontFamily = ProximaNova,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
-    ),
-    body1 = TextStyle(
-        fontFamily = ProximaNova,
-        fontSize = 18.sp
-    ),
-    body2 = TextStyle(
-        fontFamily = ProximaNovaCondensed,
-        fontSize = 18.sp
-    ),
-    overline = TextStyle(
-        fontFamily = ProximaNovaCondensed,
-        color = colorPrimaryDarkLight,
-        fontSize = 14.sp
-    )
+    onPrimary = colorOnPrimaryDark,
+    primaryContainer = colorPrimaryContainerDark,
+    onPrimaryContainer = colorOnPrimaryContainerDark,
+    secondary = colorSecondaryDark,
+    onSecondary = colorOnSecondaryDark,
+    secondaryContainer = colorSecondaryContainerDark,
+    onSecondaryContainer = colorOnSecondaryContainerDark,
+    background = backgroundDark,
+    onBackground = onBackgroundDark,
+    surface = surfaceDark,
+    onSurface = onSurfaceDark,
+    outline = outlineDark,
 )

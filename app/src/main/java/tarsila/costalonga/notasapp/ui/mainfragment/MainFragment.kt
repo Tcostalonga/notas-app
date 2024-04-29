@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.compose.ItemMenuType
-import tarsila.costalonga.notasapp.compose.MainCompose
+import tarsila.costalonga.notasapp.compose.MainComposeScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentMainBinding
 
@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    MainCompose(
+                    MainComposeScreen(
                         onFabClicked = {
                             findNavController().navigate(
                                 MainFragmentDirections.actionMainFragmentToAddFragment(it),

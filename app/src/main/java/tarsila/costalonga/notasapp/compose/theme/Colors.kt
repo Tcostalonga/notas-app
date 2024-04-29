@@ -2,17 +2,36 @@ package tarsila.costalonga.notasapp.compose.theme
 
 import androidx.compose.ui.graphics.Color
 
-val colorPrimaryLight = Color(0xFFF2F2F2)
-val primaryTextColorLight = Color(0xAE070707)
-val colorAccentLight = Color(0xFFCCCCCC)
-val colorbkgLight = Color(0xFFFAFAFA)
-val secondaryTextColorLight = Color(0xFFE0E0E0)
+// Light Colors
+val colorPrimaryLight = Color(0xFF496800)
+val colorOnPrimaryLight = Color(0xFFFFFFFF)
+val colorPrimaryContainerLight = Color(0xFFB9F543)
+val colorOnPrimaryContainerLight = Color(0xFF3A6114)
 
-val colorPrimaryDarkLight = Color(0xFF828282)
-val colorVerde = Color(0xFFADE836)
+val colorSecondaryLight = Color(0xFF596248)
+val colorOnSecondaryLight = Color(0xFFFFFFFF)
+val colorSecondaryContainerLight = Color(0xFFDDE6C6)
+val colorOnSecondaryContainerLight = Color(0xFF28360D)
 
-val colorPrimaryDark = Color(0xFF383838)
-val colorAccentDark = Color(0xFF828282)
-val colorbkgDark = Color(0xFF4A4A4A)
-val primaryTextColorDark = Color(0xFFE3E4D6)
-val secondaryTextColorDark = Color(0xFF5C5C5C)
+val backgroundLight = Color(0xFFF6F8F0)
+val onBackgroundLight = Color(0xFF001F25)
+val surfaceLight = Color(0xFFE2E4D4)
+val onSurfaceLight = Color(0xFF45483D)
+val outlineLight = Color(0xFF75786B)
+
+// Dark Colors
+val colorPrimaryDark = Color(0xFF9fd824)
+val colorOnPrimaryDark = Color(0xFF243600)
+val colorPrimaryContainerDark = Color(0xFF364E00)
+val colorOnPrimaryContainerDark = Color(0xFFB9F543)
+
+val colorSecondaryDark = Color(0xFFc1caab)
+val colorOnSecondaryDark = Color(0xFF2b331d)
+val colorSecondaryContainerDark = Color(0xFF424A32)
+val colorOnSecondaryContainerDark = Color(0xFFDDE6C6)
+
+val backgroundDark = Color(0xFF1B1C17)
+val onBackgroundDark = Color(0xFFD5D4D0)
+val surfaceDark = Color(0xFF131310)
+val onSurfaceDark = Color(0xFFE4E3DB)
+val outlineDark = Color(0xFF8F9284)

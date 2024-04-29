@@ -3,30 +3,35 @@ package tarsila.costalonga.notasapp.compose
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.compose.theme.colorPrimaryDarkLight
 
 const val PESQUISAR = "Pesquisar"
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchLayoutBar(
     onArrowBackClicked: () -> Unit = {},
     searchTerm: String = "",
-    onSearchTermChanged: (String) -> Unit = {}
+    onSearchTermChanged: (String) -> Unit = {},
 ) {
     TopAppBar(
         modifier = Modifier.padding(0.dp),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+        ),
         title = {
             BasicTextField(
                 modifier = Modifier
@@ -39,29 +44,28 @@ fun SearchLayoutBar(
                         }
                     },
                 maxLines = 1,
-                textStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onPrimary),
+                textStyle = MaterialTheme.typography.bodyLarge,
                 value = searchTerm,
-                onValueChange = onSearchTermChanged
+                onValueChange = onSearchTermChanged,
             )
         },
         navigationIcon = {
             IconButton(
-                onClick = { onArrowBackClicked() }
+                onClick = { onArrowBackClicked() },
             ) {
                 Icon(
-                    Icons.Default.ArrowBack,
-                    tint = colorPrimaryDarkLight,
-                    contentDescription = null
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = null,
                 )
             }
-        }
+        },
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun SearchLayoutBarPreview() {
-    NotaComposeTheme() {
+    NotaComposeTheme {
         SearchLayoutBar()
     }
 }

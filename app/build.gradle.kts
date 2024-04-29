@@ -28,7 +28,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -82,16 +82,14 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.viewbinding)
-    implementation(libs.compose.theme.adapter)
     implementation(libs.core.test)
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.material)
     implementation(libs.compose.foundation)
     implementation(libs.compose.foundation.layout)
-    implementation(libs.compose.material)
+    implementation(libs.compose.material3)
     implementation(libs.compose.runtime)
     implementation(libs.compose.tooling.preview)
     implementation(libs.compose.ui)
@@ -101,5 +99,4 @@ dependencies {
     ksp(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
-
 }

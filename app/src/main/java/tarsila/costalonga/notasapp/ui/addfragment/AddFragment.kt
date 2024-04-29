@@ -11,14 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.compose.AddCompose
+import tarsila.costalonga.notasapp.compose.AddNewNotaScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentAddBinding
 import tarsila.costalonga.notasapp.utils.makeToast
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
-
     private lateinit var binding: FragmentAddBinding
 
     private val viewModel: AddViewModel by viewModels()
@@ -36,19 +35,17 @@ class AddFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    AddCompose(
-                        viewModel,
-                        onAddNoteClickButton = { title, description ->
-                            viewModel.addNota(title, description, args.tamanhoLista)
-                        },
-                    )
+                    AddNewNotaScreen(args.tamanhoLista)
                 }
             }
+            return binding.root
         }
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.addNotaStatus.observe(this.viewLifecycleOwner) {

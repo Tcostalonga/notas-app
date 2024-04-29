@@ -13,14 +13,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.bd.Notas
-import tarsila.costalonga.notasapp.compose.DetalheCompose
+import tarsila.costalonga.notasapp.compose.DetailScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
 import tarsila.costalonga.notasapp.utils.makeToast
 
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
-
     private lateinit var binding: FragmentDetalheBinding
 
     private val viewModel: DetalheViewModel by viewModels()
@@ -32,7 +31,7 @@ class DetalheFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentDetalheBinding.inflate(inflater, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
@@ -41,7 +40,7 @@ class DetalheFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    DetalheCompose(
+                    DetailScreen(
                         onMenuClicked = { menuType ->
                             when (menuType) {
                                 MenuType.SHARE -> criarShare()
@@ -51,8 +50,10 @@ class DetalheFragment : Fragment() {
                         onFabClicked = { titulo, anotacao ->
                             viewModel.onEditNota(titulo, anotacao)
                             makeToast(requireContext(), getString(R.string.nota_update))
-                            findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
-                        }
+                            findNavController().navigate(
+                                DetalheFragmentDirections.actionDetalheFragmentToMainFragment(),
+                            )
+                        },
                     )
                 }
             }
@@ -67,7 +68,7 @@ class DetalheFragment : Fragment() {
     }
 
     private fun criarAlertDialog() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.alert_title))
             .setMessage(resources.getString(R.string.alert_message))
             .setNegativeButton("Cancelar") { dialog, _ ->

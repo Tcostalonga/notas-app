@@ -3,63 +3,13 @@
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_icone_splash</item>
-        <item name="windowSplashScreenBackground">@color/colorVerde</item>
+        <item name="windowSplashScreenBackground">@color/colorPrimaryContainer</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorbkg</item>
-        <item name="fontFamily">@font/proxima_nova_regular</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/primaryTextColor</item>
-    </style>
-
-    //Alert Dialog Estilo
-
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="colorPrimary">@color/primaryTextColor</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    //TopBar
-
-    <style name="ActivityTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="android:background">@color/colorPrimary</item>
-    </style>
-
-
-    //Datas
-
-    <style name="datasEstilo" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="fontFamily">@font/proxima_nova</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:layout_marginTop">@dimen/margin_pequena</item>
-    </style>
-
-
-    //Textos Estatisticas
-
-    <style name="estatisticasEstilo" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:layout_margin">@dimen/margin_pequena</item>
-    </style>
-
-    //BottomBar
-
-    <style name="BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="iconTint">#E3E4D6</item>
-    </style>
-
-    //Fab
-
-    <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/colorVerde</item>
-        <item name="tint">@color/colorbkg</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>
