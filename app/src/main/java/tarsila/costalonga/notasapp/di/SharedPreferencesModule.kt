@@ -12,10 +12,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class SharedPreferencesModule {
-
     @Singleton
     @Provides
-    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+    fun provideSharedPreference(
+        @ApplicationContext context: Context,
+    ): SharedPreferences {
         return context.getSharedPreferences("preferences_nota_anota", Context.MODE_PRIVATE)
     }
 }

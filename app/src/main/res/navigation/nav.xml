@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="tarsila.costalonga.notasapp.ui.mainfragment.MainFragment"
+        android:name="tarsila.costalonga.notasapp.presenter.mainfragment.MainFragment"
         android:label="mainFragment"
         tools:layout="@layout/fragment_main" >
         <action
@@ -32,19 +32,19 @@
     </fragment>
     <fragment
         android:id="@+id/detalheFragment"
-        android:name="tarsila.costalonga.notasapp.ui.detalhefragment.DetalheFragment"
+        android:name="tarsila.costalonga.notasapp.presenter.detalhefragment.DetalheFragment"
         android:label="detalheFragment"
         tools:layout="@layout/fragment_detalhe" >
         <argument
             android:name="nota_obj"
-            app:argType="tarsila.costalonga.notasapp.bd.Notas" />
+            app:argType="tarsila.costalonga.notasapp.data.local.Notas" />
         <action
             android:id="@+id/action_detalheFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="tarsila.costalonga.notasapp.ui.addfragment.AddFragment"
+        android:name="tarsila.costalonga.notasapp.presenter.addfragment.AddFragment"
         android:label="addFragment"
         tools:layout="@layout/fragment_add" >
         <action
@@ -56,12 +56,12 @@
     </fragment>
     <fragment
         android:id="@+id/estatisticasFragment"
-        android:name="tarsila.costalonga.notasapp.ui.estatisticasfragment.EstatisticasFragment"
+        android:name="tarsila.costalonga.notasapp.presenter.estatisticasfragment.EstatisticasFragment"
         android:label="estatisticasFragment"
         tools:layout="@layout/fragment_estatisticas"/>
     <fragment
         android:id="@+id/sobreFragment"
-        android:name="tarsila.costalonga.notasapp.ui.sobreFragment.SobreFragment"
+        android:name="tarsila.costalonga.notasapp.presenter.sobreFragment.SobreFragment"
         android:label="sobreFragment"
         tools:layout="@layout/fragment_sobre" />
 </navigation>

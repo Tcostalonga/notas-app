@@ -4,4 +4,4 @@
     android:id="@+id/composeViewAdd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addfragment.AddFragment" />
+    tools:context=".presenter.addfragment.AddFragment" />

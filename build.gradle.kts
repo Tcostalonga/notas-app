@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.navigationSafeargs) apply false
+    alias(libs.plugins.ktlint) apply true
 }
 
 allprojects {
