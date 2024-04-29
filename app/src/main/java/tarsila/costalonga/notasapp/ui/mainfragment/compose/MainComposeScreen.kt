@@ -1,6 +1,5 @@
-package tarsila.costalonga.notasapp.compose
+package tarsila.costalonga.notasapp.ui.mainfragment.compose
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,13 +30,16 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.compose.util.PreviewParams
-import tarsila.costalonga.notasapp.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.presenter.mainfragment.MainViewModel
+import tarsila.costalonga.notasapp.ui.compose.ItemMenuType
+import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.compose.PESQUISAR
+import tarsila.costalonga.notasapp.ui.compose.SearchLayoutBar
+import tarsila.costalonga.notasapp.ui.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.compose.util.PreviewParams
+import tarsila.costalonga.notasapp.ui.compose.util.getTextDecoration
+import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 internal fun MainComposeScreen(
     onFabClicked: (Int) -> Unit = {},
