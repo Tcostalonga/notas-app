@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,13 +16,10 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.DetailScreen
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.databinding.FragmentDetalheBinding
 import tarsila.costalonga.notasapp.presenter.utils.makeToast
 
 @AndroidEntryPoint
 class DetalheFragment : Fragment() {
-    private lateinit var binding: FragmentDetalheBinding
-
     private val viewModel: DetalheViewModel by viewModels()
 
     private var btAcao = 0
@@ -33,10 +31,10 @@ class DetalheFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentDetalheBinding.inflate(inflater, container, false)
         arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
+        setarCamposDetalheFragm()
 
-        binding.composeViewDetalhe.apply {
+        return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
@@ -58,9 +56,6 @@ class DetalheFragment : Fragment() {
                 }
             }
         }
-
-        setarCamposDetalheFragm()
-        return binding.root
     }
 
     private fun setarCamposDetalheFragm() {

@@ -17,8 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EstatisticasViewModel
     @Inject
-    constructor(val repositorio: NotasRepository) :
-    ViewModel() {
+    constructor(private val repositorio: NotasRepository) : ViewModel() {
         private val allNotas = mutableListOf<Notas>()
 
         private val _totalAtivas = MutableStateFlow(0)
