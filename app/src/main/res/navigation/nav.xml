@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
     app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="tarsila.costalonga.notasapp.presenter.mainfragment.MainFragment"
-        android:label="mainFragment"
-        tools:layout="@layout/fragment_main" >
+        android:name="tarsila.costalonga.notasapp.ui.mainfragment.MainFragment"
+        android:label="mainFragment">
         <action
             android:id="@+id/action_mainFragment_to_addFragment"
             app:destination="@id/addFragment"
@@ -32,9 +30,8 @@
     </fragment>
     <fragment
         android:id="@+id/detalheFragment"
-        android:name="tarsila.costalonga.notasapp.presenter.detalhefragment.DetalheFragment"
-        android:label="detalheFragment"
-        tools:layout="@layout/fragment_detalhe" >
+        android:name="tarsila.costalonga.notasapp.ui.detailnote.DetalheFragment"
+        android:label="detalheFragment">
         <argument
             android:name="nota_obj"
             app:argType="tarsila.costalonga.notasapp.data.local.Notas" />
@@ -44,9 +41,8 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="tarsila.costalonga.notasapp.presenter.addfragment.AddFragment"
-        android:label="addFragment"
-        tools:layout="@layout/fragment_add" >
+        android:name="tarsila.costalonga.notasapp.ui.addnote.AddFragment"
+        android:label="addFragment">
         <action
             android:id="@+id/action_addFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -56,12 +52,10 @@
     </fragment>
     <fragment
         android:id="@+id/estatisticasFragment"
-        android:name="tarsila.costalonga.notasapp.presenter.estatisticasfragment.EstatisticasFragment"
-        android:label="estatisticasFragment"
-        tools:layout="@layout/fragment_estatisticas"/>
+        android:name="tarsila.costalonga.notasapp.ui.statistics.EstatisticasFragment"
+        android:label="estatisticasFragment" />
     <fragment
         android:id="@+id/sobreFragment"
-        android:name="tarsila.costalonga.notasapp.presenter.sobreFragment.SobreFragment"
-        android:label="sobreFragment"
-        tools:layout="@layout/fragment_sobre" />
+        android:name="tarsila.costalonga.notasapp.ui.aboutsection.SobreFragment"
+        android:label="sobreFragment" />
 </navigation>
