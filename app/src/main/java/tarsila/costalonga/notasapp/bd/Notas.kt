@@ -17,5 +17,5 @@ data class Notas constructor(
     @ColumnInfo(name = "dt_atualizado") var dtAtualizado: Long = dtCriacao,
     @ColumnInfo(name = "img_path") var imgPath: String? = "",
     @ColumnInfo(name = "finalizado") var finalizado: Boolean = false,
-    @ColumnInfo(name = "ordem") var ordem: Int
+    @ColumnInfo(name = "ordem") var ordem: Int,
 ) : Parcelable

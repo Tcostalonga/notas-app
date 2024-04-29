@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -88,8 +87,6 @@ fun EstatisticasRow(
     text: Int,
     numNota: String,
 ) {
-    val k = LocalContentColor.current
-
     Row {
         Icon(
             painter = painterResource(id = icon),

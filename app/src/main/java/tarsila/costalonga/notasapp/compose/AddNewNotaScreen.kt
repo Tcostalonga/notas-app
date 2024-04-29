@@ -1,9 +1,12 @@
 package tarsila.costalonga.notasapp.compose
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text2.BasicTextField2
+import androidx.compose.foundation.text2.input.TextFieldLineLimits
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FabPosition
@@ -11,30 +14,30 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.compose.alert.ShowScratchAlert
 import tarsila.costalonga.notasapp.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.compose.util.rememberLifecycleEvent
 import tarsila.costalonga.notasapp.ui.addfragment.AddViewModel
+import tarsila.costalonga.notasapp.ui.addfragment.Rascunho
 
 @Composable
-fun AddCompose(
-    viewModel: AddViewModel,
-    onAddNoteClickButton: (String, String) -> Unit,
+internal fun AddNewNotaScreen(
+    tamanhoLista: Int,
+    viewModel: AddViewModel = hiltViewModel(),
 ) {
     val rascunho by viewModel.rascunho.collectAsStateWithLifecycle()
     val showScratchAlert by viewModel.showScratchAlert.collectAsStateWithLifecycle()
@@ -51,6 +54,18 @@ fun AddCompose(
         viewModel.getRascunho()
     }
 
+    AddNewNotaCompose(
+        rascunho,
+        updateTitle = { newTitle ->
+            viewModel.updateTitle(newTitle)
+        },
+        updateDescription = { newDescription -> viewModel.updateDescription(newDescription) },
+        onFabClicked = {
+            keyboard?.hide()
+            viewModel.addNota(rascunho.title, rascunho.description, tamanhoLista)
+        },
+    )
+
     if (showScratchAlert) {
         ShowScratchAlert(
             showScratchAlert = {
@@ -65,7 +80,15 @@ fun AddCompose(
             },
         )
     }
+}
 
+@Composable
+private fun AddNewNotaCompose(
+    rascunho: Rascunho,
+    updateTitle: (String) -> Unit,
+    updateDescription: (String) -> Unit,
+    onFabClicked: () -> Unit,
+) {
     Scaffold(
         topBar = { MyTopAppBar() },
         modifier = Modifier
@@ -73,34 +96,30 @@ fun AddCompose(
             .padding(top = dimensionResource(id = R.dimen.margin_pequena)),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    keyboard?.hide()
-                    onAddNoteClickButton(rascunho.title, rascunho.description)
-                },
+                onClick = { onFabClicked() },
             ) {
                 Icon(
                     Icons.Filled.Done,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.background,
                 )
             }
         },
         floatingActionButtonPosition = FabPosition.End,
-    ) {
-        Column(Modifier.padding(top = dimensionResource(id = R.dimen.margin_pequena) + it.calculateTopPadding())) {
+    ) { it ->
+        Column(Modifier.padding(it)) {
             CustomAddTextField(
                 value = rascunho.title,
-                onValueChange = { viewModel.updateTitle(it) },
+                onValueChange = { updateTitle(it) },
                 modifier = Modifier.fillMaxWidth(),
-                labelText = R.string.titulo,
+                //  labelText = R.string.titulo,
                 textStyle = MaterialTheme.typography.titleSmall,
                 singleLine = true,
             )
             CustomAddTextField(
                 value = rascunho.description,
-                onValueChange = { viewModel.updateDescription(it) },
-                modifier = Modifier.fillMaxSize(),
-                labelText = R.string.anotacao,
+                onValueChange = { updateDescription(it) },
+                modifier = Modifier.fillMaxWidth(),
+                // labelText = R.string.anotacao,
                 textStyle = MaterialTheme.typography.bodyLarge,
             )
         }
@@ -111,39 +130,34 @@ fun AddCompose(
 @Composable
 fun PreviewAddCompose() {
     NotaComposeTheme {
-        AddCompose(viewModel()) { _, _ -> }
+        AddNewNotaCompose(
+            rascunho = Rascunho("aubaua", "description"),
+            {},
+            {},
+            {},
+        )
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CustomAddTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier,
-    labelText: Int,
     textStyle: TextStyle,
     singleLine: Boolean = false,
 ) {
-    /*    val textFieldColors = TextFieldDefaults.colors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            background = Color.Transparent,
-            cursorColor = MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-        )*/
-
-    TextField(
+    BasicTextField2(
         value = value,
         modifier = modifier,
         onValueChange = onValueChange,
         textStyle = textStyle,
-        label = {
-            Text(
-                text = stringResource(id = labelText),
-                style = textStyle,
-            )
+        lineLimits = if (singleLine) {
+            TextFieldLineLimits.SingleLine
+        } else {
+            TextFieldLineLimits.Default
         },
-        singleLine = singleLine,
-        //   colors = textFieldColors,
+        cursorBrush = SolidColor(Color.Red),
     )
 }

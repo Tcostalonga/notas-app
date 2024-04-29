@@ -1,8 +1,6 @@
 package tarsila.costalonga.notasapp.compose.alert
 
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -20,7 +18,6 @@ fun ShowScratchAlert(
         onDismissRequest = { showScratchAlert(false) },
         confirmButton = {
             TextButton(
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onBackground),
                 onClick = {
                     showScratchAlert(false)
                 },
@@ -30,7 +27,6 @@ fun ShowScratchAlert(
         },
         dismissButton = {
             TextButton(
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
                 onClick = {
                     onDismissDialogButton()
                     showScratchAlert(false)
