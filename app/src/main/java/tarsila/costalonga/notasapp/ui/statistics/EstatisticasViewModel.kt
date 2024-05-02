@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NotasRepository
+import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class EstatisticasViewModel
     @Inject
-    constructor(private val repositorio: NotasRepository) : ViewModel() {
+    constructor(private val repositorio: NoteDataRepository) : ViewModel() {
         private val allNotas = mutableListOf<Notas>()
 
         private val _totalAtivas = MutableStateFlow(0)

@@ -28,12 +28,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.compose.alert.ShowScratchAlert
+import tarsila.costalonga.notasapp.ui.compose.ShowScratchAlert
 import tarsila.costalonga.notasapp.ui.compose.util.rememberLifecycleEvent
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.addnote.Rascunho
 import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 
 @Composable
 internal fun AddNewNotaScreen(

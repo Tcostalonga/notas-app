@@ -52,7 +52,7 @@ import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detailnote.DetailMode
 import tarsila.costalonga.notasapp.ui.detailnote.DetalheViewModel

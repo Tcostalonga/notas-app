@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.ui.compose.ItemMenuType
-import tarsila.costalonga.notasapp.ui.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.mainfragment.compose.MainComposeScreen
 
 @AndroidEntryPoint

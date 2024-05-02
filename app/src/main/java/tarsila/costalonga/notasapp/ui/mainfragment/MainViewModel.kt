@@ -9,14 +9,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NotasRepository
+import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
     @Inject
     constructor(
-        private val repositorio: NotasRepository,
+        private val repositorio: NoteDataRepository,
         private val sharedPreferences: SharedPreferences,
     ) : ViewModel() {
         val allNotas = MutableStateFlow<List<Notas>>(emptyList())

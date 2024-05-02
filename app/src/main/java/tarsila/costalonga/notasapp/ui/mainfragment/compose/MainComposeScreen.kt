@@ -35,9 +35,9 @@ import tarsila.costalonga.notasapp.ui.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.compose.PESQUISAR
 import tarsila.costalonga.notasapp.ui.compose.SearchLayoutBar
-import tarsila.costalonga.notasapp.ui.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.compose.util.getTextDecoration
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
 
 @Composable

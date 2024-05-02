@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose.theme
+package tarsila.costalonga.notasapp.ui.core.compose.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

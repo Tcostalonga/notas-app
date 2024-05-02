@@ -2,7 +2,7 @@ package tarsila.costalonga.notasapp.data.repository
 
 import tarsila.costalonga.notasapp.data.local.Notas
 
-interface DefaultNotasRepository {
+interface NoteRepository {
     fun insertNota(nota: Notas)
 
     fun updateNota(nota: Notas)

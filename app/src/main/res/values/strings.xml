@@ -11,7 +11,7 @@
     <string name="trocar_tema">Trocar tema</string>
     <string name="sobre">Sobre</string>
     <string name="pesquisar">Pesquisar</string>
-    <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso e asserções com Truth. \n\nMais recentemente, no fim de 2022, refiz todos os layouts em Jetpack Compose e estou utilizando a api de splash screen compat.\n\nA seguir, você encontra o meu <a href="https://www.linkedin.com/in/t%C3%A1rsila-martins-costalonga-297b06189/">Linkedin</a> e <a href="mailto:tarsila.costalonga@gmail.com">Email</a>. </string>
+    <string name="disclaimer">Este aplicativo foi criado com o propósito de integrar o portfólio de Társila Costalonga e exercitar as boas práticas e técnicas do desenvolvimento mobile para Android. \n\nAlguns dos recursos utilizados foram: linguagem Kotlin, arquitetura MVVM, repositório, navigation, dataBinding e bindingAdapters, coroutines, banco de dados Room, injeção de dependência Hilt, testes com Espresso e asserções com Truth. \n\nMais recentemente, no fim de 2022, refiz todos os layouts em Jetpack Compose e estou utilizando a api de splash screen compat.\n\nA seguir, você encontra o meu LinkedIn e Email.</string>
     <string name="obrigatoriedade_de_campo">Campo título e anotação obrigatórios</string>
     <string name="nota_update">Nota atualizada</string>
     <string name="nota_insert">Nota criada</string>

@@ -56,6 +56,6 @@
         android:label="estatisticasFragment" />
     <fragment
         android:id="@+id/sobreFragment"
-        android:name="tarsila.costalonga.notasapp.ui.aboutsection.SobreFragment"
+        android:name="tarsila.costalonga.notasapp.ui.aboutsection.AboutFragment"
         android:label="sobreFragment" />
 </navigation>

@@ -6,7 +6,7 @@ import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.local.NotasDao
 
 @Singleton
-class NotasRepository @Inject constructor(private val dtDao: NotasDao) : DefaultNotasRepository {
+class NoteDataRepository @Inject constructor(private val dtDao: NotasDao) : NoteRepository {
     override fun insertNota(nota: Notas) {
         dtDao.insertNota(nota)
     }

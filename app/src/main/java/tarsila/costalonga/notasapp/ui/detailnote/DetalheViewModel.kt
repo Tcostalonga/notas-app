@@ -7,14 +7,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NotasRepository
+import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class DetalheViewModel
     @Inject
-    constructor(val repositorio: NotasRepository) : ViewModel() {
+    constructor(val repositorio: NoteDataRepository) : ViewModel() {
         val notaDetalhe = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
 
         private fun updateNota(nota: Notas) {

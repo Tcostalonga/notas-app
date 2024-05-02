@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose.theme
+package tarsila.costalonga.notasapp.ui.core.compose.theme
 
 import androidx.compose.ui.graphics.Color
 
