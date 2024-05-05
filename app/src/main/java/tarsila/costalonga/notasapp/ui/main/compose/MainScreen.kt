@@ -12,7 +12,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -105,8 +104,7 @@ private fun MainCompose(
         },
     ) {
         LazyColumn(
-            modifier =
-            Modifier
+            modifier = Modifier
                 .padding(it)
                 .padding(NoteTheme.spacing.spacer8),
             content = {
@@ -154,8 +152,7 @@ fun ItemList(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier =
-        Modifier
+        modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(NoteTheme.spacing.spacer4),
@@ -174,13 +171,12 @@ fun ItemList(
             },
         )
         Text(
-            modifier =
-            Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onItemClicked() },
             text = nota.titulo,
             style =
-            MaterialTheme.typography.bodyLarge.copy(
+            NoteTheme.typography.bodyLarge.copy(
                 textDecoration = getTextDecoration(checkedState),
             ),
             maxLines = 2,

@@ -22,7 +22,6 @@ import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -119,7 +118,7 @@ private fun DetailCompose(
                             R.string.text_dtCriacao_format,
                             formattedDtCriacao,
                         ),
-                        textStyle = MaterialTheme.typography.labelSmall,
+                        textStyle = NoteTheme.typography.labelSmall,
                     )
 
                     InsertText(
@@ -128,7 +127,7 @@ private fun DetailCompose(
                             R.string.text_dtAtualizado_format,
                             formattedDtAtualizado,
                         ),
-                        textStyle = MaterialTheme.typography.labelSmall,
+                        textStyle = NoteTheme.typography.labelSmall,
                     )
                 }
                 NotasShowAndEdit(
@@ -149,7 +148,7 @@ private fun DetailCompose(
                         .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle =
-                    MaterialTheme.typography.titleMedium.copy(
+                    NoteTheme.typography.titleMedium.copy(
                         color = NoteTheme.colors.onBackground,
                     ),
                 )
@@ -162,7 +161,7 @@ private fun DetailCompose(
                         .padding(top = NoteTheme.spacing.spacer8)
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
+                    textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                 )
             }
         },

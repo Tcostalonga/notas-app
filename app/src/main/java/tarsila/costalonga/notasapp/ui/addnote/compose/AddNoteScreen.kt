@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -110,7 +109,7 @@ private fun AddNoteCompose(
                 onValueChange = { updateTitle(it) },
                 modifier = Modifier.fillMaxWidth(),
                 //  labelText = R.string.titulo,
-                textStyle = MaterialTheme.typography.titleSmall,
+                textStyle = NoteTheme.typography.titleSmall,
                 singleLine = true,
             )
             CustomAddTextField(
@@ -118,7 +117,7 @@ private fun AddNoteCompose(
                 onValueChange = { updateDescription(it) },
                 modifier = Modifier.fillMaxWidth(),
                 // labelText = R.string.anotacao,
-                textStyle = MaterialTheme.typography.bodyLarge,
+                textStyle = NoteTheme.typography.bodyLarge,
             )
         }
     }

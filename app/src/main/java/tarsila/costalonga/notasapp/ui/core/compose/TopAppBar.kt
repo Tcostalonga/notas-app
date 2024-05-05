@@ -9,7 +9,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -75,7 +74,7 @@ fun MyTopAppBar(
                         },
                         text = {
                             Text(
-                                style = MaterialTheme.typography.bodyLarge,
+                                style = NoteTheme.typography.bodyLarge,
                                 text = stringResource(id = R.string.estatisticas),
                             )
                         },
@@ -88,7 +87,7 @@ fun MyTopAppBar(
                         },
                         text = {
                             Text(
-                                style = MaterialTheme.typography.bodyLarge,
+                                style = NoteTheme.typography.bodyLarge,
                                 text = stringResource(id = R.string.sobre),
                             )
                         },
