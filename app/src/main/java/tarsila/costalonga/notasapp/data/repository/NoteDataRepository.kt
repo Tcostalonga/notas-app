@@ -22,4 +22,10 @@ class NoteDataRepository @Inject constructor(private val dtDao: NotasDao) : Note
     override suspend fun getTodasNotas(): List<Notas> {
         return dtDao.getTodasNotas()
     }
+
+    override fun getNotesCount() = dtDao.getNotesCount()
+
+    override fun getDoneNotes() = dtDao.getDoneNotes()
+
+    override fun getActiveNotes() = dtDao.getActiveNotes()
 }

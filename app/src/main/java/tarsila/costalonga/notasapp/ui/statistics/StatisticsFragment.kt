@@ -21,12 +21,13 @@ class StatisticsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        viewModel.carregarNotas()
+        viewModel.loadStatistics()
+
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    StatisticsScreen(viewModel)
+                    StatisticsScreen()
                 }
             }
         }

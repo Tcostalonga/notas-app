@@ -22,12 +22,18 @@ interface NotasDao {
     @Query("SELECT * from notas_table WHERE id = :key")
     fun getUmaNota(key: Long): Notas
 
-    @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
-    fun getAllNotas(): LiveData<List<Notas>>
-
     @Query("SELECT COUNT(*) FROM notas_table")
     fun numTotalNotas(): LiveData<Int>
 
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
     fun getTodasNotas(): List<Notas>
+
+    @Query("SELECT COUNT(id) FROM notas_table")
+    fun getNotesCount(): Int
+
+    @Query("SELECT COUNT(id) FROM notas_table where finalizado is 1")
+    fun getDoneNotes(): Int
+
+    @Query("SELECT COUNT(id) FROM notas_table where finalizado is 0")
+    fun getActiveNotes(): Int
 }
