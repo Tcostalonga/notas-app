@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="tarsila.costalonga.notasapp.ui.main.MainFragment"
+        android:label="mainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_addFragment"
+            app:destination="@id/addFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_mainFragment_to_sobreFragment"
+            app:destination="@id/sobreFragment"
+            app:enterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_mainFragment_to_estatisticasFragment"
+            app:destination="@id/estatisticasFragment"
+            app:enterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_mainFragment_to_detalheFragment"
+            app:destination="@id/detalheFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalheFragment"
+        android:name="tarsila.costalonga.notasapp.ui.detailnote.DetailFragment"
+        android:label="detalheFragment">
+        <argument
+            android:name="nota_obj"
+            app:argType="tarsila.costalonga.notasapp.data.local.Notas" />
+        <action
+            android:id="@+id/action_detalheFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="tarsila.costalonga.notasapp.ui.addnote.AddFragment"
+        android:label="addFragment">
+        <action
+            android:id="@+id/action_addFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="tamanhoLista"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/estatisticasFragment"
+        android:name="tarsila.costalonga.notasapp.ui.statistics.StatisticsFragment"
+        android:label="estatisticasFragment" />
+    <fragment
+        android:id="@+id/sobreFragment"
+        android:name="tarsila.costalonga.notasapp.ui.about.AboutFragment"
+        android:label="sobreFragment" />
+</navigation>

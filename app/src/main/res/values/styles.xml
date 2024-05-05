@@ -2,8 +2,8 @@
     // Tema do app
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_icone_splash</item>
-        <item name="windowSplashScreenBackground">@color/colorPrimaryContainer</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_splash</item>
+        <item name="windowSplashScreenBackground">#9FD824</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
