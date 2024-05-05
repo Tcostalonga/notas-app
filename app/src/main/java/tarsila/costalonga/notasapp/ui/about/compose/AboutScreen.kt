@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,7 +63,7 @@ internal fun AboutScreen() {
                     .align(Alignment.CenterHorizontally)
                     .padding(vertical = NoteTheme.spacing.spacer16)
                     .background(
-                        MaterialTheme.colorScheme.primaryContainer,
+                        NoteTheme.colors.primaryContainer,
                         shape = RoundedCornerShape(percent = 100),
                     ),
             )
@@ -99,7 +98,7 @@ internal fun AboutScreen() {
 private fun AnnotatedString.Builder.AddTextStyle(wordPosition: Pair<Int, Int>) {
     addStyle(
         style = SpanStyle(
-            color = MaterialTheme.colorScheme.primaryContainer,
+            color = NoteTheme.colors.primaryContainer,
             fontWeight = FontWeight.Bold,
             textDecoration = TextDecoration.Underline,
         ),
@@ -121,7 +120,7 @@ fun LinkableText(myAnnotatedString: AnnotatedString, tags: List<String>) {
 
     ClickableText(
         text = myAnnotatedString,
-        style = TextStyle(color = MaterialTheme.colorScheme.onBackground),
+        style = TextStyle(color = NoteTheme.colors.onBackground),
         onClick = { offset ->
             tags.forEach { tag ->
                 myAnnotatedString.getStringAnnotations(tag = tag, start = offset, end = offset).firstOrNull()

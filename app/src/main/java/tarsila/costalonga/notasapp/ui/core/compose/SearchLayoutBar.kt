@@ -17,6 +17,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 const val PESQUISAR = "Pesquisar"
 
@@ -31,7 +32,7 @@ fun SearchLayoutBar(
         modifier = Modifier.padding(0.dp),
         colors =
             TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
+                containerColor = NoteTheme.colors.background,
             ),
         title = {
             BasicTextField(

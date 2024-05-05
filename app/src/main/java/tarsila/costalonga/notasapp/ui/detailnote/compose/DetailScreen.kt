@@ -150,7 +150,7 @@ private fun DetailCompose(
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle =
                     MaterialTheme.typography.titleMedium.copy(
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = NoteTheme.colors.onBackground,
                     ),
                 )
 
@@ -162,7 +162,7 @@ private fun DetailCompose(
                         .padding(top = NoteTheme.spacing.spacer8)
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                 )
             }
         },
@@ -185,7 +185,7 @@ fun CustomBottomAppBar(
                 Icon(
                     Icons.Filled.Share,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    tint = NoteTheme.colors.onSecondaryContainer,
                 )
             }
             Spacer(Modifier.padding(end = NoteTheme.spacing.spacer8))
@@ -193,7 +193,7 @@ fun CustomBottomAppBar(
             IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                 Icon(
                     Icons.Filled.Delete,
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    tint = NoteTheme.colors.onSecondaryContainer,
                     contentDescription = null,
                 )
             }

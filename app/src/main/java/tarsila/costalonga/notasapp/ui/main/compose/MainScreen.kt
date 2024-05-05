@@ -164,7 +164,7 @@ fun ItemList(
          Icon(
                 painter = painterResource(id = R.drawable.drag_indicator_24),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primaryVariant
+                tint = NoteTheme.colors.primaryVariant
             ) */
         Checkbox(
             checked = checkedState,
