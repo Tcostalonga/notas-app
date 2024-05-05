@@ -39,12 +39,10 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
@@ -53,6 +51,7 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detailnote.DetailMode
 import tarsila.costalonga.notasapp.ui.detailnote.DetailViewModel
@@ -108,7 +107,7 @@ private fun DetailCompose(
                 Modifier
                     .verticalScroll(rememberScrollState())
                     .padding(paddingValues)
-                    .padding(dimensionResource(id = R.dimen.margin_media)),
+                    .padding(NoteTheme.spacing.spacer16),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -137,7 +136,7 @@ private fun DetailCompose(
                     onTextChange = { titulo = it },
                     modifier =
                     Modifier
-                        .padding(top = dimensionResource(id = R.dimen.margin_larga))
+                        .padding(top =  NoteTheme.spacing.spacer20)
                         .focusRequester(focusRequester)
                         .onFocusChanged {
                             println(it.hasFocus)
@@ -160,7 +159,7 @@ private fun DetailCompose(
                     onTextChange = { anotacao = it },
                     modifier =
                     Modifier
-                        .padding(top = dimensionResource(id = R.dimen.margin_pequena))
+                        .padding(top = NoteTheme.spacing.spacer8)
                         .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
@@ -189,7 +188,7 @@ fun CustomBottomAppBar(
                     tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
-            Spacer(Modifier.padding(end = 8.dp))
+            Spacer(Modifier.padding(end = NoteTheme.spacing.spacer8))
 
             IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
                 Icon(

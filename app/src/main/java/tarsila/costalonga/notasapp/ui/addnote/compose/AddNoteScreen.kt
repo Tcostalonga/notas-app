@@ -21,18 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.addnote.Rascunho
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowScratchAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.rememberLifecycleEvent
 
 @Composable
@@ -92,7 +91,7 @@ private fun AddNoteCompose(
         modifier =
         Modifier
             .fillMaxSize()
-            .padding(top = dimensionResource(id = R.dimen.margin_pequena)),
+            .padding(top = NoteTheme.spacing.spacer8),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onFabClicked() },

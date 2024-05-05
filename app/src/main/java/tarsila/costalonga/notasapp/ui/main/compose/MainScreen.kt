@@ -23,19 +23,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.PESQUISAR
 import tarsila.costalonga.notasapp.ui.core.compose.SearchLayoutBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.core.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.ui.main.MainViewModel
@@ -109,7 +108,7 @@ private fun MainCompose(
             modifier =
             Modifier
                 .padding(it)
-                .padding(dimensionResource(id = R.dimen.margin_pequena)),
+                .padding(NoteTheme.spacing.spacer8),
             content = {
                 filteredNotas = performFilterInTitle(searchTerm, allNotas)
 
@@ -159,7 +158,7 @@ fun ItemList(
         Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(dimensionResource(id = R.dimen.margin_extra_pequena)),
+            .padding(NoteTheme.spacing.spacer4),
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(

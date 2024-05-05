@@ -26,10 +26,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 private const val LINK1_WORD = "LinkedIn"
 private const val LINK2_WORD = "Email"
@@ -53,7 +53,7 @@ internal fun AboutScreen() {
     Scaffold(topBar = { MyTopAppBar() }) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = NoteTheme.spacing.spacer16)
                 .padding(it),
         ) {
             Image(
@@ -62,7 +62,7 @@ internal fun AboutScreen() {
                 modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(vertical = 16.dp)
+                    .padding(vertical = NoteTheme.spacing.spacer16)
                     .background(
                         MaterialTheme.colorScheme.primaryContainer,
                         shape = RoundedCornerShape(percent = 100),
