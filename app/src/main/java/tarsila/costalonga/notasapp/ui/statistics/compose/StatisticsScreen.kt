@@ -51,19 +51,19 @@ private fun StatisticsCompose(
                     .padding(it),
         ) {
             StatisticsRow(
-                icon = R.drawable.est_criadas,
+                icon = R.drawable.icon_note_created,
                 text = R.string.notas_criadas,
                 numNota = numTotalCriadas.toString(),
             )
             ViewDivider()
             StatisticsRow(
-                icon = R.drawable.est_ativas,
+                icon = R.drawable.icon_note_active,
                 text = R.string.notas_ativas,
                 numNota = totalNotasAtivas.toString(),
             )
             ViewDivider()
             StatisticsRow(
-                icon = R.drawable.est_finalizadas,
+                icon = R.drawable.icon_note_done,
                 text = R.string.notas_finalizadas,
                 numNota = totalNotasFinalizadas.toString(),
             )

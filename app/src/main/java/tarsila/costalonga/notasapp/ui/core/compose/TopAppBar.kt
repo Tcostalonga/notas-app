@@ -41,7 +41,7 @@ fun MyTopAppBar(
         ),
         title = {
             Image(
-                painter = painterResource(id = R.drawable.photo_mode),
+                painter = painterResource(id = R.drawable.icon_brand),
                 contentDescription = stringResource(id = R.string.app_name),
             )
         },

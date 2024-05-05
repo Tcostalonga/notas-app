@@ -57,7 +57,7 @@ internal fun AboutScreen() {
                 .padding(it),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_icone_splash),
+                painter = painterResource(id = R.drawable.icon_splash),
                 contentDescription = null,
                 modifier =
                 Modifier
