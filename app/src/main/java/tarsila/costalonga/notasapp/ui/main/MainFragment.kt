@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.mainfragment
+package tarsila.costalonga.notasapp.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import tarsila.costalonga.notasapp.ui.compose.ItemMenuType
+import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.ui.mainfragment.compose.MainComposeScreen
+import tarsila.costalonga.notasapp.ui.main.compose.MainScreen
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    MainComposeScreen(
+                    MainScreen(
                         onFabClicked = {
                             findNavController().navigate(
                                 MainFragmentDirections.actionMainFragmentToAddFragment(it),

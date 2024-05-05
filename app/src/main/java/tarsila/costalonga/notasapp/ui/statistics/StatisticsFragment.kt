@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.ui.statistics.compose.EstatisticasScreen
+import tarsila.costalonga.notasapp.ui.statistics.compose.StatisticsScreen
 
 @AndroidEntryPoint
-class EstatisticasFragment : Fragment() {
-    private val viewModel: EstatisticasViewModel by viewModels()
+class StatisticsFragment : Fragment() {
+    private val viewModel: StatisticsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +26,7 @@ class EstatisticasFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    EstatisticasScreen(viewModel)
+                    StatisticsScreen(viewModel)
                 }
             }
         }

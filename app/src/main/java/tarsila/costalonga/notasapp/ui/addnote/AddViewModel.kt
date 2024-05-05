@@ -17,7 +17,7 @@ import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    private val repositorio: NoteDataRepository,
+    private val repository: NoteDataRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
     private val _rascunho = MutableStateFlow(Rascunho())
@@ -53,7 +53,7 @@ class AddViewModel @Inject constructor(
 
     private fun insertNota(nota: Notas) {
         viewModelScope.launch(Dispatchers.IO) {
-            repositorio.insertNota(nota)
+            repository.insertNota(nota)
         }
     }
 

@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose
+package tarsila.costalonga.notasapp.ui.core.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

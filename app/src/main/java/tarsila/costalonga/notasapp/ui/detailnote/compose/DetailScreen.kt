@@ -51,16 +51,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.ui.compose.util.PreviewParams
+import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detailnote.DetailMode
-import tarsila.costalonga.notasapp.ui.detailnote.DetalheViewModel
+import tarsila.costalonga.notasapp.ui.detailnote.DetailViewModel
 import tarsila.costalonga.notasapp.ui.detailnote.MenuType
 
 @Composable
 internal fun DetailScreen(
-    viewModel: DetalheViewModel = hiltViewModel(),
+    viewModel: DetailViewModel = hiltViewModel(),
     onMenuClicked: (MenuType) -> Unit = {},
     onFabClicked: (String, String) -> Unit = { _, _ -> },
 ) {
@@ -105,10 +105,10 @@ private fun DetailCompose(
         content = { paddingValues ->
             Column(
                 modifier =
-                    Modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(paddingValues)
-                        .padding(dimensionResource(id = R.dimen.margin_media)),
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(paddingValues)
+                    .padding(dimensionResource(id = R.dimen.margin_media)),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -116,19 +116,19 @@ private fun DetailCompose(
                 ) {
                     InsertText(
                         text =
-                            stringResource(
-                                R.string.text_dtCriacao_format,
-                                formattedDtCriacao,
-                            ),
+                        stringResource(
+                            R.string.text_dtCriacao_format,
+                            formattedDtCriacao,
+                        ),
                         textStyle = MaterialTheme.typography.labelSmall,
                     )
 
                     InsertText(
                         text =
-                            stringResource(
-                                R.string.text_dtAtualizado_format,
-                                formattedDtAtualizado,
-                            ),
+                        stringResource(
+                            R.string.text_dtAtualizado_format,
+                            formattedDtAtualizado,
+                        ),
                         textStyle = MaterialTheme.typography.labelSmall,
                     )
                 }
@@ -136,32 +136,32 @@ private fun DetailCompose(
                     text = titulo,
                     onTextChange = { titulo = it },
                     modifier =
-                        Modifier
-                            .padding(top = dimensionResource(id = R.dimen.margin_larga))
-                            .focusRequester(focusRequester)
-                            .onFocusChanged {
-                                println(it.hasFocus)
-                                if (it.hasFocus) {
-                                    inputService?.show()
-                                } else {
-                                    inputService?.hide()
-                                }
+                    Modifier
+                        .padding(top = dimensionResource(id = R.dimen.margin_larga))
+                        .focusRequester(focusRequester)
+                        .onFocusChanged {
+                            println(it.hasFocus)
+                            if (it.hasFocus) {
+                                inputService?.show()
+                            } else {
+                                inputService?.hide()
                             }
-                            .fillMaxWidth(),
+                        }
+                        .fillMaxWidth(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle =
-                        MaterialTheme.typography.titleMedium.copy(
-                            color = MaterialTheme.colorScheme.onBackground,
-                        ),
+                    MaterialTheme.typography.titleMedium.copy(
+                        color = MaterialTheme.colorScheme.onBackground,
+                    ),
                 )
 
                 NotasShowAndEdit(
                     text = anotacao,
                     onTextChange = { anotacao = it },
                     modifier =
-                        Modifier
-                            .padding(top = dimensionResource(id = R.dimen.margin_pequena))
-                            .fillMaxSize(),
+                    Modifier
+                        .padding(top = dimensionResource(id = R.dimen.margin_pequena))
+                        .fillMaxSize(),
                     isEnabled = editNotaClick == DetailMode.EDIT,
                     textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                 )
@@ -266,7 +266,7 @@ fun NotasShowAndEdit(
 
 @PreviewLightDark
 @Composable
-fun PreviewDetalheCompose(
+fun PreviewDetail(
     @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Notas>,
 ) {
     NotaComposeTheme {

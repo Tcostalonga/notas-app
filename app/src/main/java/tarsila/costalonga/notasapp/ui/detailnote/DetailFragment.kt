@@ -19,8 +19,8 @@ import tarsila.costalonga.notasapp.ui.detailnote.compose.DetailScreen
 import tarsila.costalonga.notasapp.ui.utils.makeToast
 
 @AndroidEntryPoint
-class DetalheFragment : Fragment() {
-    private val viewModel: DetalheViewModel by viewModels()
+class DetailFragment : Fragment() {
+    private val viewModel: DetailViewModel by viewModels()
 
     private var btAcao = 0
 
@@ -31,7 +31,7 @@ class DetalheFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        arguments = DetalheFragmentArgs.fromBundle(requireArguments()).notaObj
+        arguments = DetailFragmentArgs.fromBundle(requireArguments()).notaObj
         setarCamposDetalheFragm()
 
         return ComposeView(requireContext()).apply {
@@ -49,7 +49,7 @@ class DetalheFragment : Fragment() {
                             viewModel.onEditNota(titulo, anotacao)
                             makeToast(requireContext(), getString(R.string.nota_update))
                             findNavController().navigate(
-                                DetalheFragmentDirections.actionDetalheFragmentToMainFragment(),
+                                DetailFragmentDirections.actionDetalheFragmentToMainFragment(),
                             )
                         },
                     )
@@ -72,7 +72,7 @@ class DetalheFragment : Fragment() {
             .setPositiveButton("OK") { _, _ ->
                 viewModel.removerNota(arguments)
                 makeToast(requireContext(), getString(R.string.nota_delete))
-                findNavController().navigate(DetalheFragmentDirections.actionDetalheFragmentToMainFragment())
+                findNavController().navigate(DetailFragmentDirections.actionDetalheFragmentToMainFragment())
             }
             .show()
     }

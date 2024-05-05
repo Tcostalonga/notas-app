@@ -21,21 +21,21 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.ui.statistics.EstatisticasViewModel
+import tarsila.costalonga.notasapp.ui.statistics.StatisticsViewModel
 
 @Composable
-internal fun EstatisticasScreen(viewModel: EstatisticasViewModel = viewModel()) {
+internal fun StatisticsScreen(viewModel: StatisticsViewModel = viewModel()) {
     val totalNotasCriadas by viewModel.totalCriadas().collectAsStateWithLifecycle(0)
     val totalNotasAtivas by viewModel.totalAtivas.collectAsStateWithLifecycle(0)
     val totalNotasFinalizadas by viewModel.notasFinalizadas().collectAsStateWithLifecycle(0)
 
-    EstatisticasCompose(totalNotasCriadas, totalNotasAtivas, totalNotasFinalizadas)
+    StatisticsCompose(totalNotasCriadas, totalNotasAtivas, totalNotasFinalizadas)
 }
 
 @Composable
-private fun EstatisticasCompose(
+private fun StatisticsCompose(
     numTotalCriadas: Int,
     totalNotasAtivas: Int,
     totalNotasFinalizadas: Int,
@@ -50,19 +50,19 @@ private fun EstatisticasCompose(
                     .padding(dimensionResource(id = R.dimen.margin_gigante))
                     .padding(it),
         ) {
-            EstatisticasRow(
+            StatisticsRow(
                 icon = R.drawable.est_criadas,
                 text = R.string.notas_criadas,
                 numNota = numTotalCriadas.toString(),
             )
             ViewDivider()
-            EstatisticasRow(
+            StatisticsRow(
                 icon = R.drawable.est_ativas,
                 text = R.string.notas_ativas,
                 numNota = totalNotasAtivas.toString(),
             )
             ViewDivider()
-            EstatisticasRow(
+            StatisticsRow(
                 icon = R.drawable.est_finalizadas,
                 text = R.string.notas_finalizadas,
                 numNota = totalNotasFinalizadas.toString(),
@@ -83,7 +83,7 @@ fun ViewDivider() {
 }
 
 @Composable
-fun EstatisticasRow(
+fun StatisticsRow(
     icon: Int,
     text: Int,
     numNota: String,
@@ -109,8 +109,8 @@ fun EstatisticasRow(
 
 @PreviewLightDark
 @Composable
-fun PreviewEstatisticasCompose() {
+fun PreviewStatistics() {
     NotaComposeTheme {
-        EstatisticasCompose(3, 2, 1)
+        StatisticsCompose(3, 2, 1)
     }
 }

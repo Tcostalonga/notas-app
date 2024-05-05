@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose.util
+package tarsila.costalonga.notasapp.ui.core.compose.util
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import tarsila.costalonga.notasapp.data.local.Notas

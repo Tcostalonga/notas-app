@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.addnote.compose.AddNewNotaScreen
+import tarsila.costalonga.notasapp.ui.addnote.compose.AddNoteScreen
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.utils.makeToast
 
@@ -30,7 +30,7 @@ class AddFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    AddNewNotaScreen(args.tamanhoLista)
+                    AddNoteScreen(args.tamanhoLista)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose
+package tarsila.costalonga.notasapp.ui.core.compose
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

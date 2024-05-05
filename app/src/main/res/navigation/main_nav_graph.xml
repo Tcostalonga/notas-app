@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="tarsila.costalonga.notasapp.ui.mainfragment.MainFragment"
+        android:name="tarsila.costalonga.notasapp.ui.main.MainFragment"
         android:label="mainFragment">
         <action
             android:id="@+id/action_mainFragment_to_addFragment"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/detalheFragment"
-        android:name="tarsila.costalonga.notasapp.ui.detailnote.DetalheFragment"
+        android:name="tarsila.costalonga.notasapp.ui.detailnote.DetailFragment"
         android:label="detalheFragment">
         <argument
             android:name="nota_obj"
@@ -52,10 +52,10 @@
     </fragment>
     <fragment
         android:id="@+id/estatisticasFragment"
-        android:name="tarsila.costalonga.notasapp.ui.statistics.EstatisticasFragment"
+        android:name="tarsila.costalonga.notasapp.ui.statistics.StatisticsFragment"
         android:label="estatisticasFragment" />
     <fragment
         android:id="@+id/sobreFragment"
-        android:name="tarsila.costalonga.notasapp.ui.aboutsection.AboutFragment"
+        android:name="tarsila.costalonga.notasapp.ui.about.AboutFragment"
         android:label="sobreFragment" />
 </navigation>

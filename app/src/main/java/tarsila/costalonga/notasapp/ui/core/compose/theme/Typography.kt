@@ -7,40 +7,32 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.core.compose.theme.colorSecondaryLight
 
-private val ProximaNova =
-    FontFamily(
-        Font(R.font.proxima_nova_regular, FontWeight.Normal),
-    )
+private val ProximaNova = FontFamily(Font(R.font.proxima_nova_regular, FontWeight.Normal))
 
-private val ProximaNovaCondensed =
-    FontFamily(
-        Font(R.font.proxima_nova, FontWeight.Normal),
-    )
+private val ProximaNovaCondensed = FontFamily(Font(R.font.proxima_nova, FontWeight.Normal))
 
-val NotaTypography =
-    Typography(
-        titleMedium =
-            TextStyle(
-                fontFamily = ProximaNova,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-            ),
-        bodyLarge =
-            TextStyle(
-                fontFamily = ProximaNova,
-                fontSize = 18.sp,
-            ),
-        bodyMedium =
-            TextStyle(
-                fontFamily = ProximaNovaCondensed,
-                fontSize = 18.sp,
-            ),
-        labelSmall =
-            TextStyle(
-                fontFamily = ProximaNovaCondensed,
-                color = colorSecondaryLight,
-                fontSize = 14.sp,
-            ),
-    )
+val NotaTypography = Typography(
+    titleMedium =
+    TextStyle(
+        fontFamily = ProximaNova,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+    ),
+    bodyLarge =
+    TextStyle(
+        fontFamily = ProximaNova,
+        fontSize = 18.sp,
+    ),
+    bodyMedium =
+    TextStyle(
+        fontFamily = ProximaNovaCondensed,
+        fontSize = 18.sp,
+    ),
+    labelSmall =
+    TextStyle(
+        fontFamily = ProximaNovaCondensed,
+        color = colorSecondaryLight,
+        fontSize = 14.sp,
+    ),
+)

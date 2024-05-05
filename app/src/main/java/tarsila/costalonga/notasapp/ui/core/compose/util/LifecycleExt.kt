@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.compose.util
+package tarsila.costalonga.notasapp.ui.core.compose.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

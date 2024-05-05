@@ -1,4 +1,5 @@
-package tarsila.costalonga.notasapp.ui.compose
+package tarsila.costalonga.notasapp.ui.core.compose
+
 import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -35,9 +36,9 @@ fun MyTopAppBar(
 
     TopAppBar(
         colors =
-            TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
-            ),
+        TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+        ),
         title = {
             Image(
                 painter = painterResource(id = R.drawable.photo_mode),

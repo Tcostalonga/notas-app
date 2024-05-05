@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.mainfragment.compose
+package tarsila.costalonga.notasapp.ui.main.compose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -31,17 +31,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.ui.compose.ItemMenuType
-import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.compose.PESQUISAR
-import tarsila.costalonga.notasapp.ui.compose.SearchLayoutBar
-import tarsila.costalonga.notasapp.ui.compose.util.PreviewParams
-import tarsila.costalonga.notasapp.ui.compose.util.getTextDecoration
+import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
+import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.PESQUISAR
+import tarsila.costalonga.notasapp.ui.core.compose.SearchLayoutBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
-import tarsila.costalonga.notasapp.ui.mainfragment.MainViewModel
+import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
+import tarsila.costalonga.notasapp.ui.core.compose.util.getTextDecoration
+import tarsila.costalonga.notasapp.ui.main.MainViewModel
 
 @Composable
-internal fun MainComposeScreen(
+internal fun MainScreen(
     onFabClicked: (Int) -> Unit = {},
     onItemListClicked: (Notas) -> Unit = {},
     onMenuClick: (ItemMenuType) -> Unit = {},
@@ -107,9 +107,9 @@ private fun MainCompose(
     ) {
         LazyColumn(
             modifier =
-                Modifier
-                    .padding(it)
-                    .padding(dimensionResource(id = R.dimen.margin_pequena)),
+            Modifier
+                .padding(it)
+                .padding(dimensionResource(id = R.dimen.margin_pequena)),
             content = {
                 filteredNotas = performFilterInTitle(searchTerm, allNotas)
 
@@ -156,10 +156,10 @@ fun ItemList(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier =
-            Modifier
-                .wrapContentHeight()
-                .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.margin_extra_pequena)),
+        Modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.margin_extra_pequena)),
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(
@@ -176,14 +176,14 @@ fun ItemList(
         )
         Text(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable { onItemClicked() },
+            Modifier
+                .fillMaxWidth()
+                .clickable { onItemClicked() },
             text = nota.titulo,
             style =
-                MaterialTheme.typography.bodyLarge.copy(
-                    textDecoration = getTextDecoration(checkedState),
-                ),
+            MaterialTheme.typography.bodyLarge.copy(
+                textDecoration = getTextDecoration(checkedState),
+            ),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
@@ -192,7 +192,7 @@ fun ItemList(
 
 @PreviewLightDark
 @Composable
-fun PreviewMainCompose(
+fun PreviewMain(
     @PreviewParameter(PreviewParams::class) listOfNotas: List<Notas>,
 ) {
     NotaComposeTheme {

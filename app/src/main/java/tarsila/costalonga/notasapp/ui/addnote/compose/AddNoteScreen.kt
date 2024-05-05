@@ -28,18 +28,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.compose.ShowScratchAlert
-import tarsila.costalonga.notasapp.ui.compose.util.rememberLifecycleEvent
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.addnote.Rascunho
-import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.ShowScratchAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.util.rememberLifecycleEvent
 
 @Composable
-internal fun AddNewNotaScreen(
-    tamanhoLista: Int,
-    viewModel: AddViewModel = hiltViewModel(),
-) {
+internal fun AddNoteScreen(tamanhoLista: Int, viewModel: AddViewModel = hiltViewModel()) {
     val rascunho by viewModel.rascunho.collectAsStateWithLifecycle()
     val showScratchAlert by viewModel.showScratchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
@@ -55,7 +52,7 @@ internal fun AddNewNotaScreen(
         viewModel.getRascunho()
     }
 
-    AddNewNotaCompose(
+    AddNoteCompose(
         rascunho,
         updateTitle = { newTitle ->
             viewModel.updateTitle(newTitle)
@@ -84,7 +81,7 @@ internal fun AddNewNotaScreen(
 }
 
 @Composable
-private fun AddNewNotaCompose(
+private fun AddNoteCompose(
     rascunho: Rascunho,
     updateTitle: (String) -> Unit,
     updateDescription: (String) -> Unit,
@@ -93,9 +90,9 @@ private fun AddNewNotaCompose(
     Scaffold(
         topBar = { MyTopAppBar() },
         modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(top = dimensionResource(id = R.dimen.margin_pequena)),
+        Modifier
+            .fillMaxSize()
+            .padding(top = dimensionResource(id = R.dimen.margin_pequena)),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onFabClicked() },
@@ -130,9 +127,9 @@ private fun AddNewNotaCompose(
 
 @Preview(showBackground = true, uiMode = 1)
 @Composable
-fun PreviewAddCompose() {
+fun PreviewAdd() {
     NotaComposeTheme {
-        AddNewNotaCompose(
+        AddNoteCompose(
             rascunho = Rascunho("aubaua", "description"),
             {},
             {},
@@ -156,11 +153,11 @@ fun CustomAddTextField(
         onValueChange = onValueChange,
         textStyle = textStyle,
         lineLimits =
-            if (singleLine) {
-                TextFieldLineLimits.SingleLine
-            } else {
-                TextFieldLineLimits.Default
-            },
+        if (singleLine) {
+            TextFieldLineLimits.SingleLine
+        } else {
+            TextFieldLineLimits.Default
+        },
         cursorBrush = SolidColor(Color.Red),
     )
 }

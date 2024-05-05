@@ -18,36 +18,34 @@ fun NotaComposeTheme(
     )
 }
 
-private val LightColors =
-    lightColorScheme(
-        primary = colorPrimaryLight,
-        onPrimary = colorOnPrimaryLight,
-        primaryContainer = colorPrimaryContainerLight,
-        onPrimaryContainer = colorOnPrimaryContainerLight,
-        secondary = colorSecondaryLight,
-        onSecondary = colorOnSecondaryLight,
-        secondaryContainer = colorSecondaryContainerLight,
-        onSecondaryContainer = colorOnSecondaryContainerLight,
-        background = backgroundLight,
-        onBackground = onBackgroundLight,
-        surface = surfaceLight,
-        onSurface = onSurfaceLight,
-        outline = outlineLight,
-    )
+private val LightColors = lightColorScheme(
+    primary = colorPrimaryLight,
+    onPrimary = colorOnPrimaryLight,
+    primaryContainer = colorPrimaryContainerLight,
+    onPrimaryContainer = colorOnPrimaryContainerLight,
+    secondary = colorSecondaryLight,
+    onSecondary = colorOnSecondaryLight,
+    secondaryContainer = colorSecondaryContainerLight,
+    onSecondaryContainer = colorOnSecondaryContainerLight,
+    background = backgroundLight,
+    onBackground = onBackgroundLight,
+    surface = surfaceLight,
+    onSurface = onSurfaceLight,
+    outline = outlineLight,
+)
 
-private val DarkColors =
-    darkColorScheme(
-        primary = colorPrimaryDark,
-        onPrimary = colorOnPrimaryDark,
-        primaryContainer = colorPrimaryContainerDark,
-        onPrimaryContainer = colorOnPrimaryContainerDark,
-        secondary = colorSecondaryDark,
-        onSecondary = colorOnSecondaryDark,
-        secondaryContainer = colorSecondaryContainerDark,
-        onSecondaryContainer = colorOnSecondaryContainerDark,
-        background = backgroundDark,
-        onBackground = onBackgroundDark,
-        surface = surfaceDark,
-        onSurface = onSurfaceDark,
-        outline = outlineDark,
-    )
+private val DarkColors = darkColorScheme(
+    primary = colorPrimaryDark,
+    onPrimary = colorOnPrimaryDark,
+    primaryContainer = colorPrimaryContainerDark,
+    onPrimaryContainer = colorOnPrimaryContainerDark,
+    secondary = colorSecondaryDark,
+    onSecondary = colorOnSecondaryDark,
+    secondaryContainer = colorSecondaryContainerDark,
+    onSecondaryContainer = colorOnSecondaryContainerDark,
+    background = backgroundDark,
+    onBackground = onBackgroundDark,
+    surface = surfaceDark,
+    onSurface = onSurfaceDark,
+    outline = outlineDark,
+)

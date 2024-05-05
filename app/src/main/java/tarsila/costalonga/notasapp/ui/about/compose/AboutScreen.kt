@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.aboutsection.compose
+package tarsila.costalonga.notasapp.ui.about.compose
 
 import android.content.Intent
 import android.net.Uri
@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 
 private const val LINK1_WORD = "LinkedIn"
@@ -39,7 +39,7 @@ private const val TAG_LINK1 = "URL_LINKEDIN"
 private const val TAG_LINK2 = "URL_EMAIL"
 
 @Composable
-fun AboutScreen() {
+internal fun AboutScreen() {
     val getFirstLinkPositionPair = getWordPosition(word = LINK1_WORD)
     val getSecondLinkPositionPair = getWordPosition(word = LINK2_WORD)
 
