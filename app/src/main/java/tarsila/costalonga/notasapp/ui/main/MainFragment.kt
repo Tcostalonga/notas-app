@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
                     MainScreen(
                         onFabClicked = {
                             findNavController().navigate(
-                                MainFragmentDirections.actionMainFragmentToAddFragment(it),
+                                MainFragmentDirections.actionMainFragmentToAddFragment(),
                             )
                         },
                         onMenuClick = {

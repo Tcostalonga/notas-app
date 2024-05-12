@@ -48,9 +48,7 @@ class DetailFragment : Fragment() {
                         onFabClicked = { titulo, anotacao ->
                             viewModel.onEditNota(titulo, anotacao)
                             makeToast(requireContext(), getString(R.string.nota_update))
-                            findNavController().navigate(
-                                DetailFragmentDirections.actionDetalheFragmentToMainFragment(),
-                            )
+                            findNavController().popBackStack()
                         },
                     )
                 }
@@ -72,7 +70,7 @@ class DetailFragment : Fragment() {
             .setPositiveButton("OK") { _, _ ->
                 viewModel.removerNota(arguments)
                 makeToast(requireContext(), getString(R.string.nota_delete))
-                findNavController().navigate(DetailFragmentDirections.actionDetalheFragmentToMainFragment())
+                findNavController().popBackStack()
             }
             .show()
     }

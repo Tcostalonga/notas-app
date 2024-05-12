@@ -30,7 +30,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun carregarNotas() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             allNotas.value = repository.getTodasNotas()
         }
     }

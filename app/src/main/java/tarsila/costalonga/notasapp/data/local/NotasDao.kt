@@ -26,7 +26,7 @@ interface NotasDao {
     fun numTotalNotas(): LiveData<Int>
 
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
-    fun getTodasNotas(): List<Notas>
+    suspend fun getTodasNotas(): List<Notas>
 
     @Query("SELECT COUNT(id) FROM notas_table")
     fun getNotesCount(): Int
