@@ -1,72 +1,67 @@
 package tarsila.costalonga.notasapp.ui.addnote.compose
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text2.BasicTextField2
-import androidx.compose.foundation.text2.input.TextFieldLineLimits
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
-import tarsila.costalonga.notasapp.ui.addnote.Rascunho
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.ShowScratchAlert
+import tarsila.costalonga.notasapp.ui.core.compose.ShowSketchAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
-import tarsila.costalonga.notasapp.ui.core.compose.util.rememberLifecycleEvent
 
 @Composable
-internal fun AddNoteScreen(tamanhoLista: Int, viewModel: AddViewModel = hiltViewModel()) {
-    val rascunho by viewModel.rascunho.collectAsStateWithLifecycle()
-    val showScratchAlert by viewModel.showScratchAlert.collectAsStateWithLifecycle()
+internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
+    val showSketchAlert by viewModel.showSketchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
-    val lifecycle = rememberLifecycleEvent()
 
-    LaunchedEffect(lifecycle) {
-        if (lifecycle == Lifecycle.Event.ON_STOP) {
-            viewModel.addRascunho(rascunho.title, rascunho.description)
-        }
+    LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
+        viewModel.addSketch()
     }
 
-    LaunchedEffect(true) {
-        viewModel.getRascunho()
+    LaunchedEffect(Unit) {
+        viewModel.getSavedSketches()
     }
 
     AddNoteCompose(
-        rascunho,
-        updateTitle = { newTitle ->
-            viewModel.updateTitle(newTitle)
-        },
-        updateDescription = { newDescription -> viewModel.updateDescription(newDescription) },
+        titleState = viewModel.titleTextFieldState,
+        descriptionState = viewModel.descriptionTextFieldState,
         onFabClicked = {
             keyboard?.hide()
-            viewModel.addNota(rascunho.title, rascunho.description, tamanhoLista)
+            viewModel.addNota()
         },
     )
 
-    if (showScratchAlert) {
-        ShowScratchAlert(
-            showScratchAlert = {
+    if (showSketchAlert) {
+        ShowSketchAlert(
+            showSketchAlert = {
                 if (!it) {
-                    viewModel.hideScratchAlert()
+                    viewModel.hideSketchAlert()
                 }
             },
             onDismissDialogButton = {
@@ -80,17 +75,12 @@ internal fun AddNoteScreen(tamanhoLista: Int, viewModel: AddViewModel = hiltView
 
 @Composable
 private fun AddNoteCompose(
-    rascunho: Rascunho,
-    updateTitle: (String) -> Unit,
-    updateDescription: (String) -> Unit,
+    titleState: TextFieldState,
+    descriptionState: TextFieldState,
     onFabClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = { MyTopAppBar() },
-        modifier =
-        Modifier
-            .fillMaxSize()
-            .padding(top = NoteTheme.spacing.spacer8),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onFabClicked() },
@@ -102,21 +92,24 @@ private fun AddNoteCompose(
             }
         },
         floatingActionButtonPosition = FabPosition.End,
-    ) { it ->
-        Column(Modifier.padding(it)) {
+    ) {
+        Column(
+            Modifier
+                .padding(it)
+                .padding(horizontal = NoteTheme.spacing.spacer16),
+        ) {
             CustomAddTextField(
-                value = rascunho.title,
-                onValueChange = { updateTitle(it) },
+                labelText = R.string.titulo,
+                textFieldState = titleState,
                 modifier = Modifier.fillMaxWidth(),
-                //  labelText = R.string.titulo,
                 textStyle = NoteTheme.typography.titleSmall,
                 singleLine = true,
             )
+            Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
             CustomAddTextField(
-                value = rascunho.description,
-                onValueChange = { updateDescription(it) },
+                labelText = R.string.anotacao,
+                textFieldState = descriptionState,
                 modifier = Modifier.fillMaxWidth(),
-                // labelText = R.string.anotacao,
                 textStyle = NoteTheme.typography.bodyLarge,
             )
         }
@@ -128,27 +121,24 @@ private fun AddNoteCompose(
 fun PreviewAdd() {
     NotaComposeTheme {
         AddNoteCompose(
-            rascunho = Rascunho("aubaua", "description"),
-            {},
-            {},
+            titleState = TextFieldState(),
+            descriptionState = TextFieldState(),
             {},
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CustomAddTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
+    @StringRes labelText: Int,
+    textFieldState: TextFieldState,
     modifier: Modifier,
     textStyle: TextStyle,
     singleLine: Boolean = false,
 ) {
-    BasicTextField2(
-        value = value,
+    BasicTextField(
+        state = textFieldState,
         modifier = modifier,
-        onValueChange = onValueChange,
         textStyle = textStyle,
         lineLimits =
         if (singleLine) {
@@ -156,6 +146,11 @@ fun CustomAddTextField(
         } else {
             TextFieldLineLimits.Default
         },
-        cursorBrush = SolidColor(Color.Red),
+        decorator = { innerTextField ->
+            if (textFieldState.text.isEmpty()) {
+                Text(stringResource(id = labelText))
+            }
+            innerTextField()
+        },
     )
 }

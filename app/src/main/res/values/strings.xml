@@ -41,9 +41,9 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
-    <string name="scratch_title">Existe um rascunho salvo.</string>
-    <string name="scratch_text">Continuar editando?</string>
-    <string name="scratch_remove">Descartar</string>
-    <string name="scratch_keep">Continuar</string>
+    <string name="Sketch_title">Existe um rascunho salvo.</string>
+    <string name="Sketch_text">Continuar editando?</string>
+    <string name="Sketch_remove">Descartar</string>
+    <string name="Sketch_keep">Continuar</string>
 
 </resources>
