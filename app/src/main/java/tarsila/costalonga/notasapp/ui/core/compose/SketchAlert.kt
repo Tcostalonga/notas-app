@@ -22,7 +22,7 @@ fun ShowSketchAlert(
                     showSketchAlert(false)
                 },
             ) {
-                Text(stringResource(R.string.Sketch_keep))
+                Text(stringResource(R.string.sketch_keep))
             }
         },
         dismissButton = {
@@ -32,14 +32,14 @@ fun ShowSketchAlert(
                     showSketchAlert(false)
                 },
             ) {
-                Text(stringResource(R.string.Sketch_remove))
+                Text(stringResource(R.string.sketch_remove))
             }
         },
         title = {
-            Text(stringResource(R.string.Sketch_title))
+            Text(stringResource(R.string.sketch_title))
         },
         text = {
-            Text(stringResource(R.string.Sketch_text))
+            Text(stringResource(R.string.sketch_text))
         },
     )
 }
