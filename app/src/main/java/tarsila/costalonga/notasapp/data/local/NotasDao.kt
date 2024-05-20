@@ -36,4 +36,7 @@ interface NotasDao {
 
     @Query("SELECT COUNT(id) FROM notas_table where finalizado is 0")
     fun getActiveNotes(): Int
+
+    @Query("SELECT id FROM notas_table ORDER BY id DESC LIMIT 1")
+    suspend fun getLastItemId(): Long
 }

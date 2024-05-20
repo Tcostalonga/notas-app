@@ -35,22 +35,27 @@ class AddViewModel @Inject constructor(
     val addNotaStatus: LiveData<AddNotaStatus> = _addNotaStatus
 
     fun addNota() {
+        val titleFormatted = titleTextFieldState.text.trim()
+        val descriptionFormatted = descriptionTextFieldState.text.trim()
+
         when {
-            (titleTextFieldState.text.trim().isEmpty() || descriptionTextFieldState.text.trim().isEmpty()) -> {
+            (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) -> {
                 _addNotaStatus.postValue(AddNotaStatus.Error)
             }
 
             else -> {
-                //TODO: Colocar valor correto de ordenação
-                val newNota = Notas(
-                    titulo = titleTextFieldState.text.toString(),
-                    anotacao = descriptionTextFieldState.text.toString(),
-                    ordem = 1,
-                )
-                insertNota(newNota)
-                clearSharedPreferences()
-                setIsSketchDisabled()
-                _addNotaStatus.postValue(AddNotaStatus.Success)
+                viewModelScope.launch {
+                    val lastItemId = repository.getLastItemId()
+                    val newNota = Notas(
+                        titulo = titleFormatted.toString(),
+                        anotacao = descriptionFormatted.toString(),
+                        ordem = lastItemId.plus(1).toInt(),
+                    )
+                    insertNota(newNota)
+                    clearSharedPreferences()
+                    setSketchAsDisabled()
+                    _addNotaStatus.postValue(AddNotaStatus.Success)
+                }
             }
         }
     }
@@ -67,10 +72,7 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    private fun putSketch(
-        titulo: String,
-        descricao: String,
-    ) {
+    private fun putSketch(titulo: String, descricao: String) {
         sharedPreferences.edit().apply {
             putString(SKETCH_TITLE, titulo)
             putString(SKETCH_DESCRIPTION, descricao)
@@ -85,6 +87,10 @@ class AddViewModel @Inject constructor(
             this.append(title)
         }
 
+        descriptionTextFieldState.edit {
+            this.append(description)
+        }
+
         if (title.isNotEmpty() || description.isNotEmpty()) {
             _showSketchAlert.update { true }
         }
@@ -94,7 +100,7 @@ class AddViewModel @Inject constructor(
         sharedPreferences.edit().clear().apply()
     }
 
-    private fun setIsSketchDisabled() {
+    private fun setSketchAsDisabled() {
         isSketch = false
     }
 
@@ -102,15 +108,15 @@ class AddViewModel @Inject constructor(
         _showSketchAlert.update { false }
     }
 
-    fun updateTitle(title: String = "") {
+    fun updateTitle() {
         titleTextFieldState.edit {
-            this.append(title)
+            this.replace(0, this.length, "")
         }
     }
 
-    fun updateDescription(description: String = "") {
+    fun updateDescription() {
         descriptionTextFieldState.edit {
-            this.append(description)
+            this.replace(0, this.length, "")
         }
     }
 

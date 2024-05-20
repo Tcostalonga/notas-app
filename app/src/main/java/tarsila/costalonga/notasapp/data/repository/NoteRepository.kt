@@ -10,4 +10,5 @@ interface NoteRepository {
     fun getNotesCount(): Int
     fun getDoneNotes(): Int
     fun getActiveNotes(): Int
+    suspend fun getLastItemId(): Long
 }
