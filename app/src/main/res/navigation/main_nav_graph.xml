@@ -35,21 +35,11 @@
         <argument
             android:name="nota_obj"
             app:argType="tarsila.costalonga.notasapp.data.local.Notas" />
-        <action
-            android:id="@+id/action_detalheFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="tarsila.costalonga.notasapp.ui.addnote.AddFragment"
-        android:label="addFragment">
-        <action
-            android:id="@+id/action_addFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <argument
-            android:name="tamanhoLista"
-            app:argType="integer" />
-    </fragment>
+        android:label="addFragment" />
     <fragment
         android:id="@+id/estatisticasFragment"
         android:name="tarsila.costalonga.notasapp.ui.statistics.StatisticsFragment"

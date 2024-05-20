@@ -10,44 +10,44 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 
 @Composable
-fun ShowScratchAlert(
-    showScratchAlert: (Boolean) -> Unit,
+fun ShowSketchAlert(
+    showSketchAlert: (Boolean) -> Unit,
     onDismissDialogButton: () -> Unit,
 ) {
     AlertDialog(
-        onDismissRequest = { showScratchAlert(false) },
+        onDismissRequest = { showSketchAlert(false) },
         confirmButton = {
             TextButton(
                 onClick = {
-                    showScratchAlert(false)
+                    showSketchAlert(false)
                 },
             ) {
-                Text(stringResource(R.string.scratch_keep))
+                Text(stringResource(R.string.sketch_keep))
             }
         },
         dismissButton = {
             TextButton(
                 onClick = {
                     onDismissDialogButton()
-                    showScratchAlert(false)
+                    showSketchAlert(false)
                 },
             ) {
-                Text(stringResource(R.string.scratch_remove))
+                Text(stringResource(R.string.sketch_remove))
             }
         },
         title = {
-            Text(stringResource(R.string.scratch_title))
+            Text(stringResource(R.string.sketch_title))
         },
         text = {
-            Text(stringResource(R.string.scratch_text))
+            Text(stringResource(R.string.sketch_text))
         },
     )
 }
 
 @Composable
 @Preview
-fun ShowScratchAlertPreview() {
+fun ShowSketchAlertPreview() {
     NotaComposeTheme {
-        ShowScratchAlert({}, {})
+        ShowSketchAlert({}, {})
     }
 }

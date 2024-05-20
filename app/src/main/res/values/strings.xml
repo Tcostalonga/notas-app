@@ -30,7 +30,7 @@
     <string name="data_criacao_nota">Data de criação da nota</string>
     <string name="data_atualizacao_nota">Data de atualização da nota</string>
     <string name="editar_nota">Editar nota</string>
-    <string name="notas_criadas">Notas criadas</string>
+    <string name="notas_criadas">Total de notas criadas</string>
     <string name="notas_ativas">Notas ativas</string>
     <string name="notas_finalizadas">Notas finalizadas</string>
     <string name="icone_do_aplicativo">Ícone do aplicativo</string>
@@ -41,9 +41,9 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
-    <string name="scratch_title">Existe um rascunho salvo.</string>
-    <string name="scratch_text">Continuar editando?</string>
-    <string name="scratch_remove">Descartar</string>
-    <string name="scratch_keep">Continuar</string>
+    <string name="sketch_title">Existe um rascunho salvo.</string>
+    <string name="sketch_text">Continuar editando?</string>
+    <string name="sketch_remove">Descartar</string>
+    <string name="sketch_keep">Continuar</string>
 
 </resources>

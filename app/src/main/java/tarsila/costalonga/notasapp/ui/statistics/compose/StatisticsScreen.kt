@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,29 +17,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
+import tarsila.costalonga.notasapp.ui.statistics.StatisticsUiState
 import tarsila.costalonga.notasapp.ui.statistics.StatisticsViewModel
 
 @Composable
-internal fun StatisticsScreen(viewModel: StatisticsViewModel = viewModel()) {
-    val totalNotasCriadas by viewModel.totalCriadas().collectAsStateWithLifecycle(0)
-    val totalNotasAtivas by viewModel.totalAtivas.collectAsStateWithLifecycle(0)
-    val totalNotasFinalizadas by viewModel.notasFinalizadas().collectAsStateWithLifecycle(0)
+internal fun StatisticsScreen(viewModel: StatisticsViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    StatisticsCompose(totalNotasCriadas, totalNotasAtivas, totalNotasFinalizadas)
+    StatisticsCompose(uiState)
 }
 
 @Composable
-private fun StatisticsCompose(
-    numTotalCriadas: Int,
-    totalNotasAtivas: Int,
-    totalNotasFinalizadas: Int,
-) {
+private fun StatisticsCompose(uiState: StatisticsUiState) {
     Scaffold(
         topBar = { MyTopAppBar() },
     ) {
@@ -51,21 +45,21 @@ private fun StatisticsCompose(
                 .padding(it),
         ) {
             StatisticsRow(
-                icon = R.drawable.icon_note_created,
-                text = R.string.notas_criadas,
-                numNota = numTotalCriadas.toString(),
-            )
-            ViewDivider()
-            StatisticsRow(
                 icon = R.drawable.icon_note_active,
                 text = R.string.notas_ativas,
-                numNota = totalNotasAtivas.toString(),
+                numNota = uiState.allActiveNotes.toString(),
             )
             ViewDivider()
             StatisticsRow(
                 icon = R.drawable.icon_note_done,
                 text = R.string.notas_finalizadas,
-                numNota = totalNotasFinalizadas.toString(),
+                numNota = uiState.allDoneNotes.toString(),
+            )
+            ViewDivider()
+            StatisticsRow(
+                icon = R.drawable.icon_note_created,
+                text = R.string.notas_criadas,
+                numNota = uiState.allNotes.toString(),
             )
         }
     }
@@ -74,11 +68,9 @@ private fun StatisticsCompose(
 @Composable
 fun ViewDivider() {
     VerticalDivider(
-        modifier =
-        Modifier
+        modifier = Modifier
             .padding(vertical = NoteTheme.spacing.spacer12)
             .padding(start = NoteTheme.spacing.spacer12)
-            .width(1.dp)
             .height(80.dp),
     )
 }
@@ -99,7 +91,7 @@ fun StatisticsRow(
             text = stringResource(id = text),
             modifier =
             Modifier
-                .weight(0.5F)
+                .weight(1F)
                 .padding(start = NoteTheme.spacing.spacer8),
         )
         Text(
@@ -112,6 +104,6 @@ fun StatisticsRow(
 @Composable
 fun PreviewStatistics() {
     NotaComposeTheme {
-        StatisticsCompose(3, 2, 1)
+        StatisticsCompose(StatisticsUiState(40, 12, 28))
     }
 }

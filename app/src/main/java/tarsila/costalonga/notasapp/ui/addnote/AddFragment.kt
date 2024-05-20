@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.addnote.compose.AddNoteScreen
@@ -19,7 +18,6 @@ import tarsila.costalonga.notasapp.ui.utils.makeToast
 @AndroidEntryPoint
 class AddFragment : Fragment() {
     private val viewModel: AddViewModel by viewModels()
-    private val args: AddFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +28,7 @@ class AddFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NotaComposeTheme {
-                    AddNoteScreen(args.tamanhoLista)
+                    AddNoteScreen()
                 }
             }
         }
@@ -46,7 +44,7 @@ class AddFragment : Fragment() {
             when (it) {
                 AddNotaStatus.Success -> {
                     makeToast(requireContext(), getString(R.string.nota_insert))
-                    findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
+                    findNavController().popBackStack()
                 }
 
                 AddNotaStatus.Error -> {

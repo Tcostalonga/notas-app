@@ -81,7 +81,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.androidx.ui.viewbinding)
     implementation(libs.core.test)
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib.jdk8)

@@ -1,6 +1,9 @@
 package tarsila.costalonga.notasapp.ui.addnote
 
 import android.content.SharedPreferences
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,33 +23,39 @@ class AddViewModel @Inject constructor(
     private val repository: NoteDataRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
-    private val _rascunho = MutableStateFlow(Rascunho())
-    val rascunho: StateFlow<Rascunho> = _rascunho
+    private val _showSketchAlert = MutableStateFlow(false)
+    val showSketchAlert: StateFlow<Boolean> = _showSketchAlert
 
-    private val _showScratchAlert = MutableStateFlow(false)
-    val showScratchAlert: StateFlow<Boolean> = _showScratchAlert
+    val titleTextFieldState by mutableStateOf(TextFieldState())
+    val descriptionTextFieldState by mutableStateOf(TextFieldState())
 
-    private var isRascunho = true
+    private var isSketch = true
 
     private val _addNotaStatus = MutableLiveData<AddNotaStatus>()
     val addNotaStatus: LiveData<AddNotaStatus> = _addNotaStatus
 
-    fun addNota(
-        title: String,
-        description: String,
-        listSize: Int,
-    ) {
+    fun addNota() {
+        val titleFormatted = titleTextFieldState.text.trim()
+        val descriptionFormatted = descriptionTextFieldState.text.trim()
+
         when {
-            (title.trim().isEmpty() || description.trim().isEmpty()) -> {
+            (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) -> {
                 _addNotaStatus.postValue(AddNotaStatus.Error)
             }
 
             else -> {
-                val newNota = Notas(titulo = title, anotacao = description, ordem = listSize)
-                insertNota(newNota)
-                clearSharedPreferences()
-                setIsRascunhoDisabled()
-                _addNotaStatus.postValue(AddNotaStatus.Success)
+                viewModelScope.launch {
+                    val lastItemId = repository.getLastItemId()
+                    val newNota = Notas(
+                        titulo = titleFormatted.toString(),
+                        anotacao = descriptionFormatted.toString(),
+                        ordem = lastItemId.plus(1).toInt(),
+                    )
+                    insertNota(newNota)
+                    clearSharedPreferences()
+                    setSketchAsDisabled()
+                    _addNotaStatus.postValue(AddNotaStatus.Success)
+                }
             }
         }
     }
@@ -57,38 +66,33 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    fun addRascunho(
-        title: String,
-        description: String,
-    ) {
-        if (isRascunho && (title.isNotEmpty() || description.isNotEmpty())) {
-            putRascunho(title, description)
+    fun addSketch() {
+        if (isSketch && (titleTextFieldState.text.isNotEmpty() || descriptionTextFieldState.text.isNotEmpty())) {
+            putSketch(titleTextFieldState.text.toString(), descriptionTextFieldState.text.toString())
         }
     }
 
-    private fun putRascunho(
-        titulo: String,
-        descricao: String,
-    ) {
+    private fun putSketch(titulo: String, descricao: String) {
         sharedPreferences.edit().apply {
-            putString(RASCUNHO_TITULO, titulo)
-            putString(RASCUNHO_ANOTACAO, descricao)
+            putString(SKETCH_TITLE, titulo)
+            putString(SKETCH_DESCRIPTION, descricao)
         }.apply()
     }
 
-    fun getRascunho() {
-        val title = sharedPreferences.getString(RASCUNHO_TITULO, "") ?: ""
-        val description = sharedPreferences.getString(RASCUNHO_ANOTACAO, "") ?: ""
+    fun getSavedSketches() {
+        val title = sharedPreferences.getString(SKETCH_TITLE, "") ?: ""
+        val description = sharedPreferences.getString(SKETCH_DESCRIPTION, "") ?: ""
 
-        _rascunho.update {
-            it.copy(
-                title = title,
-                description = description,
-            )
+        titleTextFieldState.edit {
+            this.append(title)
+        }
+
+        descriptionTextFieldState.edit {
+            this.append(description)
         }
 
         if (title.isNotEmpty() || description.isNotEmpty()) {
-            _showScratchAlert.update { true }
+            _showSketchAlert.update { true }
         }
     }
 
@@ -96,39 +100,33 @@ class AddViewModel @Inject constructor(
         sharedPreferences.edit().clear().apply()
     }
 
-    private fun setIsRascunhoDisabled() {
-        isRascunho = false
+    private fun setSketchAsDisabled() {
+        isSketch = false
     }
 
-    fun hideScratchAlert() {
-        _showScratchAlert.update { false }
+    fun hideSketchAlert() {
+        _showSketchAlert.update { false }
     }
 
-    fun updateTitle(title: String = "") {
-        _rascunho.update {
-            it.copy(title = title)
+    fun updateTitle() {
+        titleTextFieldState.edit {
+            this.replace(0, this.length, "")
         }
     }
 
-    fun updateDescription(description: String = "") {
-        _rascunho.update {
-            it.copy(description = description)
+    fun updateDescription() {
+        descriptionTextFieldState.edit {
+            this.replace(0, this.length, "")
         }
     }
 
     companion object {
-        const val RASCUNHO_TITULO = "rascunho_titulo"
-        const val RASCUNHO_ANOTACAO = "rascunho_anotacao"
+        const val SKETCH_TITLE = "rascunho_titulo"
+        const val SKETCH_DESCRIPTION = "rascunho_anotacao"
     }
 }
 
-data class Rascunho(
-    val title: String = "",
-    val description: String = "",
-)
-
 sealed class AddNotaStatus {
-    object Success : AddNotaStatus()
-
-    object Error : AddNotaStatus()
+    data object Success : AddNotaStatus()
+    data object Error : AddNotaStatus()
 }
