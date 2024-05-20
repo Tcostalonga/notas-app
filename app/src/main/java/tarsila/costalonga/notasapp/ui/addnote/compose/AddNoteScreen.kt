@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
@@ -83,7 +83,7 @@ private fun AddNoteCompose(
         topBar = { MyTopAppBar() },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onFabClicked() },
+                onClick = onFabClicked,
             ) {
                 Icon(
                     Icons.Filled.Done,
@@ -102,7 +102,7 @@ private fun AddNoteCompose(
                 labelText = R.string.titulo,
                 textFieldState = titleState,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = NoteTheme.typography.titleSmall,
+                textStyle = NoteTheme.typography.titleMedium,
                 singleLine = true,
             )
             Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
@@ -116,7 +116,7 @@ private fun AddNoteCompose(
     }
 }
 
-@Preview(showBackground = true, uiMode = 1)
+@PreviewLightDark
 @Composable
 fun PreviewAdd() {
     NotaComposeTheme {
@@ -148,7 +148,10 @@ fun CustomAddTextField(
         },
         decorator = { innerTextField ->
             if (textFieldState.text.isEmpty()) {
-                Text(stringResource(id = labelText))
+                Text(
+                    text = stringResource(id = labelText),
+                    style = textStyle,
+                )
             }
             innerTextField()
         },
