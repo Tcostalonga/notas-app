@@ -35,4 +35,9 @@ val NotaTypography = Typography(
         color = colorSecondaryLight,
         fontSize = 14.sp,
     ),
+    labelLarge = TextStyle(
+        fontFamily = ProximaNova,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+    ),
 )
