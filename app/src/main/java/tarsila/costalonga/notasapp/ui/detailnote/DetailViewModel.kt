@@ -1,5 +1,8 @@
 package tarsila.costalonga.notasapp.ui.detailnote
 
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +16,22 @@ import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: NoteDataRepository) : ViewModel() {
-    val notaDetalhe = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
+    val noteDetail = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
+
+    val title by mutableStateOf(TextFieldState())
+    val description by mutableStateOf(TextFieldState())
+
+    fun setNoteDetail(noteId: Long) {
+        viewModelScope.launch {
+            noteDetail.value = repository.getNoteById(noteId)
+            title.edit {
+                replace(0, this.length, noteDetail.value.titulo)
+            }
+            description.edit {
+                replace(0, this.length, noteDetail.value.anotacao)
+            }
+        }
+    }
 
     private fun updateNota(nota: Notas) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,21 +45,16 @@ class DetailViewModel @Inject constructor(private val repository: NoteDataReposi
         }
     }
 
-    fun setNotaDetalhe(arguments: Notas) {
-        notaDetalhe.value = arguments
-    }
-
     fun getFormattedData(field: Long): String {
         return SimpleDateFormat.getDateInstance(3).format(field)
     }
 
-    fun onEditNota(
-        titulo: String,
-        anotacao: String,
-    ) {
-        val obj = notaDetalhe.value
-        obj.titulo = titulo
-        obj.anotacao = anotacao
+    fun updateNote() {
+        /*                            makeToast(requireContext(), getString(R.string.nota_update))
+                            findNavController().popBackStack()*/
+        val obj = noteDetail.value
+        obj.titulo = title.text.toString()
+        obj.anotacao = description.text.toString()
         obj.dtAtualizado = System.currentTimeMillis()
         updateNota(obj)
     }

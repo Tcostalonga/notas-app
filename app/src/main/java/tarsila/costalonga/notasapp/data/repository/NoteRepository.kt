@@ -7,6 +7,7 @@ interface NoteRepository {
     fun updateNota(nota: Notas)
     fun deleteUmaNota(nota: Notas)
     suspend fun getTodasNotas(): List<Notas>
+    suspend fun getNoteById(id: Long): Notas
     fun getNotesCount(): Int
     fun getDoneNotes(): Int
     fun getActiveNotes(): Int

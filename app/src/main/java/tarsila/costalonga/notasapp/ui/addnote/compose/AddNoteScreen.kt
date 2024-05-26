@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -102,7 +103,7 @@ private fun AddNoteCompose(
                 labelText = R.string.titulo,
                 textFieldState = titleState,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = NoteTheme.typography.titleMedium,
+                textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
@@ -110,21 +111,9 @@ private fun AddNoteCompose(
                 labelText = R.string.anotacao,
                 textFieldState = descriptionState,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = NoteTheme.typography.bodyLarge,
+                textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
             )
         }
-    }
-}
-
-@PreviewLightDark
-@Composable
-fun PreviewAdd() {
-    NotaComposeTheme {
-        AddNoteCompose(
-            titleState = TextFieldState(),
-            descriptionState = TextFieldState(),
-            {},
-        )
     }
 }
 
@@ -140,6 +129,7 @@ fun CustomAddTextField(
         state = textFieldState,
         modifier = modifier,
         textStyle = textStyle,
+        cursorBrush = SolidColor(NoteTheme.colors.primary),
         lineLimits =
         if (singleLine) {
             TextFieldLineLimits.SingleLine
@@ -156,4 +146,16 @@ fun CustomAddTextField(
             innerTextField()
         },
     )
+}
+
+@PreviewLightDark
+@Composable
+fun PreviewAdd() {
+    NotaComposeTheme {
+        AddNoteCompose(
+            titleState = TextFieldState(),
+            descriptionState = TextFieldState(),
+            {},
+        )
+    }
 }

@@ -41,7 +41,7 @@ import tarsila.costalonga.notasapp.ui.main.MainViewModel
 @Composable
 internal fun MainScreen(
     onFabClicked: (Int) -> Unit = {},
-    onItemListClicked: (Notas) -> Unit = {},
+    onItemListClicked: (noteId: Long) -> Unit = {},
     onMenuClick: (ItemMenuType) -> Unit = {},
     viewModel: MainViewModel = hiltViewModel(),
 ) {
@@ -69,7 +69,7 @@ private fun MainCompose(
     allNotas: List<Notas>,
     onMenuClick: (ItemMenuType) -> Unit = {},
     onFabClicked: (Int) -> Unit = {},
-    onItemListClicked: (Notas) -> Unit = {},
+    onItemListClicked: (noteId: Long) -> Unit = {},
     onCheckedChange: (Notas, Boolean) -> Unit = { _, _ -> },
     onArrowBackClicked: () -> Unit = {},
 ) {
@@ -114,7 +114,7 @@ private fun MainCompose(
                     val nota = filteredNotas[it]
                     ItemList(
                         nota = nota,
-                        onItemClicked = { onItemListClicked(nota) },
+                        onItemClicked = { onItemListClicked(nota.id) },
                         onCheckedChange = { checkedStatus ->
                             onCheckedChange(nota, checkedStatus)
                         },
