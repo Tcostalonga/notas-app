@@ -1,6 +1,7 @@
 [versions]
 androidGradlePlugin = "8.2.2"
-appcompat = "1.6.1"
+androidxActivity = "1.9.0"
+appcompat = "1.7.0"
 composeCompiler = "1.5.11"
 composeBom = "2024.03.00"
 composeVersion = "1.7.0-alpha08"
@@ -23,6 +24,7 @@ room = "2.6.1"
 runtimeLivedata = "1.6.4"
 
 [libraries]
+androidx-activty = { module = "androidx.activity:activity", version.ref = "androidxActivity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
