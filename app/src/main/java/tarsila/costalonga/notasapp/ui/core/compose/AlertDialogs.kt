@@ -1,5 +1,6 @@
 package tarsila.costalonga.notasapp.ui.core.compose
 
+import androidx.annotation.StringRes
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -10,36 +11,40 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 
 @Composable
-fun ShowSketchAlert(
-    showSketchAlert: (Boolean) -> Unit,
+fun ShowAlert(
+    @StringRes alertTitle: Int,
+    @StringRes alertDescription: Int,
+    @StringRes confirmButtonTitle: Int,
+    @StringRes dismissButtonTitle: Int,
+    onConfirmButtonClick: (Boolean) -> Unit,
     onDismissDialogButton: () -> Unit,
 ) {
     AlertDialog(
-        onDismissRequest = { showSketchAlert(false) },
+        onDismissRequest = { onConfirmButtonClick(false) },
         confirmButton = {
             TextButton(
                 onClick = {
-                    showSketchAlert(false)
+                    onConfirmButtonClick(false)
                 },
             ) {
-                Text(stringResource(R.string.sketch_keep))
+                Text(stringResource(confirmButtonTitle))
             }
         },
         dismissButton = {
             TextButton(
                 onClick = {
                     onDismissDialogButton()
-                    showSketchAlert(false)
+                    onConfirmButtonClick(false)
                 },
             ) {
-                Text(stringResource(R.string.sketch_remove))
+                Text(stringResource(dismissButtonTitle))
             }
         },
         title = {
-            Text(stringResource(R.string.sketch_title))
+            Text(stringResource(alertTitle))
         },
         text = {
-            Text(stringResource(R.string.sketch_text))
+            Text(stringResource(alertDescription))
         },
     )
 }
@@ -48,6 +53,14 @@ fun ShowSketchAlert(
 @Preview
 fun ShowSketchAlertPreview() {
     NotaComposeTheme {
-        ShowSketchAlert({}, {})
+        ShowAlert(
+            alertTitle = R.string.sketch_title,
+            alertDescription = R.string.sketch_text,
+            confirmButtonTitle = R.string.sketch_keep,
+            dismissButtonTitle = R.string.sketch_remove,
+            onConfirmButtonClick = {},
+            onDismissDialogButton = {},
+        )
+
     }
 }
