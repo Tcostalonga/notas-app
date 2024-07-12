@@ -1,6 +1,5 @@
 package tarsila.costalonga.notasapp.ui.detailnote.compose
 
-import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,6 +42,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
+import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
@@ -70,7 +70,13 @@ internal fun DetailScreen(
         viewModel.description,
         formattedDtCreated,
         formattedDtUpdated,
-        onMenuClicked = onMenuClicked,
+        onMenuClicked = { menuType ->
+            when (menuType) {
+                MenuType.DELETE -> viewModel.removerNota()
+                MenuType.SHARE -> {}
+            }
+            onMenuClicked(menuType)
+        },
         onFabClicked = viewModel::updateNote,
     )
 }
@@ -148,7 +154,25 @@ fun CustomBottomAppBar(
     detailMode: DetailMode,
     onDetailModeChange: (DetailMode) -> Unit,
 ) {
-    var fabIcon by rememberSaveable { mutableStateOf(Icons.Filled.Edit) }
+    var fabIcon by remember { mutableStateOf(Icons.Filled.Edit) }
+
+    var showRemoveNoteDialog by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    if (showRemoveNoteDialog) {
+        ShowAlert(
+            alertTitle = R.string.alert_title,
+            alertDescription = R.string.alert_message,
+            confirmButtonTitle = R.string.default_ok,
+            dismissButtonTitle = R.string.default_cancel,
+            onConfirmButtonClick = {
+                onMenuClicked(MenuType.DELETE)
+                showRemoveNoteDialog = false
+            },
+            onDismissDialogButton = { showRemoveNoteDialog = false },
+        )
+    }
 
     BottomAppBar(
         actions = {
@@ -161,7 +185,7 @@ fun CustomBottomAppBar(
             }
             Spacer(Modifier.padding(end = NoteTheme.spacing.spacer4))
 
-            IconButton(onClick = { onMenuClicked(MenuType.DELETE) }) {
+            IconButton(onClick = { showRemoveNoteDialog = true }) {
                 Icon(
                     Icons.Filled.Delete,
                     contentDescription = null,
@@ -218,7 +242,6 @@ fun ShowAndEditNote(
     isEnabled: Boolean,
     textStyle: TextStyle,
 ) {
-    Log.d("ShowAndEditNote", "textFieldState: ${textFieldState.text}")
     BasicTextField(
         state = textFieldState,
         modifier = modifier,

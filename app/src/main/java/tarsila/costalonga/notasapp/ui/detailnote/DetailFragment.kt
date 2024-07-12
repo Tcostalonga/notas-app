@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
@@ -38,7 +37,10 @@ class DetailFragment : Fragment() {
                         onMenuClicked = { menuType ->
                             when (menuType) {
                                 MenuType.SHARE -> criarShare()
-                                MenuType.DELETE -> criarAlertDialog()
+                                MenuType.DELETE -> {
+                                    makeToast(requireContext(), getString(R.string.nota_delete))
+                                    findNavController().popBackStack()
+                                }
                             }
                         },
                     )
@@ -49,21 +51,6 @@ class DetailFragment : Fragment() {
 
     private fun setNoteDetail() {
         viewModel.setNoteDetail(args.noteId)
-    }
-
-    private fun criarAlertDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.alert_title))
-            .setMessage(resources.getString(R.string.alert_message))
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("OK") { _, _ ->
-                //  viewModel.removerNota(arguments)
-                makeToast(requireContext(), getString(R.string.nota_delete))
-                findNavController().popBackStack()
-            }
-            .show()
     }
 
     private fun criarShare() {
