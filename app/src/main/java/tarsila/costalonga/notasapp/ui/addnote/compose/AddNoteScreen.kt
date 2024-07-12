@@ -130,8 +130,7 @@ fun CustomAddTextField(
         modifier = modifier,
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),
-        lineLimits =
-        if (singleLine) {
+        lineLimits = if (singleLine) {
             TextFieldLineLimits.SingleLine
         } else {
             TextFieldLineLimits.Default

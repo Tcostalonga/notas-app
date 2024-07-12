@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -57,13 +58,8 @@ internal fun DetailScreen(
 ) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
-    val formattedDtCreated by remember {
-        mutableStateOf(viewModel.getFormattedData(noteDetail.dtCriacao))
-    }
-
-    val formattedDtUpdated by remember {
-        mutableStateOf(viewModel.getFormattedData(noteDetail.dtAtualizado))
-    }
+    val formattedDtCreated = viewModel.getFormattedData(noteDetail.dtCriacao)
+    val formattedDtUpdated = viewModel.getFormattedData(noteDetail.dtAtualizado)
 
     DetailCompose(
         viewModel.title,
@@ -127,20 +123,21 @@ private fun DetailCompose(
                 }
                 ShowAndEditNote(
                     textFieldState = title,
+                    isEnabled = detailMode == DetailMode.EDIT,
+                    textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                     modifier = Modifier
                         .padding(top = NoteTheme.spacing.spacer18)
                         .fillMaxWidth(),
-                    isEnabled = detailMode == DetailMode.EDIT,
-                    textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
+                    singleLine = true,
                 )
 
                 ShowAndEditNote(
                     textFieldState = description,
+                    isEnabled = detailMode == DetailMode.EDIT,
+                    textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                     modifier = Modifier
                         .padding(top = NoteTheme.spacing.spacer8)
                         .fillMaxSize(),
-                    isEnabled = detailMode == DetailMode.EDIT,
-                    textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                 )
             }
         },
@@ -238,9 +235,10 @@ fun InsertText(
 @Composable
 fun ShowAndEditNote(
     textFieldState: TextFieldState,
-    modifier: Modifier,
     isEnabled: Boolean,
     textStyle: TextStyle,
+    modifier: Modifier = Modifier,
+    singleLine: Boolean = false,
 ) {
     BasicTextField(
         state = textFieldState,
@@ -248,6 +246,11 @@ fun ShowAndEditNote(
         enabled = isEnabled,
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),
+        lineLimits = if (singleLine) {
+            TextFieldLineLimits.SingleLine
+        } else {
+            TextFieldLineLimits.Default
+        },
     )
 }
 
