@@ -13,27 +13,28 @@ private val ProximaNova = FontFamily(Font(R.font.proxima_nova_regular, FontWeigh
 private val ProximaNovaCondensed = FontFamily(Font(R.font.proxima_nova, FontWeight.Normal))
 
 val NotaTypography = Typography(
-    titleMedium =
-    TextStyle(
+    titleMedium = TextStyle(
         fontFamily = ProximaNova,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
     ),
-    bodyLarge =
-    TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = ProximaNova,
         fontSize = 18.sp,
     ),
-    bodyMedium =
-    TextStyle(
-        fontFamily = ProximaNovaCondensed,
-        fontSize = 18.sp,
+    bodyMedium = TextStyle(
+        fontFamily = ProximaNova,
+        fontSize = 16.sp,
     ),
-    labelSmall =
-    TextStyle(
+    labelSmall = TextStyle(
         fontFamily = ProximaNovaCondensed,
         color = colorSecondaryLight,
         fontSize = 14.sp,
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = ProximaNova,
+        fontWeight = FontWeight.Medium,
+        fontSize = 18.sp,
     ),
     labelLarge = TextStyle(
         fontFamily = ProximaNova,

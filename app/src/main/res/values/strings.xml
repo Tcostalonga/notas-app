@@ -41,6 +41,8 @@
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
+    <string name="default_ok">OK</string>
+    <string name="default_cancel">Cancelar</string>
     <string name="sketch_title">Existe um rascunho salvo.</string>
     <string name="sketch_text">Continuar editando?</string>
     <string name="sketch_remove">Descartar</string>

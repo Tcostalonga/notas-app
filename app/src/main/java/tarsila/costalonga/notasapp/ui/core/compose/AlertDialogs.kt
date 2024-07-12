@@ -16,26 +16,21 @@ fun ShowAlert(
     @StringRes alertDescription: Int,
     @StringRes confirmButtonTitle: Int,
     @StringRes dismissButtonTitle: Int,
-    onConfirmButtonClick: (Boolean) -> Unit,
+    onConfirmButtonClick: () -> Unit,
     onDismissDialogButton: () -> Unit,
 ) {
     AlertDialog(
-        onDismissRequest = { onConfirmButtonClick(false) },
+        onDismissRequest = { },
         confirmButton = {
             TextButton(
-                onClick = {
-                    onConfirmButtonClick(false)
-                },
+                onClick = onConfirmButtonClick,
             ) {
                 Text(stringResource(confirmButtonTitle))
             }
         },
         dismissButton = {
             TextButton(
-                onClick = {
-                    onDismissDialogButton()
-                    onConfirmButtonClick(false)
-                },
+                onClick = onDismissDialogButton,
             ) {
                 Text(stringResource(dismissButtonTitle))
             }

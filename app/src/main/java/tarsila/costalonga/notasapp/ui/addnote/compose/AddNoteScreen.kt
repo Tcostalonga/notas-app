@@ -32,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.ShowSketchAlert
+import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
@@ -59,12 +59,12 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
     )
 
     if (showSketchAlert) {
-        ShowSketchAlert(
-            showSketchAlert = {
-                if (!it) {
-                    viewModel.hideSketchAlert()
-                }
-            },
+        ShowAlert(
+            alertTitle = R.string.sketch_title,
+            alertDescription = R.string.sketch_text,
+            confirmButtonTitle = R.string.sketch_keep,
+            dismissButtonTitle = R.string.sketch_remove,
+            onConfirmButtonClick = { viewModel.hideSketchAlert() },
             onDismissDialogButton = {
                 viewModel.clearSharedPreferences()
                 viewModel.updateTitle()
