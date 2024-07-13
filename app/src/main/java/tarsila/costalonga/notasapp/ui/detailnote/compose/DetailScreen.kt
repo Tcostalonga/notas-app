@@ -26,12 +26,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
@@ -87,6 +90,13 @@ private fun DetailCompose(
     onFabClicked: () -> Unit,
 ) {
     var detailMode by rememberSaveable { mutableStateOf(DetailMode.VIEW) }
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = detailMode) {
+        if (detailMode == DetailMode.EDIT) {
+            focusRequester.requestFocus()
+        }
+    }
 
     Scaffold(
         topBar = { MyTopAppBar() },
@@ -127,7 +137,8 @@ private fun DetailCompose(
                     textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                     modifier = Modifier
                         .padding(top = NoteTheme.spacing.spacer18)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .focusRequester(focusRequester),
                     singleLine = true,
                 )
 
