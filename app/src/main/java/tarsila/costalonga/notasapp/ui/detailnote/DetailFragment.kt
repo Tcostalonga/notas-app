@@ -54,12 +54,12 @@ class DetailFragment : Fragment() {
     }
 
     private fun criarShare() {
-        //  val textsArray = "${arguments.titulo}\n${arguments.anotacao}"
+        val text = "${viewModel.title.text}\n${viewModel.description.text}"
 
         val shareIntent =
             Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "textsArray")
+                putExtra(Intent.EXTRA_TEXT, text)
                 type = "text/plain"
             }
         startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
