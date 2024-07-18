@@ -47,5 +47,9 @@
     <string name="sketch_text">Continuar editando?</string>
     <string name="sketch_remove">Descartar</string>
     <string name="sketch_keep">Continuar</string>
+    <string name="dialog_change_theme">Tema</string>
+    <string name="dialog_change_theme_system_default">Padrão do sistema</string>
+    <string name="dialog_change_theme_light">Claro</string>
+    <string name="dialog_change_theme_dark">Escuro</string>
 
 </resources>
