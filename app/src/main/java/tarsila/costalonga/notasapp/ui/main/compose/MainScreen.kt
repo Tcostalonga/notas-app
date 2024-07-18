@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.PESQUISAR
@@ -40,61 +41,95 @@ import tarsila.costalonga.notasapp.ui.main.MainViewModel
 
 @Composable
 internal fun MainScreen(
-    onFabClicked: (Int) -> Unit = {},
-    onItemListClicked: (noteId: Long) -> Unit = {},
-    onMenuClick: (ItemMenuType) -> Unit = {},
     viewModel: MainViewModel = hiltViewModel(),
+    mainEvent: (MainEvent) -> Unit,
 ) {
-    val allNotas by viewModel.allNotas.collectAsStateWithLifecycle()
-    val isSearchEnabled by viewModel.isSearchEnabled.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.carregarNotas()
+        viewModel.loadNotes()
+    }
+
+    LaunchedEffect(uiState.event) {
+        uiState.event?.let { event ->
+            when (event) {
+                MainEvent.OnAddNoteClicked -> {
+                    mainEvent(MainEvent.OnAddNoteClicked)
+                    viewModel.consumeEvent()
+                }
+
+                is MainEvent.OnItemListClicked -> {
+                    mainEvent(MainEvent.OnItemListClicked(event.noteId))
+                    viewModel.consumeEvent()
+                }
+
+                is MainEvent.OnOptionsMenuClicked -> {
+                    mainEvent(MainEvent.OnOptionsMenuClicked(event.itemMenu))
+                    viewModel.consumeEvent()
+                }
+
+                is MainEvent.OnThemeOptionClicked -> {
+                    mainEvent(MainEvent.OnThemeOptionClicked(event.themeMode))
+                    viewModel.consumeEvent()
+                }
+            }
+        }
     }
 
     MainCompose(
-        isSearchEnabled,
-        allNotas,
-        onMenuClick,
-        onFabClicked,
-        onItemListClicked,
-        onCheckedChange = { nota, checkedStatus -> viewModel.checkboxStatus(nota, checkedStatus) },
-        onArrowBackClicked = { viewModel.isSearchEnabled.value = false },
+        uiState = uiState,
+        uiIntent = { viewModel.handleIntent(it) },
     )
 }
 
 @Composable
 private fun MainCompose(
-    isSearchEnabled: Boolean,
-    allNotas: List<Notas>,
-    onMenuClick: (ItemMenuType) -> Unit = {},
-    onFabClicked: (Int) -> Unit = {},
-    onItemListClicked: (noteId: Long) -> Unit = {},
-    onCheckedChange: (Notas, Boolean) -> Unit = { _, _ -> },
-    onArrowBackClicked: () -> Unit = {},
+    uiState: MainUiState,
+    uiIntent: (MainIntent) -> Unit,
 ) {
+    var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
     var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
     var filteredNotas: List<Notas>
 
+    if (showChangeThemeDialog) {
+        ChangeThemeDialog(
+            onDismissRequest = { showChangeThemeDialog = false },
+            themeModes = uiState.themeMode,
+            onThemeClick = {
+                showChangeThemeDialog = false
+                uiIntent(MainIntent.OnThemeOptionClick(it))
+            },
+        )
+    }
+
     Scaffold(
         topBar = {
-            if (isSearchEnabled) {
+            if (uiState.isSearchEnabled) {
                 SearchLayoutBar(
                     onArrowBackClicked = {
-                        onArrowBackClicked()
+                        uiIntent(MainIntent.OnArrowBackClick)
                         searchTerm = ""
                     },
                     searchTerm = searchTerm,
                     onSearchTermChanged = { searchTerm = it },
                 )
             } else {
-                MyTopAppBar(true, onMenuClick)
+                MyTopAppBar(
+                    isMainFragment = true,
+                    onMenuClick = { itemMenu ->
+                        if (itemMenu == ItemMenuType.TEMA) {
+                            showChangeThemeDialog = true
+                        } else {
+                            uiIntent(MainIntent.OnOptionsMenuClick(itemMenu))
+                        }
+                    },
+                )
             }
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onFabClicked(allNotas.size) },
+                onClick = { uiIntent(MainIntent.OnAddNoteClick(uiState.allNotes.size)) },
             ) {
                 Icon(
                     Icons.Filled.Add,
@@ -108,15 +143,15 @@ private fun MainCompose(
                 .padding(it)
                 .padding(NoteTheme.spacing.spacer8),
             content = {
-                filteredNotas = performFilterInTitle(searchTerm, allNotas)
+                filteredNotas = performFilterInTitle(searchTerm, uiState.allNotes)
 
                 items(filteredNotas.size) {
                     val nota = filteredNotas[it]
                     ItemList(
                         nota = nota,
-                        onItemClicked = { onItemListClicked(nota.id) },
+                        onItemClicked = { uiIntent(MainIntent.OnItemListClick(nota.id)) },
                         onCheckedChange = { checkedStatus ->
-                            onCheckedChange(nota, checkedStatus)
+                            uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
                         },
                     )
                 }
@@ -191,6 +226,13 @@ fun PreviewMain(
     @PreviewParameter(PreviewParams::class) listOfNotas: List<Notas>,
 ) {
     NotaComposeTheme {
-        MainCompose(false, listOfNotas)
+        MainCompose(
+            uiState = MainUiState(
+                allNotes = listOfNotas,
+                themeMode = listOf(),
+                event = null,
+            ),
+            uiIntent = {},
+        )
     }
 }

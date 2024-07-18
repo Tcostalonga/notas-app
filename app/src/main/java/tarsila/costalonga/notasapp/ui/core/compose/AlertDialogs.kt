@@ -1,6 +1,7 @@
 package tarsila.costalonga.notasapp.ui.core.compose
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.main.ThemeMode
+import tarsila.costalonga.notasapp.ui.main.listOfThemes
 
 @Composable
 fun ShowAlert(
@@ -104,8 +106,11 @@ fun ChangeThemeDialog(
 
                 List(3) { index ->
                     val item = themeModes[index]
+
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onThemeClick(item) },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
                     )
@@ -116,8 +121,10 @@ fun ChangeThemeDialog(
                             Text(text = stringResource(item.text))
                         }
                         RadioButton(
-                            selected = true,
-                            onClick = { onThemeClick(item) },
+                            selected = item.isChecked,
+                            onClick = {
+                                onThemeClick(item)
+                            },
                         )
 
                     }
@@ -131,6 +138,6 @@ fun ChangeThemeDialog(
 @Composable
 private fun DialogChangeTheme() {
     NotaComposeTheme {
-        ChangeThemeDialog(themeModes = listOf(ThemeMode.LIGHT, ThemeMode.DARK, ThemeMode.SYSTEM_DEFAULT), {}, {})
+        ChangeThemeDialog(themeModes = listOfThemes, {}, {})
     }
 }
