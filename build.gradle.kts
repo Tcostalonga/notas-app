@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.navigationSafeargs) apply false
     alias(libs.plugins.ktlint) apply true
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 allprojects {
