@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "tarsila.costalonga.notasapp"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 11
         versionName = "1.1-jetpack"
         vectorDrawables {
