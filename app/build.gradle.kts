@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.recyclerview)

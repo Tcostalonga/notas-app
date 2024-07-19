@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainScreen
 
 @AndroidEntryPoint
@@ -31,21 +32,33 @@ class MainFragment : Fragment() {
             setContent {
                 NotaComposeTheme {
                     MainScreen(
-                        onFabClicked = {
-                            findNavController().navigate(
-                                MainFragmentDirections.actionMainFragmentToAddFragment(),
-                            )
-                        },
-                        onMenuClick = {
-                            handleOnMenuClick(it)
-                        },
-                        onItemListClicked = {
-                            findNavController().navigate(
-                                MainFragmentDirections.actionMainFragmentToDetalheFragment(it),
-                            )
-                        },
+                        mainEvent = ::handleIntent,
                     )
                 }
+            }
+        }
+    }
+
+    private fun handleIntent(event: MainEvent) {
+        when (event) {
+            MainEvent.OnAddNoteClicked -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToAddFragment(),
+                )
+            }
+
+            is MainEvent.OnItemListClicked -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToDetalheFragment(event.noteId),
+                )
+            }
+
+            is MainEvent.OnOptionsMenuClicked -> {
+                handleOnMenuClick(event.itemMenu)
+            }
+
+            is MainEvent.OnThemeOptionClicked -> {
+                AppCompatDelegate.setDefaultNightMode(event.themeMode)
             }
         }
     }
@@ -53,7 +66,7 @@ class MainFragment : Fragment() {
     private fun handleOnMenuClick(itemMenu: ItemMenuType) {
         when (itemMenu) {
             ItemMenuType.SEARCH -> {
-                viewModel.isSearchEnabled.value = true
+                viewModel.updateIsSearchEnabled(true)
             }
 
             ItemMenuType.ESTATISTICAS -> {
@@ -68,9 +81,7 @@ class MainFragment : Fragment() {
                 )
             }
 
-            ItemMenuType.TEMA -> {
-                AppCompatDelegate.setDefaultNightMode(viewModel.changeTheme())
-            }
+            else -> {}
         }
     }
 }

@@ -20,7 +20,7 @@ interface NotasDao {
     fun deleteUmaNota(nota: Notas)
 
     @Query("SELECT * from notas_table WHERE id = :key")
-    fun getUmaNota(key: Long): Notas
+    suspend fun getNoteById(key: Long): Notas
 
     @Query("SELECT COUNT(*) FROM notas_table")
     fun numTotalNotas(): LiveData<Int>

@@ -74,7 +74,6 @@ fun MyTopAppBar(
                         },
                         text = {
                             Text(
-                                style = NoteTheme.typography.bodyLarge,
                                 text = stringResource(id = R.string.estatisticas),
                             )
                         },
@@ -87,7 +86,6 @@ fun MyTopAppBar(
                         },
                         text = {
                             Text(
-                                style = NoteTheme.typography.bodyLarge,
                                 text = stringResource(id = R.string.sobre),
                             )
                         },

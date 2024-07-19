@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -31,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.ShowSketchAlert
+import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
@@ -58,12 +59,12 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
     )
 
     if (showSketchAlert) {
-        ShowSketchAlert(
-            showSketchAlert = {
-                if (!it) {
-                    viewModel.hideSketchAlert()
-                }
-            },
+        ShowAlert(
+            alertTitle = R.string.sketch_title,
+            alertDescription = R.string.sketch_text,
+            confirmButtonTitle = R.string.sketch_keep,
+            dismissButtonTitle = R.string.sketch_remove,
+            onConfirmButtonClick = { viewModel.hideSketchAlert() },
             onDismissDialogButton = {
                 viewModel.clearSharedPreferences()
                 viewModel.updateTitle()
@@ -102,7 +103,7 @@ private fun AddNoteCompose(
                 labelText = R.string.titulo,
                 textFieldState = titleState,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = NoteTheme.typography.titleMedium,
+                textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
@@ -110,21 +111,9 @@ private fun AddNoteCompose(
                 labelText = R.string.anotacao,
                 textFieldState = descriptionState,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = NoteTheme.typography.bodyLarge,
+                textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
             )
         }
-    }
-}
-
-@PreviewLightDark
-@Composable
-fun PreviewAdd() {
-    NotaComposeTheme {
-        AddNoteCompose(
-            titleState = TextFieldState(),
-            descriptionState = TextFieldState(),
-            {},
-        )
     }
 }
 
@@ -140,8 +129,8 @@ fun CustomAddTextField(
         state = textFieldState,
         modifier = modifier,
         textStyle = textStyle,
-        lineLimits =
-        if (singleLine) {
+        cursorBrush = SolidColor(NoteTheme.colors.primary),
+        lineLimits = if (singleLine) {
             TextFieldLineLimits.SingleLine
         } else {
             TextFieldLineLimits.Default
@@ -156,4 +145,16 @@ fun CustomAddTextField(
             innerTextField()
         },
     )
+}
+
+@PreviewLightDark
+@Composable
+fun PreviewAdd() {
+    NotaComposeTheme {
+        AddNoteCompose(
+            titleState = TextFieldState(),
+            descriptionState = TextFieldState(),
+            {},
+        )
+    }
 }

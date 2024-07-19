@@ -28,22 +28,26 @@
             app:enterAnim="@anim/fade_in"
             app:popEnterAnim="@anim/fade_in" />
     </fragment>
+
     <fragment
         android:id="@+id/detalheFragment"
         android:name="tarsila.costalonga.notasapp.ui.detailnote.DetailFragment"
         android:label="detalheFragment">
         <argument
-            android:name="nota_obj"
-            app:argType="tarsila.costalonga.notasapp.data.local.Notas" />
+            android:name="noteId"
+            app:argType="long" />
     </fragment>
+
     <fragment
         android:id="@+id/addFragment"
         android:name="tarsila.costalonga.notasapp.ui.addnote.AddFragment"
         android:label="addFragment" />
+
     <fragment
         android:id="@+id/estatisticasFragment"
         android:name="tarsila.costalonga.notasapp.ui.statistics.StatisticsFragment"
         android:label="estatisticasFragment" />
+
     <fragment
         android:id="@+id/sobreFragment"
         android:name="tarsila.costalonga.notasapp.ui.about.AboutFragment"

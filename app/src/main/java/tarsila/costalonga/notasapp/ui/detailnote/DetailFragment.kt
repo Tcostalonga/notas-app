@@ -10,10 +10,9 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.detailnote.compose.DetailScreen
 import tarsila.costalonga.notasapp.ui.utils.makeToast
@@ -21,18 +20,14 @@ import tarsila.costalonga.notasapp.ui.utils.makeToast
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
-
-    private var btAcao = 0
-
-    private lateinit var arguments: Notas
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        arguments = DetailFragmentArgs.fromBundle(requireArguments()).notaObj
-        setarCamposDetalheFragm()
+        setNoteDetail()
 
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -42,13 +37,11 @@ class DetailFragment : Fragment() {
                         onMenuClicked = { menuType ->
                             when (menuType) {
                                 MenuType.SHARE -> criarShare()
-                                MenuType.DELETE -> criarAlertDialog()
+                                MenuType.DELETE -> {
+                                    makeToast(requireContext(), getString(R.string.nota_delete))
+                                    findNavController().popBackStack()
+                                }
                             }
-                        },
-                        onFabClicked = { titulo, anotacao ->
-                            viewModel.onEditNota(titulo, anotacao)
-                            makeToast(requireContext(), getString(R.string.nota_update))
-                            findNavController().popBackStack()
                         },
                     )
                 }
@@ -56,32 +49,17 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun setarCamposDetalheFragm() {
-        viewModel.setNotaDetalhe(arguments)
-    }
-
-    private fun criarAlertDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.alert_title))
-            .setMessage(resources.getString(R.string.alert_message))
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("OK") { _, _ ->
-                viewModel.removerNota(arguments)
-                makeToast(requireContext(), getString(R.string.nota_delete))
-                findNavController().popBackStack()
-            }
-            .show()
+    private fun setNoteDetail() {
+        viewModel.setNoteDetail(args.noteId)
     }
 
     private fun criarShare() {
-        val textsArray = "${arguments.titulo}\n${arguments.anotacao}"
+        val text = "${viewModel.title.text}\n${viewModel.description.text}"
 
         val shareIntent =
             Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, textsArray)
+                putExtra(Intent.EXTRA_TEXT, text)
                 type = "text/plain"
             }
         startActivity(Intent.createChooser(shareIntent, "Compartilhar anotação"))
