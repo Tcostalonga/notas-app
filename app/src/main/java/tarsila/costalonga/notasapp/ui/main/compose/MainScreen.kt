@@ -31,7 +31,6 @@ import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.PESQUISAR
 import tarsila.costalonga.notasapp.ui.core.compose.SearchLayoutBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
@@ -88,7 +87,7 @@ private fun MainCompose(
     uiIntent: (MainIntent) -> Unit,
 ) {
     var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
-    var searchTerm by rememberSaveable { mutableStateOf(PESQUISAR) }
+    var searchTerm by rememberSaveable { mutableStateOf("") }
     var filteredNotas: List<Notas>
 
     if (showChangeThemeDialog) {
@@ -106,6 +105,7 @@ private fun MainCompose(
         topBar = {
             if (uiState.isSearchEnabled) {
                 SearchLayoutBar(
+                    hasFocus = true,
                     onArrowBackClicked = {
                         uiIntent(MainIntent.OnArrowBackClick)
                         searchTerm = ""
@@ -164,7 +164,7 @@ fun performFilterInTitle(
     searchedText: String,
     allNotas: List<Notas>,
 ): List<Notas> {
-    return if (searchedText != PESQUISAR && searchedText.isNotEmpty()) {
+    return if (searchedText.isNotEmpty()) {
         val resultList = mutableListOf<Notas>()
         for (nota in allNotas) {
             if (nota.titulo.lowercase().contains(searchedText.lowercase())) {
