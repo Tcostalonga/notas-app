@@ -17,7 +17,7 @@ android {
         minSdk = 23
         targetSdk = 34
         versionCode = 11
-        versionName = "1.1-jetpack"
+        versionName = "2.0-compose"
         vectorDrawables {
             useSupportLibrary = true
         }
