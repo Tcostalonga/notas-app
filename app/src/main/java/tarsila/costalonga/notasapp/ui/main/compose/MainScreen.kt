@@ -190,7 +190,8 @@ fun ItemList(
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(NoteTheme.spacing.spacer4),
+            .padding(NoteTheme.spacing.spacer4)
+            .clickable { onItemClicked() },
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(
@@ -207,8 +208,7 @@ fun ItemList(
         )
         Text(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onItemClicked() },
+                .fillMaxWidth(),
             text = nota.titulo,
             style =
             NoteTheme.typography.bodyLarge.copy(
