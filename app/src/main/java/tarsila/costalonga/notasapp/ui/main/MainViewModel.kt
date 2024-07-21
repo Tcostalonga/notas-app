@@ -119,6 +119,6 @@ class MainViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TEMACOR = "mudar_tema"
+        private const val TEMACOR = "changeTheme"
     }
 }

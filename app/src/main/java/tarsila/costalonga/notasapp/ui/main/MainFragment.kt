@@ -20,13 +20,17 @@ import tarsila.costalonga.notasapp.ui.main.compose.MainScreen
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val currentTheme = viewModel.getThemePreferences()
+        AppCompatDelegate.setDefaultNightMode(currentTheme)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        AppCompatDelegate.setDefaultNightMode(viewModel.getThemePreferences())
-
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {

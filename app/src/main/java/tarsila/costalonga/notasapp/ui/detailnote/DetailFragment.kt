@@ -39,7 +39,7 @@ class DetailFragment : Fragment() {
                                 MenuType.SHARE -> criarShare()
                                 MenuType.DELETE -> {
                                     makeToast(requireContext(), getString(R.string.nota_delete))
-                                    findNavController().popBackStack()
+                                    findNavController().navigateUp()
                                 }
                             }
                         },

@@ -69,6 +69,7 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
                 viewModel.clearSharedPreferences()
                 viewModel.updateTitle()
                 viewModel.updateDescription()
+                viewModel.hideSketchAlert()
             },
         )
     }
