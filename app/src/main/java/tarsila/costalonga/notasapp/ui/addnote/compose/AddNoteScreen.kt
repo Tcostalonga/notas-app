@@ -4,9 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material.icons.Icons
@@ -24,6 +26,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -82,6 +85,7 @@ private fun AddNoteCompose(
     onFabClicked: () -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.imePadding(),
         topBar = { MyTopAppBar() },
         floatingActionButton = {
             FloatingActionButton(
@@ -98,7 +102,7 @@ private fun AddNoteCompose(
         Column(
             Modifier
                 .padding(it)
-                .padding(horizontal = NoteTheme.spacing.spacer16),
+                .padding(horizontal = NoteTheme.spacing.spacer16, vertical = NoteTheme.spacing.spacer12),
         ) {
             CustomAddTextField(
                 labelText = R.string.titulo,
@@ -107,7 +111,7 @@ private fun AddNoteCompose(
                 textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                 singleLine = true,
             )
-            Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
+            Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer12))
             CustomAddTextField(
                 labelText = R.string.anotacao,
                 textFieldState = descriptionState,
@@ -129,6 +133,7 @@ fun CustomAddTextField(
     BasicTextField(
         state = textFieldState,
         modifier = modifier,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),
         lineLimits = if (singleLine) {

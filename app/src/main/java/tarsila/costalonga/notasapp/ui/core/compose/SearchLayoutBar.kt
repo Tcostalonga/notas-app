@@ -3,6 +3,7 @@ package tarsila.costalonga.notasapp.ui.core.compose
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
@@ -47,6 +49,7 @@ fun SearchLayoutBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                 textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                 singleLine = true,
                 cursorBrush = SolidColor(NoteTheme.colors.primary),
