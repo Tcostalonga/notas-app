@@ -28,12 +28,15 @@ class MainViewModel @Inject constructor(
     init {
         val themeModeObj = updateTheme(getThemePreferences(), listOfThemes)
         _uiState.update { it.copy(themeMode = themeModeObj) }
+        loadNotes()
     }
 
-    fun loadNotes() {
+    private fun loadNotes() {
         viewModelScope.launch {
-            val allNotes = repository.getTodasNotas()
-            _uiState.update { it.copy(allNotes = allNotes) }
+            _uiState.update { it.copy(isLoading = true) }
+            repository.getTodasNotas().collect { allNotes ->
+                _uiState.update { it.copy(isLoading = false, allNotes = allNotes) }
+            }
         }
     }
 
