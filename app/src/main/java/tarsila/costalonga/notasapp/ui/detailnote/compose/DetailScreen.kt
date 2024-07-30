@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.verticalScroll
@@ -39,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -99,6 +102,7 @@ private fun DetailCompose(
     }
 
     Scaffold(
+        modifier = Modifier.imePadding(),
         topBar = { MyTopAppBar() },
         bottomBar = {
             CustomBottomAppBar(
@@ -254,6 +258,7 @@ fun ShowAndEditNote(
     BasicTextField(
         state = textFieldState,
         modifier = modifier,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         enabled = isEnabled,
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),

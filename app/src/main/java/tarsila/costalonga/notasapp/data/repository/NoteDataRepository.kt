@@ -2,6 +2,7 @@ package tarsila.costalonga.notasapp.data.repository
 
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.local.NotasDao
 
@@ -19,7 +20,7 @@ class NoteDataRepository @Inject constructor(private val dtDao: NotasDao) : Note
         dtDao.deleteUmaNota(nota)
     }
 
-    override suspend fun getTodasNotas(): List<Notas> {
+    override fun getTodasNotas(): Flow<List<Notas>> {
         return dtDao.getTodasNotas()
     }
 

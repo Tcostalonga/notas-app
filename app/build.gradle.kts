@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinAndroid)
@@ -14,9 +15,9 @@ android {
     defaultConfig {
         applicationId = "tarsila.costalonga.notasapp"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 11
-        versionName = "1.1-jetpack"
+        versionName = "2.0-compose"
         vectorDrawables {
             useSupportLibrary = true
         }

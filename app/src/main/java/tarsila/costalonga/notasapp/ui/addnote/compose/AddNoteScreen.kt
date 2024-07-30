@@ -4,9 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material.icons.Icons
@@ -19,11 +21,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -40,6 +48,8 @@ import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
     val showSketchAlert by viewModel.showSketchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+    var callFocusRequester by remember { mutableStateOf(false) }
 
     LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
         viewModel.addSketch()
@@ -49,9 +59,13 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
         viewModel.getSavedSketches()
     }
 
+    LaunchedEffect(callFocusRequester) {
+        if (callFocusRequester) focusRequester.requestFocus()
+    }
     AddNoteCompose(
         titleState = viewModel.titleTextFieldState,
         descriptionState = viewModel.descriptionTextFieldState,
+        focusRequester = focusRequester,
         onFabClicked = {
             keyboard?.hide()
             viewModel.addNota()
@@ -64,11 +78,16 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
             alertDescription = R.string.sketch_text,
             confirmButtonTitle = R.string.sketch_keep,
             dismissButtonTitle = R.string.sketch_remove,
-            onConfirmButtonClick = { viewModel.hideSketchAlert() },
+            onConfirmButtonClick = {
+                viewModel.hideSketchAlert()
+                callFocusRequester = true
+            },
             onDismissDialogButton = {
                 viewModel.clearSharedPreferences()
                 viewModel.updateTitle()
                 viewModel.updateDescription()
+                viewModel.hideSketchAlert()
+                callFocusRequester = true
             },
         )
     }
@@ -78,9 +97,12 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
 private fun AddNoteCompose(
     titleState: TextFieldState,
     descriptionState: TextFieldState,
+    focusRequester: FocusRequester,
     onFabClicked: () -> Unit,
 ) {
+
     Scaffold(
+        modifier = Modifier.imePadding(),
         topBar = { MyTopAppBar() },
         floatingActionButton = {
             FloatingActionButton(
@@ -97,16 +119,18 @@ private fun AddNoteCompose(
         Column(
             Modifier
                 .padding(it)
-                .padding(horizontal = NoteTheme.spacing.spacer16),
+                .padding(horizontal = NoteTheme.spacing.spacer16, vertical = NoteTheme.spacing.spacer12),
         ) {
             CustomAddTextField(
                 labelText = R.string.titulo,
                 textFieldState = titleState,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
                 textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                 singleLine = true,
             )
-            Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer4))
+            Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer12))
             CustomAddTextField(
                 labelText = R.string.anotacao,
                 textFieldState = descriptionState,
@@ -128,6 +152,7 @@ fun CustomAddTextField(
     BasicTextField(
         state = textFieldState,
         modifier = modifier,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),
         lineLimits = if (singleLine) {
@@ -154,6 +179,7 @@ fun PreviewAdd() {
         AddNoteCompose(
             titleState = TextFieldState(),
             descriptionState = TextFieldState(),
+            focusRequester = FocusRequester(),
             {},
         )
     }

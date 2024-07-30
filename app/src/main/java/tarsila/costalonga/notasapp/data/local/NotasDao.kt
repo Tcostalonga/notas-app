@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotasDao {
@@ -26,7 +27,7 @@ interface NotasDao {
     fun numTotalNotas(): LiveData<Int>
 
     @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
-    suspend fun getTodasNotas(): List<Notas>
+    fun getTodasNotas(): Flow<List<Notas>>
 
     @Query("SELECT COUNT(id) FROM notas_table")
     fun getNotesCount(): Int

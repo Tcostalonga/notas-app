@@ -1,14 +1,25 @@
 package tarsila.costalonga.notasapp.ui.main.compose
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -44,10 +55,6 @@ internal fun MainScreen(
     mainEvent: (MainEvent) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        viewModel.loadNotes()
-    }
 
     LaunchedEffect(uiState.event) {
         uiState.event?.let { event ->
@@ -102,6 +109,7 @@ private fun MainCompose(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top),
         topBar = {
             if (uiState.isSearchEnabled) {
                 SearchLayoutBar(
@@ -129,6 +137,7 @@ private fun MainCompose(
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.navigationBarsPadding(),
                 onClick = { uiIntent(MainIntent.OnAddNoteClick(uiState.allNotes.size)) },
             ) {
                 Icon(
@@ -137,26 +146,36 @@ private fun MainCompose(
                 )
             }
         },
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .padding(it)
-                .padding(NoteTheme.spacing.spacer8),
-            content = {
-                filteredNotas = performFilterInTitle(searchTerm, uiState.allNotes)
+    ) { padding ->
+        AnimatedVisibility(uiState.isLoading, enter = fadeIn(), exit = fadeOut()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+        AnimatedVisibility(uiState.isLoading.not(), enter = fadeIn(), exit = fadeOut()) {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(padding)
+                    .padding(NoteTheme.spacing.spacer8),
+                content = {
+                    filteredNotas = performFilterInTitle(searchTerm, uiState.allNotes)
 
-                items(filteredNotas.size) {
-                    val nota = filteredNotas[it]
-                    ItemList(
-                        nota = nota,
-                        onItemClicked = { uiIntent(MainIntent.OnItemListClick(nota.id)) },
-                        onCheckedChange = { checkedStatus ->
-                            uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
-                        },
-                    )
-                }
-            },
-        )
+                    items(filteredNotas.size) {
+                        val nota = filteredNotas[it]
+                        ItemList(
+                            nota = nota,
+                            onItemClicked = { uiIntent(MainIntent.OnItemListClick(nota.id)) },
+                            onCheckedChange = { checkedStatus ->
+                                uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
+                            },
+                        )
+                    }
+                },
+            )
+        }
     }
 }
 
@@ -190,7 +209,8 @@ fun ItemList(
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(NoteTheme.spacing.spacer4),
+            .padding(NoteTheme.spacing.spacer4)
+            .clickable { onItemClicked() },
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(
@@ -207,8 +227,7 @@ fun ItemList(
         )
         Text(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onItemClicked() },
+                .fillMaxWidth(),
             text = nota.titulo,
             style =
             NoteTheme.typography.bodyLarge.copy(
@@ -228,6 +247,7 @@ fun PreviewMain(
     NotaComposeTheme {
         MainCompose(
             uiState = MainUiState(
+                isLoading = false,
                 allNotes = listOfNotas,
                 themeMode = listOf(),
                 event = null,
