@@ -16,7 +16,7 @@ android {
         applicationId = "tarsila.costalonga.notasapp"
         minSdk = 23
         targetSdk = 34
-        versionCode = 11
+        versionCode = 12
         versionName = "2.0-compose"
         vectorDrawables {
             useSupportLibrary = true
