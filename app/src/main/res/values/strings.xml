@@ -26,17 +26,12 @@
 
     //ContentDescription
     <string name="salvar_nota">Salvar nota</string>
-    <string name="imagem_nota">Imagem inserida na nota</string>
-    <string name="data_criacao_nota">Data de criação da nota</string>
-    <string name="data_atualizacao_nota">Data de atualização da nota</string>
     <string name="editar_nota">Editar nota</string>
     <string name="notas_criadas">Total de notas criadas</string>
     <string name="notas_ativas">Notas ativas</string>
     <string name="notas_finalizadas">Notas finalizadas</string>
     <string name="icone_do_aplicativo">Ícone do aplicativo</string>
-    <string name="adicionar_imagem">Clique para adicionar uma imagem</string>
     <string name="criar_anotacao">Criar anotação</string>
-    <string name="botao_check">Botão de check</string>
 
     //AlertDialog
     <string name="alert_title">Deseja remover a anotação?</string>

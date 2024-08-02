@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Labels -->
+    <string name="app_name">NotaAnota</string>
+    <string name="titulo">Title</string>
+    <string name="anotacao">Note</string>
+    <string name="tools_nota">Lorem ipsum dolor sit amet, consectetur Morbi maximus, quam id tincidunt convallis, velit libero placerat nibh, vitae dictum dolor nisl at lacus. Mauris sed magna nibh. Cras vel ullamcorper elit, a volutpat augue. Morbi elit nisl, lacinia sed enim non, condimentum ultricies purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu consectetur nisl, ut egestas lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </string>
+    <string name="share">Share</string>
+    <string name="remove">Remove</string>
+    <string name="estatisticas">Statistics</string>
+    <string name="trocar_tema">Change Theme</string>
+    <string name="sobre">About</string>
+    <string name="pesquisar">Search</string>
+    <string name="disclaimer">I created this app in 2020 to practice my Android learning skills. \nSince then, I have maintained it and occasionally published updates on the Play Store.\nYou can find me at:</string>
+    <string name="obrigatoriedade_de_campo">Title and note are required</string>
+    <string name="nota_update">Note updated</string>
+    <string name="nota_insert">Note created</string>
+    <string name="nota_delete">Note removed</string>
+
+    <!-- Formatted Strings -->
+    <string name="text_dtCriacao_format">"Created: %s"</string>
+    <string name="text_dtAtualizado_format">"Updated: %s"</string>
+    <string name="est_total">"%d"</string>
+    <string name="est_criadas">"%d"</string>
+    <string name="est_finalizadas">"%d"</string>
+
+    <!-- ContentDescription -->
+    <string name="salvar_nota">Save note</string>
+    <string name="editar_nota">Edit note</string>
+    <string name="notas_criadas">All created notes</string>
+    <string name="notas_ativas">Active notes</string>
+    <string name="notas_finalizadas">Completed notes</string>
+    <string name="icone_do_aplicativo">App icon</string>
+    <string name="criar_anotacao">Create note</string>
+
+    <!-- AlertDialog -->
+    <string name="alert_title">Do you want to remove the note?</string>
+    <string name="alert_message">Click OK to delete.</string>
+    <string name="default_ok">OK</string>
+    <string name="default_cancel">Cancel</string>
+    <string name="sketch_title">There is a saved draft.</string>
+    <string name="sketch_text">Continue editing?</string>
+    <string name="sketch_remove">Discard</string>
+    <string name="sketch_keep">Continue</string>
+    <string name="dialog_change_theme">Theme</string>
+    <string name="dialog_change_theme_system_default">System default</string>
+    <string name="dialog_change_theme_light">Light</string>
+    <string name="dialog_change_theme_dark">Dark</string>
+
+</resources>
