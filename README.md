@@ -1,73 +1,42 @@
-# notaAnota
- 
- 
-## Introdução
+notaAnota
+========= 
+Overview
+-------- 
+**notaAnota** is a task management app designed to help users keep track of their daily tasks
+efficiently. The app
+leverages modern Android development tools and practices to provide a seamless and user-friendly
+experience.
 
-**Aplicativo para criação e controle de anotações.**
+Features
+-------- 
 
-**Funcionalidades:**
+* **Task Creation and Management**: Easily create, update, and delete tasks.
+* **Search**: Quickly find tasks using search option.
+* **Dark Mode**: Support for dark mode to reduce eye strain.
 
-- Criar, editar e remover uma anotação;
+Technologies Used
+----------------- 
 
-- Marcar uma nota como finalizada (através de um checkbox);
+* **Kotlin**: Programming language used for all development.
+* **Jetpack Compose**: Modern UI toolkit for building native UIs.
+* **MVVM Architecture**: Model-View-ViewModel architecture for separation of concerns.
+* **MVI Architecture**: Model-View-Intent architecture for separation of concerns.
+* **Hilt**: Dependency injection library for managing dependencies.
+* **Room**: Persistence library for local database management.
+* **Navigation Component**: For handling in-app navigation.
+* **Coroutines**: For managing background threads and asynchronous tasks.
+* **Material Design 3**: UI components and themes to provide a consistent look and feel.
 
-- Exibir a data e hora em que uma nota foi criada e atualizada por último;
+Installation
+------------ 
+To get a local copy up and running, follow these simple steps:
 
-- Compartilhar uma nota;
+1. **Clone the repository**: `git clone https://github.com/yourUsername/notaAnota.git`
+2. **Open the project in Android Studio**
+3. **Build and Run the project**
+4. **Make sure you have an Android emulator or a physical device connected**
 
-- Exibir estatísticas com o total de notas criadas, ativas e finalizadas;
-
-- Trocar tema light e dark do app.
-
-
-
-
-### Pré-requisitos
-
-Para instalar o app: 
-- Smarthphone: Mínimo Android 6.0 - Marshmallow - API 23
-
-
-Para executar o código: 
-- Android Studio: 4.0
-- Gradle: 4.0
-
-
-## Imagens
-
-
-<img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/light1.png" alt="app light 1" width="288" height= "512"/>       <img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/light3.png" alt="app light 3" width="288" height= "512"/>       <img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/light2.png" alt="app light 2" width="288" height= "512"/> 
-
-
- 
- <img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/dark1.png" alt="app dark 1" width="288" height= "512"/>       <img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/dark3.png" alt="app dark 3" width="288" height= "512"/>             <img src="https://github.com/Tcostalonga/notas-app/blob/dev/screenshots/dark4.png" alt="app dark 4" width="288" height= "512"/>
-
-
-
- 
-## Construído com:
-
-* [Constraint Layout](https://developer.android.com/training/constraint-layout) - ViewGroup que permite posicionar views de forma flexível
-* [Coroutines](https://developer.android.com/kotlin/coroutines) - Solução para programação assíncrona no Android
-* [Data Binding](https://developer.android.com/topic/libraries/data-binding) - Biblioteca para vinculação de componentes de UI a fontes de dados
-* [Espresso](https://developer.android.com/studio/test/espresso-test-recorder?hl=pt-br) - API do AndroidX Test
-* [Flipper]( https://fbflipper.com/) -  Plataforma de debug
-* [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Biblioteca de injeção de dependência
-* [Kotlin](https://kotlinlang.org/) - Linguagem de programação orientada a objetos
-* [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Classe armazenadora de dados observáveis
-* [MVVM](https://developer.android.com/jetpack/guide) - Padrão de projeto
-* [Material Design](https://material.io/) - Sistema de design de UI
-* [Navigation](https://developer.android.com/guide/navigation/navigation-getting-started) - Framework para navegar entre destinos em um aplicativo
-* [Room](https://developer.android.com/topic/libraries/architecture/room) - Biblioteca de persistência de dados
-* [Shared Preferences](https://developer.android.com/training/data-storage/shared-preferences) - API de persistência de dados em key-value par.
-* [Truth](https://truth.dev/) - Biblioteca para realizar asserções em testes
-
-
-## Autora
-
-* **Társila Costalonga** - [GitHub](https://github.com/Tcostalonga)
-
-
-**Esse aplicativo foi criado com o propósito principal de integrar o portfólio da autora, demostrando boas práticas e técnicas do desenvolvimento mobile para Android. Setembro de 2020**
-
- 
+Contact
+------- 
+Tarsila
+Costalonga - [Linkdln](https://www.linkedin.com/in/tarsilacostalonga/) / [Email](mailto:tarsila.costalonga@gmail.com)
