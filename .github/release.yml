@@ -1,13 +1,19 @@
 # .github/release.yml
 
-name-template: 'v$NEXT_PATCH_VERSION 🌟'
-tag-template: 'v$NEXT_PATCH_VERSION'
-categories:
-  - title: '🚀 Features'
-    label: 'feature'
-  - title: '🐛 Bug Fixes'
-    label: 'bug'
-  - title: '🧰 Maintenance'
-    label: 'chore'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 
+changelog:
+name-template: 'Aaaah 🌟'
+  exclude:
+    labels:
+      - lib update
+categories:
+    - title: Refactor 🛠
+      labels:
+        - refactor
+    - title: Bug fix 🐛
+      labels:
+        - bug-fix
+change-template: '- Tarsi -'
+
+
+      
