@@ -7,7 +7,7 @@ changelog:
   categories:
     - title: Refactor 🛠
       labels:
-        - refactor
+        - $LABEL_REFACTOR
     - title: Bug Fix 🎉
       labels:
-        - bug-fix
+        - $LABEL_BUGFIX
