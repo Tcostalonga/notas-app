@@ -1,0 +1,11 @@
+changelog:
+  exclude:
+    labels:
+      - lib update
+  categories:
+    - title: Refactor 🛠
+      labels:
+        - ${{ vars.LABEL_REFACTOR }}
+    - title: Bug Fix 🎉
+      labels:
+       - ${{ vars.LABEL_BUGFIX }}
