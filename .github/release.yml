@@ -10,4 +10,4 @@ changelog:
        - ${ vars.LABEL_REFACTOR }
     - title: Bug Fix 🎉
       labels:
-       - $LABEL_BUGFIX
+       - $vars.LABEL_BUGFIX
