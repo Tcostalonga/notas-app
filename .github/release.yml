@@ -1,0 +1,13 @@
+# .github/release.yml
+
+changelog:
+  exclude:
+    labels:
+      - lib update
+  categories:
+    - title: Refactor 🛠
+      labels:
+        - refactor
+    - title: Bug Fix 🎉
+      labels:
+       - bug-fix
