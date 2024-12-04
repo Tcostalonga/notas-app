@@ -28,8 +28,6 @@ private const val LINK1_WORD = "\nLinkedIn"
 private const val LINK2_WORD = "\nEmail"
 private const val LINK1 = "https://www.linkedin.com/in/tarsilacostalonga/"
 private const val LINK2 = "mailto:tarsila.costalonga@gmail.com"
-private const val TAG_LINK1 = "URL_LINKEDIN"
-private const val TAG_LINK2 = "URL_EMAIL"
 
 @Composable
 internal fun AboutScreen() {
