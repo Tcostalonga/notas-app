@@ -11,7 +11,7 @@
     <string name="trocar_tema">Change Theme</string>
     <string name="sobre">About</string>
     <string name="pesquisar">Search</string>
-    <string name="disclaimer">I created this app in 2020 to practice my Android learning skills. \nSince then, I have maintained it and occasionally published updates on the Play Store.\nYou can find me at:</string>
+    <string name="about_disclaimer">I created this app in 2020 to practice my Android learning skills. \nSince then, I have maintained it and occasionally published updates on the Play Store.\nYou can find me at:</string>
     <string name="obrigatoriedade_de_campo">Title and note are required</string>
     <string name="nota_update">Note updated</string>
     <string name="nota_insert">Note created</string>

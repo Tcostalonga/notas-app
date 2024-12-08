@@ -57,10 +57,9 @@ internal fun AboutScreen() {
 
 @Composable
 fun LinkableText() {
-
     Text(
         buildAnnotatedString {
-            append(stringResource(id = R.string.disclaimer))
+            append(stringResource(id = R.string.about_disclaimer))
 
             withStyle(
                 style = SpanStyle(
