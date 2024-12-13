@@ -47,7 +47,7 @@
     <string name="dialog_change_theme_dark">Escuro</string>
 
     //About Screen
-    <string name="about_disclaimer">- Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias. \nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.\nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.</string>
+    <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias. \nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.\nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.</string>
 
     <string name="about_aug2020">Agosto, 2020</string>
     <string name="about_aug2020_done">- Definição de cores, tema e ícone do app usando Material2;
@@ -64,7 +64,7 @@
     <string name="about_sept2020">Setembro, 2020</string>
     <string name="about_sept2020_done">- Inserção de uma splash screen, nesse momento, feita com uma activity dedicada;
     \n\n- Mais uma funcionalidade: ordenação de notas;
-        \n\n- Ajustes de layout após feedback recebido.
+    \n\n- Ajustes de layout após feedback recebido.
     </string>
     <string name="about_oct2020">Outubro, 2020</string>
     <string name="about_oct2020_done">- Primeiro lançamento do app na Play Store.</string>
@@ -74,35 +74,35 @@
     \n\n- Migração de DataBinding para ViewBinding em todos os fragments.</string>
 
     <string name="about_aug2022">Agosto, 2022</string>
-    <string name="about_aug_2022_done">- Começo da migração para Compose: configurações iniciais e definição de tema.</string>
+    <string name="about_aug2022_done">- Começo da migração para Compose: configurações iniciais e definição de tema.</string>
 
-    <string name="about_oct2022">Agosto, 2022</string>
-    <string name="about_oct_2022_done">- Outra grande atualização de dependências;
+    <string name="about_oct2022">Outubro, 2022</string>
+    <string name="about_oct2022_done">- Outra grande atualização de dependências;
 \n\n- Atualização do uso de corrotinas em ViewModels e banco de dados;
 \n\n- Início das migrações das telas para Compose.</string>
 
     <string name="about_dec2022">Dezembro, 2022</string>
-    <string name="about_dec_2022_done">- Migração para a biblioteca splash screen compat;
+    <string name="about_dec2022_done">- Migração para a biblioteca splash screen compat;
 \n\n- Fim das migrações das telas para Compose;
 \n\n- Lançamento na Play Store com o app já todo em Compose.</string>
 
-    <string name="about_jun2023">Junho, 2022</string>
-    <string name="about_jun_2023_done">- Nova funcionalidade: Rascunho de uma nota</string>
+    <string name="about_jun2023">Junho, 2023</string>
+    <string name="about_jun2023_done">- Nova funcionalidade: Rascunho de uma nota</string>
 
-    <string name="about_mar2024">Março, 2022</string>
-    <string name="about_mar_2024_done">- Migração de gradle em groove para kts;
+    <string name="about_mar2024">Março, 2024</string>
+    <string name="about_mar2024_done">- Migração de gradle em groove para kts;
 \n\n- Migração da gestão de dependências para version catalog.</string>
 
 
-    <string name="about_apr2024">Março, 2022</string>
-    <string name="about_apr_2024_done">- Migração de Material2 para Material3, atualização de cores e ajustes nas telas e componentes;
+    <string name="about_apr2024">Abril, 2024</string>
+    <string name="about_apr2024_done">- Migração de Material2 para Material3, atualização de cores e ajustes nas telas e componentes;
 \n\n- Reestruturação dos diretórios do projeto para seguir Clean Architecture;
 \n\n- Aprimoramento de layouts e lógica da view em Compose, adotando o uso de MVI.</string>
 
-    <string name="about_aug2024">Agosto, 2022</string>
-    <string name="about_aug_2024_done">- Internacionalização do app: adicionei tradução para inglês.</string>
+    <string name="about_aug2024">Agosto, 2024</string>
+    <string name="about_aug2024_done">- Internacionalização do app: adicionei tradução para inglês.</string>
 
-    <string name="about_dec2024">Dezembro, 2022</string>
-    <string name="about_dec_2024_done">- Reformulação da página de sobre. Exibição em linha do tempo.</string>
+    <string name="about_dec2024">Dezembro, 2024</string>
+    <string name="about_dec2024_done">- Reformulação da página de sobre. Exibição em linha do tempo.</string>
 
 </resources>
