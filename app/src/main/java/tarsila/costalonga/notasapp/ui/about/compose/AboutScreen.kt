@@ -1,16 +1,7 @@
 package tarsila.costalonga.notasapp.ui.about.compose
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkHorizontally
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
@@ -62,7 +56,7 @@ private const val LINK2 = "mailto:tarsila.costalonga@gmail.com"
 
 @Composable
 internal fun AboutScreen() {
-    val list = AboutListFactory().generateListOfTimelineEvents()
+    val list = AboutListFactory().generateListOfTimelineEvents().reversed()
     Scaffold(topBar = { MyTopAppBar() }) {
         Column(
             modifier = Modifier
@@ -85,7 +79,7 @@ internal fun AboutScreen() {
                         )
                         LinkableText()
 
-                        Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer16))
+                        Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer12))
                     }
                 }
                 items(list, key = { item -> item.id }) { item ->
@@ -97,6 +91,71 @@ internal fun AboutScreen() {
             }
         }
 
+    }
+}
+
+@Composable
+fun TimelineWithProgress(
+    date: String,
+    description: String,
+    modifier: Modifier = Modifier,
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val arrowRotation by animateFloatAsState(if (isExpanded) 180f else 0f, label = "Arrow_animation")
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+            ) {
+                isExpanded = !isExpanded
+            }
+            .padding(vertical = NoteTheme.spacing.spacer4),
+    ) {
+        Column(
+            Modifier.fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Icon(
+                imageVector = Icons.Filled.KeyboardArrowDown,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(20.dp)
+                    .rotate(arrowRotation),
+                tint = NoteTheme.colors.outline,
+            )
+
+            VerticalDivider(
+                modifier = Modifier
+                    .animateContentSize()
+                    .then(
+                        if (isExpanded) {
+                            Modifier.fillMaxHeight()
+                        } else {
+                            Modifier.height(0.dp)
+                        },
+                    )
+                    .width(NoteTheme.spacing.spacer1),
+                color = NoteTheme.colors.outline,
+            )
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = date,
+                style = NoteTheme.typography.labelLarge,
+            )
+            if (isExpanded) {
+                Text(
+                    text = description,
+                    style = NoteTheme.typography.labelSmall,
+                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer18),
+                )
+            }
+        }
     }
 }
 
@@ -129,63 +188,6 @@ fun LinkableText() {
 fun PreviewAbout() {
     NotaComposeTheme {
         AboutScreen()
-    }
-}
-
-@Composable
-fun TimelineWithProgress(
-    date: String,
-    description: String,
-    modifier: Modifier = Modifier,
-) {
-    var isExpanded by remember { mutableStateOf(false) }
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-            ) {
-                isExpanded = !isExpanded
-            }
-            .padding(vertical = NoteTheme.spacing.spacer4),
-    ) {
-        Column(
-            Modifier.fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Icon(painterResource(R.drawable.icon_dot), null, tint = NoteTheme.colors.primary)
-            VerticalDivider(
-                modifier = Modifier
-                    .animateContentSize()
-                    .then(
-                        if (isExpanded) {
-                            Modifier.fillMaxHeight()
-                        } else {
-                            Modifier.height(40.dp)
-                        },
-                    )
-                    .width(NoteTheme.spacing.spacer1)
-                    .background(NoteTheme.colors.primary),
-            )
-        }
-        Column(
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(
-                text = date,
-                style = NoteTheme.typography.labelLarge,
-            )
-            if (isExpanded) {
-                Text(
-                    text = description,
-                    style = NoteTheme.typography.labelSmall,
-                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer8)
-                )
-            }
-        }
     }
 }
 
