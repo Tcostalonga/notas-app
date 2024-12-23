@@ -1,10 +1,33 @@
-package tarsila.costalonga.notasapp.ui.utils
+package tarsila.costalonga.notasapp.ui.about
 
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 
-class AboutListFactory {
+class AboutViewModel : ViewModel() {
 
-    fun generateListOfTimelineEvents(): List<TimelineEvent> {
+    private val _timelineEvents = MutableStateFlow<List<TimelineEvent>>(emptyList())
+    val timelineEvents = _timelineEvents
+        .onStart {
+            loadTimelineEventsList()
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            emptyList(),
+        )
+
+    private fun loadTimelineEventsList() {
+
         val list = mutableListOf<TimelineEvent>()
 
         list.add(TimelineEvent(1, R.string.about_aug2020, R.string.about_aug2020_done))
@@ -19,6 +42,6 @@ class AboutListFactory {
         list.add(TimelineEvent(10, R.string.about_apr2024, R.string.about_apr2024_done))
         list.add(TimelineEvent(11, R.string.about_aug2024, R.string.about_aug2024_done))
         list.add(TimelineEvent(12, R.string.about_dec2024, R.string.about_dec2024_done))
-        return list
+        _timelineEvents.update { list }
     }
 }

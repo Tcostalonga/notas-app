@@ -42,12 +42,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.ui.about.AboutViewModel
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
-import tarsila.costalonga.notasapp.ui.utils.AboutListFactory
+import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 
 private const val LINK1_WORD = "\nLinkedIn"
 private const val LINK2_WORD = "\nEmail"
@@ -55,11 +59,16 @@ private const val LINK1 = "https://www.linkedin.com/in/tarsilacostalonga/"
 private const val LINK2 = "mailto:tarsila.costalonga@gmail.com"
 
 @Composable
-internal fun AboutScreen() {
-    val list = AboutListFactory().generateListOfTimelineEvents().reversed()
+internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
+    val timelineEvents by viewModel.timelineEvents.collectAsStateWithLifecycle()
+    AboutScreen(listOfTimeline = timelineEvents)
+}
+
+@Composable
+private fun AboutScreen(modifier: Modifier = Modifier, listOfTimeline: List<TimelineEvent>) {
     Scaffold(topBar = { MyTopAppBar() }) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(it)
                 .padding(NoteTheme.spacing.spacer16),
         ) {
@@ -82,7 +91,7 @@ internal fun AboutScreen() {
                         Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer12))
                     }
                 }
-                items(list, key = { item -> item.id }) { item ->
+                items(listOfTimeline, key = { item -> item.id }) { item ->
                     TimelineWithProgress(
                         date = stringResource(id = item.date),
                         description = stringResource(id = item.description),
@@ -90,7 +99,6 @@ internal fun AboutScreen() {
                 }
             }
         }
-
     }
 }
 
@@ -112,7 +120,7 @@ fun TimelineWithProgress(
             ) {
                 isExpanded = !isExpanded
             }
-            .padding(vertical = NoteTheme.spacing.spacer4),
+            .padding(vertical = NoteTheme.spacing.spacer8),
     ) {
         Column(
             Modifier.fillMaxHeight(),
@@ -124,7 +132,7 @@ fun TimelineWithProgress(
                 modifier = Modifier
                     .size(20.dp)
                     .rotate(arrowRotation),
-                tint = NoteTheme.colors.outline,
+                tint = NoteTheme.colors.primary,
             )
 
             VerticalDivider(
@@ -138,21 +146,20 @@ fun TimelineWithProgress(
                         },
                     )
                     .width(NoteTheme.spacing.spacer1),
-                color = NoteTheme.colors.outline,
+                color = NoteTheme.colors.primary,
             )
         }
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            Text(
-                text = date,
-                style = NoteTheme.typography.labelLarge,
-            )
+            Text(text = date)
+
             if (isExpanded) {
                 Text(
                     text = description,
                     style = NoteTheme.typography.labelSmall,
-                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer18),
+                    color = NoteTheme.colors.onBackground,
+                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer8),
                 )
             }
         }
@@ -183,11 +190,17 @@ fun LinkableText() {
     )
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 fun PreviewAbout() {
     NotaComposeTheme {
-        AboutScreen()
+        AboutScreen(
+            listOfTimeline = listOf(
+                TimelineEvent(1, R.string.about_aug2020, R.string.about_aug2020_done),
+                TimelineEvent(2, R.string.about_sept2020, R.string.about_sept2020_done),
+                TimelineEvent(3, R.string.about_dec2024, R.string.about_dec2024_done),
+            ),
+        )
     }
 }
 

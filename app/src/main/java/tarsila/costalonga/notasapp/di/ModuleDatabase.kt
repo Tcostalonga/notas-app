@@ -9,13 +9,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import tarsila.costalonga.notasapp.data.local.NotasDao
 import tarsila.costalonga.notasapp.data.local.NotasRoom
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object ModuleDatabase {
     @Provides
-    @Singleton
     fun proverDatabase(
         @ApplicationContext context: Context,
     ): NotasRoom {
