@@ -41,22 +41,17 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.about.AboutViewModel
+import tarsila.costalonga.notasapp.ui.about.Constants
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
-
-private const val LINK1_WORD = "\nLinkedIn"
-private const val LINK2_WORD = "\nEmail"
-private const val LINK1 = "https://www.linkedin.com/in/tarsilacostalonga/"
-private const val LINK2 = "mailto:tarsila.costalonga@gmail.com"
 
 @Composable
 internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
@@ -178,14 +173,24 @@ fun LinkableText() {
                     fontWeight = FontWeight.Bold,
                 ),
             ) {
-                withLink(link = LinkAnnotation.Url(LINK1)) {
-                    append(LINK1_WORD)
-                }
-
-                withLink(link = LinkAnnotation.Url(LINK2)) {
-                    append(LINK2_WORD)
+                withLink(link = LinkAnnotation.Url(Constants.EMAIL)) {
+                    append(Constants.LINK_EMAIL)
                 }
             }
+
+            append(stringResource(id = R.string.and_string))
+
+            withStyle(
+                style = SpanStyle(
+                    color = NoteTheme.colors.primary,
+                    fontWeight = FontWeight.Bold,
+                ),
+            ) {
+                withLink(link = LinkAnnotation.Url(Constants.LINKEDIN)) {
+                    append(Constants.LINK_LINKEDIN)
+                }
+            }
+
         },
     )
 }
@@ -203,6 +208,3 @@ fun PreviewAbout() {
         )
     }
 }
-
-
-

@@ -47,7 +47,12 @@
     <string name="dialog_change_theme_dark">Escuro</string>
 
     //About Screen
-    <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias. \nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.\nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.</string>
+    <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias.
+        \nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.
+        \nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.
+    \nOnde me encontrar: Társila Costalonga
+    </string>
+    <string name="and_string">e</string>
 
     <string name="about_aug2020">Agosto, 2020</string>
     <string name="about_aug2020_done">- Definição de cores, tema e ícone do app usando Material2;

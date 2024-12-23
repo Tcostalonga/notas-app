@@ -1,10 +1,7 @@
 package tarsila.costalonga.notasapp.ui.about
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -27,7 +24,6 @@ class AboutViewModel : ViewModel() {
         )
 
     private fun loadTimelineEventsList() {
-
         val list = mutableListOf<TimelineEvent>()
 
         list.add(TimelineEvent(1, R.string.about_aug2020, R.string.about_aug2020_done))
