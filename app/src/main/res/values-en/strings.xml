@@ -11,7 +11,6 @@
     <string name="trocar_tema">Change Theme</string>
     <string name="sobre">About</string>
     <string name="pesquisar">Search</string>
-    <string name="about_disclaimer">I created this app in 2020 to practice my Android learning skills. \nSince then, I have maintained it and occasionally published updates on the Play Store.\nYou can find me at:</string>
     <string name="obrigatoriedade_de_campo">Title and note are required</string>
     <string name="nota_update">Note updated</string>
     <string name="nota_insert">Note created</string>
@@ -46,5 +45,68 @@
     <string name="dialog_change_theme_system_default">System default</string>
     <string name="dialog_change_theme_light">Light</string>
     <string name="dialog_change_theme_dark">Dark</string>
+
+    <!-- About Screen -->
+    <string name="about_disclaimer">In August 2020, I started the NotaAnota project. The goal was to put into practice what I\'ve learned in world of Android development, applying new concepts and technologies.
+\n\nSince then, I have maintained it and occasionally publishing updates on Play Store.
+\n\nBelow, you will find a timeline describing technical aspects, improvements, new features and refactorings that I have been developing in the app over the years.
+\nWhere to find me: Társila Costalonga</string>
+    <string name="and_string">and</string>
+
+    <string name="about_aug2020">August, 2020</string>
+    <string name="about_aug2020_done">- Definição de cores, tema e ícone do app usando Material2;
+    \n\n- Implementação dos fragments que compõem o app;
+    \n\n- Layouts construídos em XML, usando DataBinding;
+    \n\n- Criação do banco de dados (BD) para armazenamento local das notas criadas. Usei o Room;
+    \n\n- Inserção do Hilt como lib de injeção de dependência;
+    \n\n- Comunicação entre fragments e BD feita no ViewModel e com uso de corrotinas;
+    \n\n- Implementação da funcionalidade de tema claro e escuro;
+    \n\n- Transição de fragments, com o uso de Navigation para navegação entre fragments;
+    \n\n- Funcionalidades implementadas: excluir uma nota, atualizá-la e marcar como concluída;
+    \n\n- Ufa, que mês!</string>
+
+    <string name="about_sept2020">September, 2020</string>
+    <string name="about_sept2020_done">- Inserção de uma splash screen, nesse momento, feita com uma activity dedicada;
+    \n\n- Mais uma funcionalidade: ordenação de notas;
+    \n\n- Ajustes de layout após feedback recebido.
+    </string>
+    <string name="about_oct2020">October, 2020</string>
+    <string name="about_oct2020_done">- Primeiro lançamento do app na Play Store.</string>
+
+    <string name="about_jul2022">July, 2022</string>
+    <string name="about_jul2022_done">- Massiva atualização de dependências do projeto;
+    \n\n- Migração de DataBinding para ViewBinding em todos os fragments.</string>
+
+    <string name="about_aug2022">August, 2022</string>
+    <string name="about_aug2022_done">- Começo da migração para Compose: configurações iniciais e definição de tema.</string>
+
+    <string name="about_oct2022">October, 2022</string>
+    <string name="about_oct2022_done">- Outra grande atualização de dependências;
+\n\n- Atualização do uso de corrotinas em ViewModels e banco de dados;
+\n\n- Início das migrações das telas para Compose.</string>
+
+    <string name="about_dec2022">December, 2022</string>
+    <string name="about_dec2022_done">- Migração para a biblioteca splash screen compat;
+\n\n- Fim das migrações das telas para Compose;
+\n\n- Lançamento na Play Store com o app já todo em Compose.</string>
+
+    <string name="about_jun2023">June, 2023</string>
+    <string name="about_jun2023_done">- Nova funcionalidade: Rascunho de uma nota</string>
+
+    <string name="about_mar2024">March, 2024</string>
+    <string name="about_mar2024_done">- Migração de gradle em groove para kts;
+\n\n- Migração da gestão de dependências para version catalog.</string>
+
+
+    <string name="about_apr2024">April, 2024</string>
+    <string name="about_apr2024_done">- Migração de Material2 para Material3, atualização de cores e ajustes nas telas e componentes;
+\n\n- Reestruturação dos diretórios do projeto para seguir Clean Architecture;
+\n\n- Aprimoramento de layouts e lógica da view em Compose, adotando o uso de MVI.</string>
+
+    <string name="about_aug2024">August, 2024</string>
+    <string name="about_aug2024_done">- Internacionalização do app: adicionei tradução para inglês.</string>
+
+    <string name="about_dec2024">December, 2024</string>
+    <string name="about_dec2024_done">- Reformulação da página de sobre. Exibição em linha do tempo.</string>
 
 </resources>

@@ -182,8 +182,8 @@ fun LinkableText() {
                     fontWeight = FontWeight.Bold,
                 ),
             ) {
-                withLink(link = LinkAnnotation.Url(Constants.EMAIL)) {
-                    append(Constants.LINK_EMAIL)
+                withLink(link = LinkAnnotation.Url(Constants.LINKEDIN)) {
+                    append(Constants.LINK_LINKEDIN)
                 }
             }
 
@@ -195,8 +195,8 @@ fun LinkableText() {
                     fontWeight = FontWeight.Bold,
                 ),
             ) {
-                withLink(link = LinkAnnotation.Url(Constants.LINKEDIN)) {
-                    append(Constants.LINK_LINKEDIN)
+                withLink(link = LinkAnnotation.Url(Constants.EMAIL)) {
+                    append(Constants.LINK_EMAIL)
                 }
             }
 

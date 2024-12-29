@@ -1,6 +1,6 @@
 <resources>
 
-    //Labels
+    <!-- Labels -->
     <string name="app_name">NotaAnota</string>
     <string name="titulo">Título</string>
     <string name="anotacao">Anotação</string>
@@ -16,14 +16,14 @@
     <string name="nota_insert">Nota criada</string>
     <string name="nota_delete">Nota removida</string>
 
-    //String formatada
+    <!-- String formatada -->
     <string name="text_dtCriacao_format">"Criado: %s"</string>
     <string name="text_dtAtualizado_format">"Atualizado: %s"</string>
     <string name="est_total">"%d"</string>
     <string name="est_criadas">"%d"</string>
     <string name="est_finalizadas">"%d"</string>
 
-    //ContentDescription
+    <!-- ContentDescription -->
     <string name="salvar_nota">Salvar nota</string>
     <string name="editar_nota">Editar nota</string>
     <string name="notas_criadas">Total de notas criadas</string>
@@ -32,7 +32,7 @@
     <string name="icone_do_aplicativo">Ícone do aplicativo</string>
     <string name="criar_anotacao">Criar anotação</string>
 
-    //AlertDialog
+    <!-- AlertDialog -->
     <string name="alert_title">Deseja remover a anotação?</string>
     <string name="alert_message">Clique OK para excluir.</string>
     <string name="default_ok">OK</string>
@@ -46,11 +46,11 @@
     <string name="dialog_change_theme_light">Claro</string>
     <string name="dialog_change_theme_dark">Escuro</string>
 
-    //About Screen
+    <!-- About Screen -->
     <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias.
-        \nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.
-        \nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.
-    \nOnde me encontrar: Társila Costalonga
+\n\nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.
+\n\nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.
+\nOnde me encontrar: Társila Costalonga
     </string>
     <string name="and_string">e</string>
 
