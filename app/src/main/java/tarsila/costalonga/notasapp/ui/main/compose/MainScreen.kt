@@ -109,7 +109,6 @@ private fun MainCompose(
     }
 
     Scaffold(
-        contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top),
         topBar = {
             if (uiState.isSearchEnabled) {
                 SearchLayoutBar(
