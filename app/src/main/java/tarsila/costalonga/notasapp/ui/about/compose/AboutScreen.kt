@@ -27,9 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -56,11 +54,19 @@ import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 @Composable
 internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
     val timelineEvents by viewModel.timelineEvents.collectAsStateWithLifecycle()
-    AboutScreen(listOfTimeline = timelineEvents)
+    AboutScreen(
+        listOfTimeline = timelineEvents,
+        uiIntents = viewModel::handleUiIntents,
+    )
 }
 
 @Composable
-private fun AboutScreen(modifier: Modifier = Modifier, listOfTimeline: List<TimelineEvent>) {
+private fun AboutScreen(
+    modifier: Modifier = Modifier,
+    listOfTimeline: List<TimelineEvent>,
+    uiIntents: (AboutUiIntents) -> Unit,
+) {
+
     Scaffold(topBar = { MyTopAppBar() }) {
         Column(
             modifier = modifier
@@ -90,6 +96,8 @@ private fun AboutScreen(modifier: Modifier = Modifier, listOfTimeline: List<Time
                     TimelineWithProgress(
                         date = stringResource(id = item.date),
                         description = stringResource(id = item.description),
+                        isExpanded = item.isExpanded,
+                        onExpandClick = { uiIntents(AboutUiIntents.OnExpandClick(item.id)) },
                     )
                 }
             }
@@ -101,9 +109,10 @@ private fun AboutScreen(modifier: Modifier = Modifier, listOfTimeline: List<Time
 fun TimelineWithProgress(
     date: String,
     description: String,
+    isExpanded: Boolean,
+    onExpandClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
     val arrowRotation by animateFloatAsState(if (isExpanded) 180f else 0f, label = "Arrow_animation")
     Row(
         modifier = modifier
@@ -113,7 +122,7 @@ fun TimelineWithProgress(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
             ) {
-                isExpanded = !isExpanded
+                onExpandClick()
             }
             .padding(vertical = NoteTheme.spacing.spacer8),
     ) {
@@ -152,9 +161,9 @@ fun TimelineWithProgress(
             if (isExpanded) {
                 Text(
                     text = description,
-                    style = NoteTheme.typography.labelSmall,
+                    style = NoteTheme.typography.labelLarge,
                     color = NoteTheme.colors.onBackground,
-                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer8),
+                    modifier = Modifier.padding(vertical = NoteTheme.spacing.spacer12),
                 )
             }
         }
@@ -205,6 +214,7 @@ fun PreviewAbout() {
                 TimelineEvent(2, R.string.about_sept2020, R.string.about_sept2020_done),
                 TimelineEvent(3, R.string.about_dec2024, R.string.about_dec2024_done),
             ),
+            uiIntents = {},
         )
     }
 }

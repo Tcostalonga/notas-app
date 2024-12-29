@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.ui.about.compose.AboutUiIntents
 import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 
 class AboutViewModel : ViewModel() {
@@ -39,5 +40,21 @@ class AboutViewModel : ViewModel() {
         list.add(TimelineEvent(11, R.string.about_aug2024, R.string.about_aug2024_done))
         list.add(TimelineEvent(12, R.string.about_dec2024, R.string.about_dec2024_done))
         _timelineEvents.update { list }
+    }
+
+    fun handleUiIntents(uiIntents: AboutUiIntents) {
+        when (uiIntents) {
+            is AboutUiIntents.OnExpandClick -> {
+                val newList = _timelineEvents.value.map { item ->
+                    if (uiIntents.id == item.id) {
+                        item.copy(isExpanded = !item.isExpanded)
+                    } else {
+                        item
+                    }
+                }
+
+                _timelineEvents.update { newList }
+            }
+        }
     }
 }
