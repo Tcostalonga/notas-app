@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.about.compose.AboutUiIntents
+import tarsila.costalonga.notasapp.ui.about.compose.AboutUiState
 import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 
 class AboutViewModel : ViewModel() {
 
-    private val _timelineEvents = MutableStateFlow<List<TimelineEvent>>(emptyList())
+    private val _timelineEvents = MutableStateFlow(AboutUiState())
     val timelineEvents = _timelineEvents
         .onStart {
             loadTimelineEventsList()
@@ -21,7 +22,7 @@ class AboutViewModel : ViewModel() {
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
-            emptyList(),
+            AboutUiState(),
         )
 
     private fun loadTimelineEventsList() {
@@ -39,13 +40,13 @@ class AboutViewModel : ViewModel() {
         list.add(TimelineEvent(10, R.string.about_apr2024, R.string.about_apr2024_done))
         list.add(TimelineEvent(11, R.string.about_aug2024, R.string.about_aug2024_done))
         list.add(TimelineEvent(12, R.string.about_dec2024, R.string.about_dec2024_done))
-        _timelineEvents.update { list }
+        _timelineEvents.update { it.copy(timelineEvents = list) }
     }
 
     fun handleUiIntents(uiIntents: AboutUiIntents) {
         when (uiIntents) {
             is AboutUiIntents.OnExpandClick -> {
-                val newList = _timelineEvents.value.map { item ->
+                val newList = _timelineEvents.value.timelineEvents.map { item ->
                     if (uiIntents.id == item.id) {
                         item.copy(isExpanded = !item.isExpanded)
                     } else {
@@ -53,7 +54,15 @@ class AboutViewModel : ViewModel() {
                     }
                 }
 
-                _timelineEvents.update { newList }
+                _timelineEvents.update { it.copy(timelineEvents = newList) }
+            }
+
+            is AboutUiIntents.OnExpandAllClick -> {
+                val expandedNewValue = !_timelineEvents.value.isAllTimelineExpanded
+                val newList = _timelineEvents.value.timelineEvents.map { item ->
+                    item.copy(isExpanded = expandedNewValue)
+                }
+                _timelineEvents.update { it.copy(timelineEvents = newList, isAllTimelineExpanded = expandedNewValue) }
             }
         }
     }

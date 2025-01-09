@@ -1,15 +1,16 @@
 package tarsila.costalonga.notasapp.ui.about.compose
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,7 +56,7 @@ import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
     val timelineEvents by viewModel.timelineEvents.collectAsStateWithLifecycle()
     AboutScreen(
-        listOfTimeline = timelineEvents,
+        uiState = timelineEvents,
         uiIntents = viewModel::handleUiIntents,
     )
 }
@@ -63,7 +64,7 @@ internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
 @Composable
 private fun AboutScreen(
     modifier: Modifier = Modifier,
-    listOfTimeline: List<TimelineEvent>,
+    uiState: AboutUiState,
     uiIntents: (AboutUiIntents) -> Unit,
 ) {
     Scaffold(topBar = { MyTopAppBar() }) {
@@ -88,10 +89,33 @@ private fun AboutScreen(
                         )
                         LinkableText()
 
-                        Spacer(modifier = Modifier.size(NoteTheme.spacing.spacer12))
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.End)
+                                .clickable {
+                                    uiIntents(AboutUiIntents.OnExpandAllClick)
+                                },
+                            contentAlignment = Alignment.CenterEnd,
+                        ) {
+                            Crossfade(targetState = uiState.isAllTimelineExpanded, label = "") { isExpanded ->
+                                val icon = if (isExpanded) {
+                                    painterResource(R.drawable.icon_unfold_less)
+                                } else {
+                                    painterResource(R.drawable.icon_unfold_more)
+                                }
+
+                                Icon(
+                                    painter = icon,
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(NoteTheme.spacing.spacer8),
+                                    tint = NoteTheme.colors.primary,
+                                )
+                            }
+                        }
                     }
                 }
-                items(listOfTimeline, key = { item -> item.id }) { item ->
+
+                items(uiState.timelineEvents, key = { item -> item.id }) { item ->
                     TimelineWithProgress(
                         date = stringResource(id = item.date),
                         description = stringResource(id = item.description),
@@ -123,7 +147,7 @@ fun TimelineWithProgress(
             ) {
                 onExpandClick()
             }
-            .padding(vertical = NoteTheme.spacing.spacer8),
+            .padding(vertical = NoteTheme.spacing.spacer16),
     ) {
         Column(
             Modifier.fillMaxHeight(),
@@ -208,10 +232,12 @@ fun LinkableText() {
 fun PreviewAbout() {
     NotaComposeTheme {
         AboutScreen(
-            listOfTimeline = listOf(
-                TimelineEvent(1, R.string.about_aug2020, R.string.about_aug2020_done),
-                TimelineEvent(2, R.string.about_sept2020, R.string.about_sept2020_done),
-                TimelineEvent(3, R.string.about_dec2024, R.string.about_dec2024_done),
+            uiState = AboutUiState(
+                timelineEvents = listOf(
+                    TimelineEvent(1, R.string.about_aug2020, R.string.about_aug2020_done),
+                    TimelineEvent(2, R.string.about_sept2020, R.string.about_sept2020_done),
+                    TimelineEvent(3, R.string.about_dec2024, R.string.about_dec2024_done),
+                ),
             ),
             uiIntents = {},
         )
