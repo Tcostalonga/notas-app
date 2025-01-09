@@ -26,9 +26,9 @@
     <!-- ContentDescription -->
     <string name="salvar_nota">Save note</string>
     <string name="editar_nota">Edit note</string>
-    <string name="notas_criadas">All created notes</string>
+    <string name="notas_criadas">All notes</string>
     <string name="notas_ativas">Active notes</string>
-    <string name="notas_finalizadas">Completed notes</string>
+    <string name="notas_finalizadas">Finished notes</string>
     <string name="icone_do_aplicativo">App icon</string>
     <string name="criar_anotacao">Create note</string>
 
@@ -62,7 +62,7 @@
 \n\n- Communication between fragments and DB made in the ViewModel and using coroutines;
 \n\n- Implementing light and dark theme functionality;
 \n\n- Transitioning fragments, using Navigation to navigate between fragments;
-\n\n- Implemented the following features: deleting a note, updating it and marking it as completed;
+\n\n- Implemented the following features: deleting a note, updating it and checking it as finished;
 \n\n- What a month, huh!</string>
 
     <string name="about_sept2020">September, 2020</string>
@@ -88,11 +88,11 @@
     <string name="about_dec2022">December, 2022</string>
     <string name="about_dec2022_done">- Migration to the splash screen compat lib;
 \n\n- End of Compose migration;
-\n\n- Launch on the Play Store with the app already in Compose.</string>
+\n\n- Launch on Play Store with the app already in Compose.</string>
 
     <string name="about_jun2023">June, 2023</string>
-    <string name="about_jun2023_done">- New feature: Sketch a note. Now when leaving the screen or closing the app,
-    when you come back to the add note screen, you can choose between continue where you left off or start a fresh note.</string>
+    <string name="about_jun2023_done">- New feature: sketch. Now, when leaving the screen or closing the app,
+    when you come back to the add note screen, you can choose between continuing where you left off or start a fresh note.</string>
 
     <string name="about_mar2024">March, 2024</string>
     <string name="about_mar2024_done">- Gradle migration from groove to kts;
@@ -104,9 +104,9 @@
 \n\n- Improving layouts and view logic in Compose, adopting the use of MVI.</string>
 
     <string name="about_aug2024">August, 2024</string>
-    <string name="about_aug2024_done">- Internationalization of the app: added English translation.</string>
+    <string name="about_aug2024_done">- App internationalization: english translation added.</string>
 
     <string name="about_dec2024">December, 2024</string>
-    <string name="about_dec2024_done">- Redesigning about page. Timeline display.</string>
+    <string name="about_dec2024_done">- Redesigning About screen: display all the work done within the app in a timeline format.</string>
 
 </resources>

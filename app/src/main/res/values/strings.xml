@@ -47,7 +47,7 @@
     <string name="dialog_change_theme_dark">Escuro</string>
 
     <!-- About Screen -->
-    <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo é para colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias.
+    <string name="about_disclaimer">Em agosto de 2020 iniciei o projeto NotaAnota. O objetivo era colocar em prática o aprendizado em Android, aplicar novos conceitos e tecnologias.
 \n\nDesde então, tenho mantido-o e, eventualmente, publico atualizações na Play Store.
 \n\nA seguir, você encontrará uma linha do tempo descrevendo aspectos ténicos, melhorias, novas funcionalidades e refatorações que desenvolvi ao longo desses anos no app.
 \nOnde me encontrar: Társila Costalonga
@@ -89,10 +89,10 @@
     <string name="about_dec2022">Dezembro, 2022</string>
     <string name="about_dec2022_done">- Migração para a biblioteca splash screen compat;
 \n\n- Fim das migrações das telas para Compose;
-\n\n- Lançamento na Play Store com o app já todo em Compose.</string>
+\n\n- Lançamento na Play Store com o app já em Compose.</string>
 
     <string name="about_jun2023">Junho, 2023</string>
-    <string name="about_jun2023_done">- Nova funcionalidade: Rascunho de uma nota. Agora, ao minimizar telas ou fechar o app,
+    <string name="about_jun2023_done">- Nova funcionalidade: rascunho. Agora, ao minimizar telas ou fechar o app,
     quando clicar em criar uma nova nota, você pode escolher entre continuar onde parou ou iniciar uma nova nota.</string>
 
     <string name="about_mar2024">Março, 2024</string>
@@ -106,9 +106,9 @@
 \n\n- Aprimoramento de layouts e lógica da view em Compose, adotando o uso de MVI.</string>
 
     <string name="about_aug2024">Agosto, 2024</string>
-    <string name="about_aug2024_done">- Internacionalização do app: adicionei tradução para inglês.</string>
+    <string name="about_aug2024_done">- Internacionalização do app: suporte ao idioma inglês adicionado.</string>
 
     <string name="about_dec2024">Dezembro, 2024</string>
-    <string name="about_dec2024_done">- Reformulação da página de sobre. Exibição em linha do tempo.</string>
+    <string name="about_dec2024_done">- Reformulação da tela Sobre: exibição em formato de linha do tempo.</string>
 
 </resources>
