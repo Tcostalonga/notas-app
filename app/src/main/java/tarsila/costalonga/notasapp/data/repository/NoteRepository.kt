@@ -8,7 +8,7 @@ interface NoteRepository {
     fun updateNota(nota: Notas)
     fun deleteUmaNota(nota: Notas)
     fun getTodasNotas(): Flow<List<Notas>>
-    suspend fun getNoteById(id: Long): Notas
+    fun getNoteById(id: Long): Flow<Notas>
     fun getNotesCount(): Int
     fun getDoneNotes(): Int
     fun getActiveNotes(): Int

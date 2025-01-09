@@ -10,25 +10,41 @@ import java.text.SimpleDateFormat
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: NoteDataRepository) : ViewModel() {
-    val noteDetail = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
+    private val _noteDetail = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
+    val noteDetail = _noteDetail.asStateFlow()
 
     val title by mutableStateOf(TextFieldState())
     val description by mutableStateOf(TextFieldState())
 
     fun setNoteDetail(noteId: Long) {
         viewModelScope.launch {
-            noteDetail.value = repository.getNoteById(noteId)
-            title.edit {
-                replace(0, this.length, noteDetail.value.titulo)
-            }
-            description.edit {
-                replace(0, this.length, noteDetail.value.anotacao)
+            repository.getNoteById(noteId).collect { note ->
+                _noteDetail.update {
+                    it.copy(
+                        id = note.id,
+                        titulo = note.titulo,
+                        anotacao = note.anotacao,
+                        dtCriacao = note.dtCriacao,
+                        dtAtualizado = note.dtAtualizado,
+                        imgPath = null,
+                        finalizado = note.finalizado,
+                        ordem = note.ordem,
+                    )
+                }
+                title.edit {
+                    replace(0, this.length, noteDetail.value.titulo)
+                }
+                description.edit {
+                    replace(0, this.length, noteDetail.value.anotacao)
+                }
             }
         }
     }
@@ -50,12 +66,13 @@ class DetailViewModel @Inject constructor(private val repository: NoteDataReposi
     }
 
     fun updateNote() {
-        /*                            makeToast(requireContext(), getString(R.string.nota_update))
-                            findNavController().popBackStack()*/
-        val obj = noteDetail.value
-        obj.titulo = title.text.toString()
-        obj.anotacao = description.text.toString()
-        obj.dtAtualizado = System.currentTimeMillis()
-        updateNota(obj)
+        _noteDetail.update {
+            it.copy(
+                titulo = title.text.toString(),
+                anotacao = description.text.toString(),
+                dtAtualizado = System.currentTimeMillis(),
+            )
+        }
+        updateNota(_noteDetail.value)
     }
 }
