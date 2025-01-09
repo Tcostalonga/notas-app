@@ -69,8 +69,8 @@
     <string name="about_sept2020">Setembro, 2020</string>
     <string name="about_sept2020_done">- Inserção de uma splash screen, nesse momento, feita com uma activity dedicada;
     \n\n- Mais uma funcionalidade: ordenação de notas;
-    \n\n- Ajustes de layout após feedback recebido.
-    </string>
+    \n\n- Ajustes de layout após feedback recebido.</string>
+
     <string name="about_oct2020">Outubro, 2020</string>
     <string name="about_oct2020_done">- Primeiro lançamento do app na Play Store.</string>
 
@@ -92,7 +92,8 @@
 \n\n- Lançamento na Play Store com o app já todo em Compose.</string>
 
     <string name="about_jun2023">Junho, 2023</string>
-    <string name="about_jun2023_done">- Nova funcionalidade: Rascunho de uma nota</string>
+    <string name="about_jun2023_done">- Nova funcionalidade: Rascunho de uma nota. Agora, ao minimizar telas ou fechar o app,
+    quando clicar em criar uma nova nota, você pode escolher entre continuar onde parou ou iniciar uma nova nota.</string>
 
     <string name="about_mar2024">Março, 2024</string>
     <string name="about_mar2024_done">- Migração de gradle em groove para kts;

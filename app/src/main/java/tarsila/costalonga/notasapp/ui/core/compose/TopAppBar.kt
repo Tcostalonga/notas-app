@@ -63,9 +63,9 @@ fun MyTopAppBar(
 
                 // drop down menu
                 DropdownMenu(
+                    containerColor = NoteTheme.colors.surface,
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
-                    offset = DpOffset(x = 5.dp, y = (-10).dp),
                 ) {
                     DropdownMenuItem(
                         onClick = {
