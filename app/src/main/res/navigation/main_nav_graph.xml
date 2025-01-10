@@ -11,22 +11,16 @@
         <action
             android:id="@+id/action_mainFragment_to_addFragment"
             app:destination="@id/addFragment"
-            app:enterAnim="@anim/fade_in"
-            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_mainFragment_to_sobreFragment"
-            app:destination="@id/sobreFragment"
-            app:enterAnim="@anim/fade_in" />
+            app:destination="@id/sobreFragment" />
         <action
             android:id="@+id/action_mainFragment_to_estatisticasFragment"
-            app:destination="@id/estatisticasFragment"
-            app:enterAnim="@anim/fade_in" />
+            app:destination="@id/estatisticasFragment" />
         <action
             android:id="@+id/action_mainFragment_to_detalheFragment"
-            app:destination="@id/detalheFragment"
-            app:enterAnim="@anim/fade_in"
-            app:popEnterAnim="@anim/fade_in" />
+            app:destination="@id/detalheFragment" />
     </fragment>
 
     <fragment

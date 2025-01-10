@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.window.Dialog
 import tarsila.costalonga.notasapp.R
@@ -40,6 +39,8 @@ fun ShowAlert(
     onDismissDialogButton: () -> Unit,
 ) {
     AlertDialog(
+        shape = MaterialTheme.shapes.extraLarge,
+        containerColor = NoteTheme.colors.surface,
         onDismissRequest = { },
         confirmButton = {
             TextButton(
@@ -65,7 +66,7 @@ fun ShowAlert(
 }
 
 @Composable
-@Preview
+@PreviewLightDark
 fun ShowSketchAlertPreview() {
     NotaComposeTheme {
         ShowAlert(

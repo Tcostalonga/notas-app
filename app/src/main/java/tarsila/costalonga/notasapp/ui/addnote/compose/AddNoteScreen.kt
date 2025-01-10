@@ -3,6 +3,7 @@ package tarsila.costalonga.notasapp.ui.addnote.compose
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -134,7 +135,7 @@ private fun AddNoteCompose(
             CustomAddTextField(
                 labelText = R.string.anotacao,
                 textFieldState = descriptionState,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
             )
         }

@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "tarsila.costalonga.notasapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "tarsila.costalonga.notasapp"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 12
         versionName = "2.0-compose"
         vectorDrawables {
@@ -31,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 

@@ -187,12 +187,12 @@ fun CustomBottomAppBar(
     }
 
     BottomAppBar(
+        containerColor = NoteTheme.colors.surface,
         actions = {
             IconButton(onClick = { onMenuClicked(MenuType.SHARE) }) {
                 Icon(
                     Icons.Filled.Share,
                     contentDescription = null,
-                    tint = NoteTheme.colors.onSecondaryContainer,
                 )
             }
             Spacer(Modifier.padding(end = NoteTheme.spacing.spacer4))
@@ -201,7 +201,6 @@ fun CustomBottomAppBar(
                 Icon(
                     Icons.Filled.Delete,
                     contentDescription = null,
-                    tint = NoteTheme.colors.onSecondaryContainer,
                 )
             }
         },
