@@ -8,11 +8,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 
@@ -25,38 +25,39 @@ class DetailViewModel @Inject constructor(private val repository: NoteDataReposi
     val description by mutableStateOf(TextFieldState())
 
     fun setNoteDetail(noteId: Long) {
-        viewModelScope.launch {
-            repository.getNoteById(noteId).collect { note ->
-                _noteDetail.update {
-                    it.copy(
-                        id = note.id,
-                        titulo = note.titulo,
-                        anotacao = note.anotacao,
-                        dtCriacao = note.dtCriacao,
-                        dtAtualizado = note.dtAtualizado,
-                        imgPath = null,
-                        finalizado = note.finalizado,
-                        ordem = note.ordem,
-                    )
+        viewModelScope.launch(DispatcherProvider.io) {
+            repository.getNoteById(noteId)
+                .collect { note ->
+                    _noteDetail.update {
+                        it.copy(
+                            id = note.id,
+                            titulo = note.titulo,
+                            anotacao = note.anotacao,
+                            dtCriacao = note.dtCriacao,
+                            dtAtualizado = note.dtAtualizado,
+                            imgPath = null,
+                            finalizado = note.finalizado,
+                            ordem = note.ordem,
+                        )
+                    }
+                    title.edit {
+                        replace(0, this.length, noteDetail.value.titulo)
+                    }
+                    description.edit {
+                        replace(0, this.length, noteDetail.value.anotacao)
+                    }
                 }
-                title.edit {
-                    replace(0, this.length, noteDetail.value.titulo)
-                }
-                description.edit {
-                    replace(0, this.length, noteDetail.value.anotacao)
-                }
-            }
         }
     }
 
     private fun updateNota(nota: Notas) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.updateNota(nota)
         }
     }
 
     fun removerNota() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.deleteUmaNota(noteDetail.value)
         }
     }

@@ -4,13 +4,13 @@ import android.content.SharedPreferences
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -61,7 +61,7 @@ class AddViewModel @Inject constructor(
     }
 
     private fun insertNota(nota: Notas) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.insertNota(nota)
         }
     }
@@ -73,10 +73,10 @@ class AddViewModel @Inject constructor(
     }
 
     private fun putSketch(titulo: String, descricao: String) {
-        sharedPreferences.edit().apply {
+        sharedPreferences.edit {
             putString(SKETCH_TITLE, titulo)
             putString(SKETCH_DESCRIPTION, descricao)
-        }.apply()
+        }
     }
 
     fun getSavedSketches() {
@@ -97,7 +97,7 @@ class AddViewModel @Inject constructor(
     }
 
     fun clearSharedPreferences() {
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit { clear() }
     }
 
     private fun setSketchAsDisabled() {

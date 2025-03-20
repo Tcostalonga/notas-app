@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
@@ -32,11 +32,14 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadNotes() {
-        viewModelScope.launch {
+        viewModelScope.launch(DispatcherProvider.io) {
             _uiState.update { it.copy(isLoading = true) }
-            repository.getTodasNotas().collect { allNotes ->
-                _uiState.update { it.copy(isLoading = false, allNotes = allNotes) }
-            }
+            repository.getTodasNotas()
+                .collect { allNotes ->
+                    _uiState.update {
+                        it.copy(isLoading = false, allNotes = allNotes)
+                    }
+                }
         }
     }
 
@@ -116,7 +119,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun updateNota(nota: Notas) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.updateNota(nota)
         }
     }
