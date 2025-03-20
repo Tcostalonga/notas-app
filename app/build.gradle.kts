@@ -84,7 +84,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.core.test)
     implementation(libs.hilt.android)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlinx.coroutines.android)
@@ -101,4 +100,9 @@ dependencies {
     ksp(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.turbine)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.assertk)
+    testImplementation(libs.mockk)
 }
