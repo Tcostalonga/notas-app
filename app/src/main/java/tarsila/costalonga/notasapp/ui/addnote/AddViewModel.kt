@@ -16,11 +16,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
+import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    private val repository: NoteDataRepository,
+    private val repository: NoteRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
     private val _showSketchAlert = MutableStateFlow(false)

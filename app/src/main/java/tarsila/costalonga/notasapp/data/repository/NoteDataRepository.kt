@@ -1,15 +1,14 @@
 package tarsila.costalonga.notasapp.data.repository
 
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Notas
 import tarsila.costalonga.notasapp.data.local.NotasDao
 
-@Singleton
 class NoteDataRepository @Inject constructor(private val dtDao: NotasDao) : NoteRepository {
+
     override suspend fun insertNota(nota: Notas) {
         withContext(DispatcherProvider.io) {
             dtDao.insertNota(nota)

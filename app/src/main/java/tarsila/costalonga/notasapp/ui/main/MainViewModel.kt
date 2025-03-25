@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
+import tarsila.costalonga.notasapp.data.repository.NoteRepository
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainIntent
 import tarsila.costalonga.notasapp.ui.main.compose.MainUiState
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: NoteDataRepository,
+    private val repository: NoteRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
     private var _uiState = MutableStateFlow(MainUiState())

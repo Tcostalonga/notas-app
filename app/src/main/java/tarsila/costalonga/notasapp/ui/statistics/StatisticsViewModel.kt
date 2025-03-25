@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
+import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
-class StatisticsViewModel @Inject constructor(private val repository: NoteDataRepository) : ViewModel() {
+class StatisticsViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StatisticsUiState(0, 0, 0))
     val uiState = _uiState.asStateFlow()
