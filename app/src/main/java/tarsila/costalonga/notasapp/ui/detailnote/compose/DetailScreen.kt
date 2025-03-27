@@ -64,8 +64,8 @@ internal fun DetailScreen(
 ) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
-    val formattedDtCreated = viewModel.getFormattedData(noteDetail.dtCriacao)
-    val formattedDtUpdated = viewModel.getFormattedData(noteDetail.dtAtualizado)
+    val formattedDtCreated = viewModel.getFormattedData(noteDetail.createdAt)
+    val formattedDtUpdated = viewModel.getFormattedData(noteDetail.updatedAt)
 
     DetailCompose(
         viewModel.title,
@@ -276,8 +276,8 @@ fun PreviewDetail(
 ) {
     NotaComposeTheme {
         DetailCompose(
-            title = TextFieldState(nota.first().titulo),
-            description = TextFieldState(nota.first().anotacao),
+            title = TextFieldState(nota.first().title),
+            description = TextFieldState(nota.first().description),
             formattedDtCreated = "22/07/2024",
             formattedDtUpdated = "03/09/2024",
             onMenuClicked = {},

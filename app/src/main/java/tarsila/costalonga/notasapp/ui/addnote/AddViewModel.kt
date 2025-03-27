@@ -47,9 +47,9 @@ class AddViewModel @Inject constructor(
                 viewModelScope.launch {
                     val lastItemId = repository.getLastItemId()
                     val newNota = Notas(
-                        titulo = titleFormatted.toString(),
-                        anotacao = descriptionFormatted.toString(),
-                        ordem = lastItemId.plus(1).toInt(),
+                        title = titleFormatted.toString(),
+                        description = descriptionFormatted.toString(),
+                        sort = lastItemId.plus(1).toInt(),
                     )
                     insertNota(newNota)
                     clearSharedPreferences()

@@ -18,7 +18,7 @@ import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
-    private val _noteDetail = MutableStateFlow(Notas(titulo = "", anotacao = "", ordem = 0))
+    private val _noteDetail = MutableStateFlow(Notas(title = "", description = "", sort = 0))
     val noteDetail = _noteDetail.asStateFlow()
 
     val title by mutableStateOf(TextFieldState())
@@ -31,20 +31,19 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
                     _noteDetail.update {
                         it.copy(
                             id = note.id,
-                            titulo = note.titulo,
-                            anotacao = note.anotacao,
-                            dtCriacao = note.dtCriacao,
-                            dtAtualizado = note.dtAtualizado,
-                            imgPath = null,
-                            finalizado = note.finalizado,
-                            ordem = note.ordem,
+                            title = note.title,
+                            description = note.description,
+                            createdAt = note.createdAt,
+                            updatedAt = note.updatedAt,
+                            isFinished = note.isFinished,
+                            sort = note.sort,
                         )
                     }
                     title.edit {
-                        replace(0, this.length, noteDetail.value.titulo)
+                        replace(0, this.length, noteDetail.value.title)
                     }
                     description.edit {
-                        replace(0, this.length, noteDetail.value.anotacao)
+                        replace(0, this.length, noteDetail.value.description)
                     }
                 }
         }
@@ -69,9 +68,9 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
     fun updateNote() {
         _noteDetail.update {
             it.copy(
-                titulo = title.text.toString(),
-                anotacao = description.text.toString(),
-                dtAtualizado = System.currentTimeMillis(),
+                title = title.text.toString(),
+                description = description.text.toString(),
+                updatedAt = System.currentTimeMillis(),
             )
         }
         updateNota(_noteDetail.value)

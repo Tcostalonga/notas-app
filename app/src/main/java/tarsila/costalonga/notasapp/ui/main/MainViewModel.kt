@@ -2,6 +2,7 @@ package tarsila.costalonga.notasapp.ui.main
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -82,18 +83,11 @@ class MainViewModel @Inject constructor(
     fun getThemePreferences() = sharedPreferences.getInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     private fun putThemePreferences(value: Int) {
-        sharedPreferences.edit().putInt(TEMACOR, value).apply()
+        sharedPreferences.edit { putInt(TEMACOR, value) }
     }
 
     fun updateIsSearchEnabled(isSearchEnabled: Boolean) {
         _uiState.update { it.copy(isSearchEnabled = isSearchEnabled) }
-    }
-
-    fun ordenarRecyclerView(lista: List<Notas>) {
-        lista.forEachIndexed { index, nota ->
-            nota.ordem = index
-            updateNota(nota)
-        }
     }
 
     private fun updateTheme(themeModeValue: Int, themeList: List<ThemeMode>): List<ThemeMode> {
@@ -114,8 +108,7 @@ class MainViewModel @Inject constructor(
         objNota: Notas,
         checkStatus: Boolean,
     ) {
-        objNota.finalizado = checkStatus
-        updateNota(objNota)
+        updateNota(objNota.copy(isFinished = checkStatus))
     }
 
     private fun updateNota(nota: Notas) {

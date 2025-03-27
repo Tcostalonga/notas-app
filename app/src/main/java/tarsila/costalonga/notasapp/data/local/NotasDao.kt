@@ -22,16 +22,16 @@ interface NotasDao {
     @Query("SELECT * from notas_table WHERE id = :key")
     fun getNoteById(key: Long): Flow<Notas>
 
-    @Query("SELECT * FROM notas_table ORDER BY ordem ASC")
+    @Query("SELECT * FROM notas_table ORDER BY sort ASC")
     fun getTodasNotas(): Flow<List<Notas>>
 
     @Query("SELECT COUNT(id) FROM notas_table")
     suspend fun getNotesCount(): Int
 
-    @Query("SELECT COUNT(id) FROM notas_table where finalizado is 1")
+    @Query("SELECT COUNT(id) FROM notas_table where is_finished is 1")
     suspend fun getDoneNotes(): Int
 
-    @Query("SELECT COUNT(id) FROM notas_table where finalizado is 0")
+    @Query("SELECT COUNT(id) FROM notas_table where is_finished is 0")
     suspend fun getActiveNotes(): Int
 
     @Query("SELECT id FROM notas_table ORDER BY id DESC LIMIT 1")

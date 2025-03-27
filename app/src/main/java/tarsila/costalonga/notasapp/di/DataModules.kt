@@ -28,7 +28,10 @@ object DatabaseModule {
             context.applicationContext,
             NotasRoom::class.java,
             "notas_bd",
-        ).fallbackToDestructiveMigration().build()
+        )
+            .fallbackToDestructiveMigration()
+            .addMigrations(NotasRoom.MIGRATION_2_3)
+            .build()
     }
 
     @Provides

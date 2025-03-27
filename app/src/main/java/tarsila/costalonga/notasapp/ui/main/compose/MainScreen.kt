@@ -178,7 +178,7 @@ fun performFilterInTitle(
     return if (searchedText.isNotEmpty()) {
         val resultList = mutableListOf<Notas>()
         for (nota in allNotas) {
-            if (nota.titulo.lowercase().contains(searchedText.lowercase())) {
+            if (nota.title.lowercase().contains(searchedText.lowercase())) {
                 resultList.add(nota)
             }
         }
@@ -194,7 +194,7 @@ fun ItemList(
     onItemClicked: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    var checkedState by rememberSaveable { mutableStateOf(nota.finalizado) }
+    var checkedState by rememberSaveable { mutableStateOf(nota.isFinished) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -219,7 +219,7 @@ fun ItemList(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = nota.titulo,
+            text = nota.title,
             style =
             NoteTheme.typography.bodyLarge.copy(
                 textDecoration = getTextDecoration(checkedState),
