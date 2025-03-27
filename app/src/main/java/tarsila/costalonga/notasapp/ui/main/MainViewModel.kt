@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.DispatcherProvider
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainIntent
@@ -105,13 +105,13 @@ class MainViewModel @Inject constructor(
     }
 
     private fun checkboxStatus(
-        objNota: Notas,
+        objNota: Note,
         checkStatus: Boolean,
     ) {
         updateNota(objNota.copy(isFinished = checkStatus))
     }
 
-    private fun updateNota(nota: Notas) {
+    private fun updateNota(nota: Note) {
         viewModelScope.launch {
             repository.updateNota(nota)
         }

@@ -1,13 +1,13 @@
 package tarsila.costalonga.notasapp.ui.core.compose.util
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 
-class PreviewParams : PreviewParameterProvider<List<Notas>> {
-    override val values: Sequence<List<Notas>>
+class PreviewParams : PreviewParameterProvider<List<Note>> {
+    override val values: Sequence<List<Note>>
         get() = sequenceOf(
             listOf(
-                Notas(
+                Note(
                     id = 4244,
                     title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales nulla auctor " +
@@ -19,7 +19,7 @@ class PreviewParams : PreviewParameterProvider<List<Notas>> {
                     isFinished = false,
                     sort = 9030,
                 ),
-                Notas(
+                Note(
                     id = 7137,
                     title = "malesuada",
                     description = "ex",
@@ -28,7 +28,7 @@ class PreviewParams : PreviewParameterProvider<List<Notas>> {
                     isFinished = false,
                     sort = 2175,
                 ),
-                Notas(
+                Note(
                     id = 4225,
                     title = "blandit",
                     description = "decore",

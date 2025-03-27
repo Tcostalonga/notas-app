@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.DispatcherProvider
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
-    private val _noteDetail = MutableStateFlow(Notas(title = "", description = "", sort = 0))
+    private val _noteDetail = MutableStateFlow(Note(title = "", description = "", sort = 0))
     val noteDetail = _noteDetail.asStateFlow()
 
     val title by mutableStateOf(TextFieldState())
@@ -49,7 +49,7 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
         }
     }
 
-    private fun updateNota(nota: Notas) {
+    private fun updateNota(nota: Note) {
         viewModelScope.launch {
             repository.updateNota(nota)
         }

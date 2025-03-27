@@ -6,13 +6,13 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Notas::class],
+    entities = [Note::class],
     version = 3,
     exportSchema = true,
 )
 
-abstract class NotasRoom : RoomDatabase() {
-    abstract val notasDao: NotasDao
+abstract class NoteRoom : RoomDatabase() {
+    abstract val noteDao: NoteDao
 
     companion object {
         val MIGRATION_2_3 = object : Migration(2, 3) {

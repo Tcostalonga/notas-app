@@ -10,8 +10,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import tarsila.costalonga.notasapp.data.local.NotasDao
-import tarsila.costalonga.notasapp.data.local.NotasRoom
+import tarsila.costalonga.notasapp.data.local.NoteDao
+import tarsila.costalonga.notasapp.data.local.NoteRoom
 import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
@@ -23,21 +23,21 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context,
-    ): NotasRoom {
+    ): NoteRoom {
         return Room.databaseBuilder(
             context.applicationContext,
-            NotasRoom::class.java,
+            NoteRoom::class.java,
             "notas_bd",
         )
             .fallbackToDestructiveMigration()
-            .addMigrations(NotasRoom.MIGRATION_2_3)
+            .addMigrations(NoteRoom.MIGRATION_2_3)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideDao(dtBase: NotasRoom): NotasDao {
-        return dtBase.notasDao
+    fun provideDao(dtBase: NoteRoom): NoteDao {
+        return dtBase.noteDao
     }
 }
 

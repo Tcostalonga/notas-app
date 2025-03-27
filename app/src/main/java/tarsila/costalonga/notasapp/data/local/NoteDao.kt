@@ -9,21 +9,21 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NotasDao {
+interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNota(nota: Notas)
+    suspend fun insertNota(nota: Note)
 
     @Update
-    suspend fun updateNota(nota: Notas)
+    suspend fun updateNota(nota: Note)
 
     @Delete
-    suspend fun deleteUmaNota(nota: Notas)
+    suspend fun deleteUmaNota(nota: Note)
 
     @Query("SELECT * from notas_table WHERE id = :key")
-    fun getNoteById(key: Long): Flow<Notas>
+    fun getNoteById(key: Long): Flow<Note>
 
     @Query("SELECT * FROM notas_table ORDER BY sort ASC")
-    fun getTodasNotas(): Flow<List<Notas>>
+    fun getTodasNotas(): Flow<List<Note>>
 
     @Query("SELECT COUNT(id) FROM notas_table")
     suspend fun getNotesCount(): Int

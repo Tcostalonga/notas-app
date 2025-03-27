@@ -47,7 +47,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
@@ -272,7 +272,7 @@ fun ShowAndEditNote(
 @PreviewLightDark
 @Composable
 fun PreviewDetail(
-    @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Notas>,
+    @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Note>,
 ) {
     NotaComposeTheme {
         DetailCompose(

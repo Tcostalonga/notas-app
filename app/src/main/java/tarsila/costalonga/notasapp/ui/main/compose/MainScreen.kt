@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
@@ -89,7 +89,7 @@ private fun MainCompose(
 ) {
     var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
     var searchTerm by rememberSaveable { mutableStateOf("") }
-    var filteredNotas: List<Notas>
+    var filteredNotas: List<Note>
 
     if (showChangeThemeDialog) {
         ChangeThemeDialog(
@@ -173,10 +173,10 @@ private fun MainCompose(
 
 fun performFilterInTitle(
     searchedText: String,
-    allNotas: List<Notas>,
-): List<Notas> {
+    allNotas: List<Note>,
+): List<Note> {
     return if (searchedText.isNotEmpty()) {
-        val resultList = mutableListOf<Notas>()
+        val resultList = mutableListOf<Note>()
         for (nota in allNotas) {
             if (nota.title.lowercase().contains(searchedText.lowercase())) {
                 resultList.add(nota)
@@ -190,7 +190,7 @@ fun performFilterInTitle(
 
 @Composable
 fun ItemList(
-    nota: Notas,
+    nota: Note,
     onItemClicked: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
@@ -233,7 +233,7 @@ fun ItemList(
 @PreviewLightDark
 @Composable
 fun PreviewMain(
-    @PreviewParameter(PreviewParams::class) listOfNotas: List<Notas>,
+    @PreviewParameter(PreviewParams::class) listOfNotas: List<Note>,
 ) {
     NotaComposeTheme {
         MainCompose(

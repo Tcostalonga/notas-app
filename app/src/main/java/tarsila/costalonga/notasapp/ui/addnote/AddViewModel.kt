@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
@@ -46,7 +46,7 @@ class AddViewModel @Inject constructor(
             else -> {
                 viewModelScope.launch {
                     val lastItemId = repository.getLastItemId()
-                    val newNota = Notas(
+                    val newNota = Note(
                         title = titleFormatted.toString(),
                         description = descriptionFormatted.toString(),
                         sort = lastItemId.plus(1).toInt(),
@@ -60,7 +60,7 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    private fun insertNota(nota: Notas) {
+    private fun insertNota(nota: Note) {
         viewModelScope.launch {
             repository.insertNota(nota)
         }
