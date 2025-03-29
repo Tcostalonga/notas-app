@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,7 +106,7 @@ fun MyTopAppBar(
 @PreviewLightDark
 @Composable
 fun PreviewTopBar() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         MyTopAppBar()
     }
 }

@@ -63,11 +63,11 @@ class DetailViewModelTest {
 
     @Test
     fun `check if a note is being correctly updated`() = runTest {
-        coEvery { repository.updateNota(any()) } just Runs
+        coEvery { repository.updateNote(any()) } just Runs
 
         viewModel.updateNote()
 
-        coVerify { repository.updateNota(any()) }
+        coVerify { repository.updateNote(any()) }
         confirmVerified(repository)
 
     }

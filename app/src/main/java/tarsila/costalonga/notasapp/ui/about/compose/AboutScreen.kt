@@ -48,7 +48,7 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.about.AboutViewModel
 import tarsila.costalonga.notasapp.ui.about.Constants
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
 
@@ -230,7 +230,7 @@ fun LinkableText() {
 @PreviewLightDark
 @Composable
 fun PreviewAbout() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         AboutScreen(
             uiState = AboutUiState(
                 timelineEvents = listOf(

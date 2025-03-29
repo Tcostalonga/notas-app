@@ -34,7 +34,7 @@ class AddViewModel @Inject constructor(
     private val _addNoteEvents = Channel<AddNoteEvents>()
     val addNoteEvents = _addNoteEvents.receiveAsFlow()
 
-    fun addNota() {
+    fun addNote() {
         val titleFormatted = titleTextFieldState.text.trim()
         val descriptionFormatted = descriptionTextFieldState.text.trim()
 
@@ -51,7 +51,7 @@ class AddViewModel @Inject constructor(
                         description = descriptionFormatted.toString(),
                         sort = lastItemId.plus(1).toInt(),
                     )
-                    insertNota(newNota)
+                    insertNote(newNota)
                     clearSharedPreferences()
                     setSketchAsDisabled()
                     _addNoteEvents.trySend(AddNoteEvents.NoteSuccessfullyCreated)
@@ -60,9 +60,9 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    private fun insertNota(nota: Note) {
+    private fun insertNote(nota: Note) {
         viewModelScope.launch {
-            repository.insertNota(nota)
+            repository.insertNote(nota)
         }
     }
 

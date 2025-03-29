@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,7 +73,7 @@ fun SearchLayoutBar(
 @PreviewLightDark
 @Composable
 fun SearchLayoutBarPreview() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         SearchLayoutBar(true)
     }
 }

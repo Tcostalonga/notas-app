@@ -37,7 +37,7 @@ import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.SearchLayoutBar
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.core.compose.util.getTextDecoration
@@ -235,7 +235,7 @@ fun ItemList(
 fun PreviewMain(
     @PreviewParameter(PreviewParams::class) listOfNotas: List<Note>,
 ) {
-    NotaComposeTheme {
+    NoteComposeTheme {
         MainCompose(
             uiState = MainUiState(
                 isLoading = false,

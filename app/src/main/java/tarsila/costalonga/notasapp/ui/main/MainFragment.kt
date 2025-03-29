@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainScreen
 
@@ -34,7 +34,7 @@ class MainFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                NotaComposeTheme {
+                NoteComposeTheme {
                     MainScreen(
                         mainEvent = ::handleIntent,
                     )

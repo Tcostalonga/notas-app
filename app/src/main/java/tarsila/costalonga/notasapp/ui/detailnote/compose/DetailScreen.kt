@@ -50,7 +50,7 @@ import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detailnote.DetailMode
@@ -274,7 +274,7 @@ fun ShowAndEditNote(
 fun PreviewDetail(
     @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Note>,
 ) {
-    NotaComposeTheme {
+    NoteComposeTheme {
         DetailCompose(
             title = TextFieldState(nota.first().title),
             description = TextFieldState(nota.first().description),

@@ -49,9 +49,9 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
         }
     }
 
-    private fun updateNota(nota: Note) {
+    private fun updateNote(nota: Note) {
         viewModelScope.launch {
-            repository.updateNota(nota)
+            repository.updateNote(nota)
         }
     }
 
@@ -73,6 +73,6 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
                 updatedAt = System.currentTimeMillis(),
             )
         }
-        updateNota(_noteDetail.value)
+        updateNote(_noteDetail.value)
     }
 }

@@ -17,7 +17,7 @@ object NoteTheme {
 }
 
 @Composable
-fun NotaComposeTheme(
+fun NoteComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {

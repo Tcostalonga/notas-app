@@ -42,29 +42,29 @@ class NoteRepositoryTest {
 
     @Test
     fun `should insertNote runs successfully`() = runTest {
-        coEvery { dao.insertNota(any()) } just Runs
+        coEvery { dao.insertNote(any()) } just Runs
 
-        repository.insertNota(stubNote)
+        repository.insertNote(stubNote)
 
-        coVerify(exactly = 1) { dao.insertNota(stubNote) }
+        coVerify(exactly = 1) { dao.insertNote(stubNote) }
     }
 
     @Test
     fun `should updateNote runs successfully`() = runTest {
-        coEvery { dao.updateNota(any()) } just Runs
+        coEvery { dao.updateNote(any()) } just Runs
 
-        repository.updateNota(stubNote)
+        repository.updateNote(stubNote)
 
-        coVerify(exactly = 1) { dao.updateNota(stubNote) }
+        coVerify(exactly = 1) { dao.updateNote(stubNote) }
     }
 
     @Test
     fun `should deleteNote runs successfully`() = runTest {
-        coEvery { dao.deleteUmaNota(any()) } just Runs
+        coEvery { dao.deleteNote(any()) } just Runs
 
-        repository.deleteUmaNota(stubNote)
+        repository.deleteNote(stubNote)
 
-        coVerify(exactly = 1) { dao.deleteUmaNota(stubNote) }
+        coVerify(exactly = 1) { dao.deleteNote(stubNote) }
     }
 
     @Test

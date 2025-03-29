@@ -108,12 +108,12 @@ class MainViewModel @Inject constructor(
         objNota: Note,
         checkStatus: Boolean,
     ) {
-        updateNota(objNota.copy(isFinished = checkStatus))
+        updateNote(objNota.copy(isFinished = checkStatus))
     }
 
-    private fun updateNota(nota: Note) {
+    private fun updateNote(nota: Note) {
         viewModelScope.launch {
-            repository.updateNota(nota)
+            repository.updateNote(nota)
         }
     }
 

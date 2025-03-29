@@ -9,21 +9,21 @@ import tarsila.costalonga.notasapp.data.local.NoteDao
 
 class NoteDataRepository @Inject constructor(private val dtDao: NoteDao) : NoteRepository {
 
-    override suspend fun insertNota(nota: Note) {
+    override suspend fun insertNote(nota: Note) {
         withContext(DispatcherProvider.io) {
-            dtDao.insertNota(nota)
+            dtDao.insertNote(nota)
         }
     }
 
-    override suspend fun updateNota(nota: Note) {
+    override suspend fun updateNote(nota: Note) {
         withContext(DispatcherProvider.io) {
-            dtDao.updateNota(nota)
+            dtDao.updateNote(nota)
         }
     }
 
-    override suspend fun deleteUmaNota(nota: Note) {
+    override suspend fun deleteNote(nota: Note) {
         withContext(DispatcherProvider.io) {
-            dtDao.deleteUmaNota(nota)
+            dtDao.deleteNote(nota)
         }
     }
 

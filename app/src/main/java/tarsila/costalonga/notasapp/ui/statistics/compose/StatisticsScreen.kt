@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.statistics.StatisticsUiState
 import tarsila.costalonga.notasapp.ui.statistics.StatisticsViewModel
@@ -47,19 +47,19 @@ private fun StatisticsCompose(uiState: StatisticsUiState) {
             StatisticsRow(
                 icon = R.drawable.icon_note_active,
                 text = R.string.notas_ativas,
-                numNota = uiState.allActiveNotes.toString(),
+                numNote = uiState.allActiveNotes.toString(),
             )
             ViewDivider()
             StatisticsRow(
                 icon = R.drawable.icon_note_done,
                 text = R.string.notas_finalizadas,
-                numNota = uiState.allDoneNotes.toString(),
+                numNote = uiState.allDoneNotes.toString(),
             )
             ViewDivider()
             StatisticsRow(
                 icon = R.drawable.icon_note_created,
                 text = R.string.notas_criadas,
-                numNota = uiState.allNotes.toString(),
+                numNote = uiState.allNotes.toString(),
             )
         }
     }
@@ -79,7 +79,7 @@ fun ViewDivider() {
 fun StatisticsRow(
     icon: Int,
     text: Int,
-    numNota: String,
+    numNote: String,
 ) {
     Row {
         Icon(
@@ -95,7 +95,7 @@ fun StatisticsRow(
                 .padding(start = NoteTheme.spacing.spacer8),
         )
         Text(
-            text = numNota,
+            text = numNote,
         )
     }
 }
@@ -103,7 +103,7 @@ fun StatisticsRow(
 @PreviewLightDark
 @Composable
 fun PreviewStatistics() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         StatisticsCompose(StatisticsUiState(40, 12, 28))
     }
 }

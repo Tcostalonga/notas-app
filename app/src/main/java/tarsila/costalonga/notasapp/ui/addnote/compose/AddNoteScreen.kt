@@ -46,7 +46,7 @@ import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
 import tarsila.costalonga.notasapp.ui.core.compose.helper.CollectAsEvent
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 @Composable
@@ -89,7 +89,7 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBa
         focusRequester = focusRequester,
         onFabClicked = {
             keyboard?.hide()
-            viewModel.addNota()
+            viewModel.addNote()
         },
     )
 
@@ -196,7 +196,7 @@ fun CustomAddTextField(
 @PreviewLightDark
 @Composable
 fun PreviewAdd() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         AddNoteCompose(
             titleState = TextFieldState(),
             descriptionState = TextFieldState(),

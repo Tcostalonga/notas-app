@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.window.Dialog
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.main.ThemeMode
 import tarsila.costalonga.notasapp.ui.main.listOfThemes
@@ -68,7 +68,7 @@ fun ShowAlert(
 @Composable
 @PreviewLightDark
 fun ShowSketchAlertPreview() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         ShowAlert(
             alertTitle = R.string.sketch_title,
             alertDescription = R.string.sketch_text,
@@ -138,7 +138,7 @@ fun ChangeThemeDialog(
 @PreviewLightDark
 @Composable
 private fun DialogChangeTheme() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         ChangeThemeDialog(themeModes = listOfThemes, {}, {})
     }
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.ui.addnote.compose.AddNoteScreen
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
@@ -23,7 +23,7 @@ class AddFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                NotaComposeTheme {
+                NoteComposeTheme {
                     AddNoteScreen(
                         navigateBack = { findNavController().navigateUp() },
                     )

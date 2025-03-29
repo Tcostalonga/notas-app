@@ -33,14 +33,14 @@ class AddViewModelTest {
     }
 
     @Test
-    fun `check addNota() will fail if title or description is empty`() = runTest {
+    fun `check addNote() will fail if title or description is empty`() = runTest {
         viewModel.addNoteEvents.test {
 
             viewModel.titleTextFieldState.edit {
                 this.append("Title")
             }
 
-            viewModel.addNota()
+            viewModel.addNote()
 
             val event = awaitItem()
             assertThat(event).isEqualTo(AddNoteEvents.UnableToCreateNote)
@@ -49,14 +49,14 @@ class AddViewModelTest {
     }
 
     @Test
-    fun `check addNota() will succeed if title and description are filled`() = runTest {
+    fun `check addNote() will succeed if title and description are filled`() = runTest {
         Note(
             title = "Title",
             description = "",
             sort = 3,
         )
         coEvery { repository.getLastItemId() } returns 2
-        coEvery { repository.insertNota(any()) } just Runs
+        coEvery { repository.insertNote(any()) } just Runs
 
         every { viewModel.clearSharedPreferences() } just Runs
 
@@ -70,7 +70,7 @@ class AddViewModelTest {
 
         viewModel.addNoteEvents.test {
 
-            viewModel.addNota()
+            viewModel.addNote()
 
             val event = awaitItem()
             assertThat(event).isEqualTo(AddNoteEvents.NoteSuccessfullyCreated)
