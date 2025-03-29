@@ -5,14 +5,14 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.edit
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.local.Note
@@ -31,8 +31,8 @@ class AddViewModel @Inject constructor(
 
     private var isSketch = true
 
-    private val _addNotaStatus = MutableLiveData<AddNotaStatus>()
-    val addNotaStatus: LiveData<AddNotaStatus> = _addNotaStatus
+    private val _addNoteEvents = Channel<AddNoteEvents>()
+    val addNoteEvents = _addNoteEvents.receiveAsFlow()
 
     fun addNota() {
         val titleFormatted = titleTextFieldState.text.trim()
@@ -40,7 +40,7 @@ class AddViewModel @Inject constructor(
 
         when {
             (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) -> {
-                _addNotaStatus.postValue(AddNotaStatus.Error)
+                _addNoteEvents.trySend(AddNoteEvents.UnableToCreateNote)
             }
 
             else -> {
@@ -54,7 +54,7 @@ class AddViewModel @Inject constructor(
                     insertNota(newNota)
                     clearSharedPreferences()
                     setSketchAsDisabled()
-                    _addNotaStatus.postValue(AddNotaStatus.Success)
+                    _addNoteEvents.trySend(AddNoteEvents.NoteSuccessfullyCreated)
                 }
             }
         }
@@ -126,7 +126,7 @@ class AddViewModel @Inject constructor(
     }
 }
 
-sealed class AddNotaStatus {
-    data object Success : AddNotaStatus()
-    data object Error : AddNotaStatus()
+sealed interface AddNoteEvents {
+    data object NoteSuccessfullyCreated : AddNoteEvents
+    data object UnableToCreateNote : AddNoteEvents
 }
