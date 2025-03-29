@@ -23,7 +23,7 @@ interface NoteDao {
     fun getNoteById(key: Long): Flow<Note>
 
     @Query("SELECT * FROM notas_table ORDER BY sort ASC")
-    fun getTodasNotas(): Flow<List<Note>>
+    fun getAllNotes(): Flow<List<Note>>
 
     @Query("SELECT COUNT(id) FROM notas_table")
     suspend fun getNotesCount(): Int

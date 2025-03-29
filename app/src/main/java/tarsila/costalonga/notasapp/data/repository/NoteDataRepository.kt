@@ -27,8 +27,8 @@ class NoteDataRepository @Inject constructor(private val dtDao: NoteDao) : NoteR
         }
     }
 
-    override fun getTodasNotas(): Flow<List<Note>> {
-        return dtDao.getTodasNotas()
+    override fun getAllNotes(): Flow<List<Note>> {
+        return dtDao.getAllNotes()
     }
 
     override fun getNoteById(id: Long): Flow<Note> = dtDao.getNoteById(id)

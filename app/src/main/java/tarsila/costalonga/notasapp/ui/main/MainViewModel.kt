@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     private fun loadNotes() {
         viewModelScope.launch(DispatcherProvider.io) {
             _uiState.update { it.copy(isLoading = true) }
-            repository.getTodasNotas()
+            repository.getAllNotes()
                 .collect { allNotes ->
                     _uiState.update {
                         it.copy(isLoading = false, allNotes = allNotes)
