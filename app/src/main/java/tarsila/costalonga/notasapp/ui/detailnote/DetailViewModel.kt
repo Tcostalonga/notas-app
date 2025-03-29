@@ -55,9 +55,9 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
         }
     }
 
-    fun removerNota() {
+    fun deleteNote() {
         viewModelScope.launch {
-            repository.deleteUmaNota(noteDetail.value)
+            repository.deleteNote(noteDetail.value)
         }
     }
 

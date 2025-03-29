@@ -74,7 +74,7 @@ internal fun DetailScreen(
         formattedDtUpdated,
         onMenuClicked = { menuType ->
             when (menuType) {
-                MenuType.DELETE -> viewModel.removerNota()
+                MenuType.DELETE -> viewModel.deleteNote()
                 MenuType.SHARE -> {}
             }
             onMenuClicked(menuType)
