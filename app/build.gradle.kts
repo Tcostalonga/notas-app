@@ -111,8 +111,15 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.junit)
+    testImplementation(libs.assertk)
     testImplementation(libs.turbine)
     testImplementation(libs.coroutines.test)
-    testImplementation(libs.assertk)
     testImplementation(libs.mockk)
+
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.assertk)
+    androidTestImplementation(libs.turbine)
+    androidTestImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.androidx.test.runner)
 }
