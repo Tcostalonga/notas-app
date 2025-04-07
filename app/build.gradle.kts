@@ -122,4 +122,7 @@ dependencies {
     androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.coroutines.test)
     androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.test.compose.junit)
+    debugImplementation(libs.test.compose.ui)
+
 }

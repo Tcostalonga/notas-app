@@ -71,6 +71,8 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
+test-compose-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
+test-compose-ui = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }

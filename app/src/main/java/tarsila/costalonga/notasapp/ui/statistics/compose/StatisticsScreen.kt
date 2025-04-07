@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -34,7 +35,7 @@ internal fun StatisticsScreen(viewModel: StatisticsViewModel = hiltViewModel()) 
 }
 
 @Composable
-private fun StatisticsCompose(uiState: StatisticsUiState) {
+internal fun StatisticsCompose(uiState: StatisticsUiState) {
     Scaffold(
         topBar = { MyTopAppBar() },
     ) {
@@ -89,12 +90,12 @@ fun StatisticsRow(
         )
         Text(
             text = stringResource(id = text),
-            modifier =
-            Modifier
+            modifier = Modifier
                 .weight(1F)
                 .padding(start = NoteTheme.spacing.spacer8),
         )
         Text(
+            modifier = Modifier.testTag("NumberOfNotes"),
             text = numNote,
         )
     }

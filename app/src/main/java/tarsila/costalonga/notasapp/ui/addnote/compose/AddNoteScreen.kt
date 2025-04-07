@@ -32,6 +32,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -115,18 +116,18 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBa
 }
 
 @Composable
-private fun AddNoteCompose(
+internal fun AddNoteCompose(
     titleState: TextFieldState,
     descriptionState: TextFieldState,
     focusRequester: FocusRequester,
     onFabClicked: () -> Unit,
 ) {
-
     Scaffold(
         modifier = Modifier.imePadding(),
         topBar = { MyTopAppBar() },
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.testTag("AddNoteFab"),
                 onClick = onFabClicked,
             ) {
                 Icon(

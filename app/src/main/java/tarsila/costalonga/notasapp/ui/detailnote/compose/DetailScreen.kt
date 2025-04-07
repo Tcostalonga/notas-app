@@ -39,6 +39,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -84,7 +85,7 @@ internal fun DetailScreen(
 }
 
 @Composable
-private fun DetailCompose(
+internal fun DetailCompose(
     title: TextFieldState,
     description: TextFieldState,
     formattedDtCreated: String,
@@ -206,6 +207,7 @@ fun CustomBottomAppBar(
         },
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.testTag("DetailNoteFab"),
                 onClick = {
                     when (detailMode) {
                         DetailMode.VIEW -> {
