@@ -1,5 +1,6 @@
 package tarsila.costalonga.notasapp.ui.addnote.compose
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -39,17 +42,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.ui.addnote.AddNoteEvents
 import tarsila.costalonga.notasapp.ui.addnote.AddViewModel
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.helper.CollectAsEvent
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 
 @Composable
-internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
+internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBack: () -> Unit = {}) {
     val showSketchAlert by viewModel.showSketchAlert.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
+    val ctx = LocalContext.current
+
     var callFocusRequester by remember { mutableStateOf(false) }
 
     LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
@@ -63,13 +70,27 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
     LaunchedEffect(callFocusRequester) {
         if (callFocusRequester) focusRequester.requestFocus()
     }
+
+    CollectAsEvent(viewModel.addNoteEvents) { event ->
+        when (event) {
+            AddNoteEvents.NoteSuccessfullyCreated -> {
+                Toast.makeText(ctx, ctx.getString(R.string.nota_insert), Toast.LENGTH_SHORT).show()
+                navigateBack()
+            }
+
+            AddNoteEvents.UnableToCreateNote -> {
+                Toast.makeText(ctx, ctx.getString(R.string.obrigatoriedade_de_campo), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     AddNoteCompose(
         titleState = viewModel.titleTextFieldState,
         descriptionState = viewModel.descriptionTextFieldState,
         focusRequester = focusRequester,
         onFabClicked = {
             keyboard?.hide()
-            viewModel.addNota()
+            viewModel.addNote()
         },
     )
 
@@ -95,18 +116,18 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun AddNoteCompose(
+internal fun AddNoteCompose(
     titleState: TextFieldState,
     descriptionState: TextFieldState,
     focusRequester: FocusRequester,
     onFabClicked: () -> Unit,
 ) {
-
     Scaffold(
         modifier = Modifier.imePadding(),
         topBar = { MyTopAppBar() },
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.testTag("AddNoteFab"),
                 onClick = onFabClicked,
             ) {
                 Icon(
@@ -176,7 +197,7 @@ fun CustomAddTextField(
 @PreviewLightDark
 @Composable
 fun PreviewAdd() {
-    NotaComposeTheme {
+    NoteComposeTheme {
         AddNoteCompose(
             titleState = TextFieldState(),
             descriptionState = TextFieldState(),

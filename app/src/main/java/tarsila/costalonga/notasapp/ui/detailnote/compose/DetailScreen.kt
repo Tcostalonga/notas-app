@@ -39,6 +39,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -47,10 +48,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.ShowAlert
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.detailnote.DetailMode
@@ -64,8 +65,8 @@ internal fun DetailScreen(
 ) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
-    val formattedDtCreated = viewModel.getFormattedData(noteDetail.dtCriacao)
-    val formattedDtUpdated = viewModel.getFormattedData(noteDetail.dtAtualizado)
+    val formattedDtCreated = viewModel.getFormattedData(noteDetail.createdAt)
+    val formattedDtUpdated = viewModel.getFormattedData(noteDetail.updatedAt)
 
     DetailCompose(
         viewModel.title,
@@ -74,7 +75,7 @@ internal fun DetailScreen(
         formattedDtUpdated,
         onMenuClicked = { menuType ->
             when (menuType) {
-                MenuType.DELETE -> viewModel.removerNota()
+                MenuType.DELETE -> viewModel.deleteNote()
                 MenuType.SHARE -> {}
             }
             onMenuClicked(menuType)
@@ -84,7 +85,7 @@ internal fun DetailScreen(
 }
 
 @Composable
-private fun DetailCompose(
+internal fun DetailCompose(
     title: TextFieldState,
     description: TextFieldState,
     formattedDtCreated: String,
@@ -206,6 +207,7 @@ fun CustomBottomAppBar(
         },
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.testTag("DetailNoteFab"),
                 onClick = {
                     when (detailMode) {
                         DetailMode.VIEW -> {
@@ -272,12 +274,12 @@ fun ShowAndEditNote(
 @PreviewLightDark
 @Composable
 fun PreviewDetail(
-    @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Notas>,
+    @PreviewParameter(PreviewParams::class, limit = 1) nota: List<Note>,
 ) {
-    NotaComposeTheme {
+    NoteComposeTheme {
         DetailCompose(
-            title = TextFieldState(nota.first().titulo),
-            description = TextFieldState(nota.first().anotacao),
+            title = TextFieldState(nota.first().title),
+            description = TextFieldState(nota.first().description),
             formattedDtCreated = "22/07/2024",
             formattedDtUpdated = "03/09/2024",
             onMenuClicked = {},

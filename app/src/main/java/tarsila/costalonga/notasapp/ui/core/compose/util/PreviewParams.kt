@@ -1,44 +1,41 @@
 package tarsila.costalonga.notasapp.ui.core.compose.util
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 
-class PreviewParams : PreviewParameterProvider<List<Notas>> {
-    override val values: Sequence<List<Notas>>
+class PreviewParams : PreviewParameterProvider<List<Note>> {
+    override val values: Sequence<List<Note>>
         get() = sequenceOf(
             listOf(
-                Notas(
+                Note(
                     id = 4244,
-                    titulo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    anotacao = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales nulla auctor " +
+                    title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales nulla auctor " +
                         "turpis luctus placerat. Mauris hendrerit consequat massa, quis volutpat elit lacinia a. " +
                         "Donec posuere congue nisl, vitae vehicula ex posuere sed. Fusce maximus purus at magna " +
                         "rhoncus, ultricies dictum nibh tristique. ",
-                    dtCriacao = 3553,
-                    dtAtualizado = 2122,
-                    imgPath = null,
-                    finalizado = false,
-                    ordem = 9030,
+                    createdAt = 3553,
+                    updatedAt = 2122,
+                    isFinished = false,
+                    sort = 9030,
                 ),
-                Notas(
+                Note(
                     id = 7137,
-                    titulo = "malesuada",
-                    anotacao = "ex",
-                    dtCriacao = 1747,
-                    dtAtualizado = 5298,
-                    imgPath = null,
-                    finalizado = false,
-                    ordem = 2175,
+                    title = "malesuada",
+                    description = "ex",
+                    createdAt = 1747,
+                    updatedAt = 5298,
+                    isFinished = false,
+                    sort = 2175,
                 ),
-                Notas(
+                Note(
                     id = 4225,
-                    titulo = "blandit",
-                    anotacao = "decore",
-                    dtCriacao = 3353,
-                    dtAtualizado = 4555,
-                    imgPath = null,
-                    finalizado = false,
-                    ordem = 5221,
+                    title = "blandit",
+                    description = "decore",
+                    createdAt = 3353,
+                    updatedAt = 4555,
+                    isFinished = false,
+                    sort = 5221,
                 ),
             ),
         )

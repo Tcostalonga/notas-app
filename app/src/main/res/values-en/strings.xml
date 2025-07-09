@@ -109,4 +109,11 @@
     <string name="about_dec2024">December, 2024</string>
     <string name="about_dec2024_done">- Redesigning About screen: display all the work done within the app in a timeline format.</string>
 
+    <string name="about_feb2025">February, 2025</string>
+    <string name="about_feb2025_done">- Creation of unit tests for repository and viewModel classes;
+\n\n- Creation of integration tests for the database;
+\n\n- Creation of UI tests for the Compose screens;
+\n\n- Used the following frameworks and libraries: JUnit, Mockk, Compose Test APIs and AssertK;
+\n\n- Finished in April.
+</string>
 </resources>

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.detailnote.compose.DetailScreen
 import tarsila.costalonga.notasapp.ui.utils.makeToast
 
@@ -32,7 +32,7 @@ class DetailFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                NotaComposeTheme {
+                NoteComposeTheme {
                     DetailScreen(
                         onMenuClicked = { menuType ->
                             when (menuType) {

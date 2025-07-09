@@ -4,23 +4,23 @@ import android.content.SharedPreferences
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
+import tarsila.costalonga.notasapp.data.local.Note
+import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    private val repository: NoteDataRepository,
+    private val repository: NoteRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
     private val _showSketchAlert = MutableStateFlow(false)
@@ -31,38 +31,38 @@ class AddViewModel @Inject constructor(
 
     private var isSketch = true
 
-    private val _addNotaStatus = MutableLiveData<AddNotaStatus>()
-    val addNotaStatus: LiveData<AddNotaStatus> = _addNotaStatus
+    private val _addNoteEvents = Channel<AddNoteEvents>()
+    val addNoteEvents = _addNoteEvents.receiveAsFlow()
 
-    fun addNota() {
+    fun addNote() {
         val titleFormatted = titleTextFieldState.text.trim()
         val descriptionFormatted = descriptionTextFieldState.text.trim()
 
         when {
             (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) -> {
-                _addNotaStatus.postValue(AddNotaStatus.Error)
+                _addNoteEvents.trySend(AddNoteEvents.UnableToCreateNote)
             }
 
             else -> {
                 viewModelScope.launch {
                     val lastItemId = repository.getLastItemId()
-                    val newNota = Notas(
-                        titulo = titleFormatted.toString(),
-                        anotacao = descriptionFormatted.toString(),
-                        ordem = lastItemId.plus(1).toInt(),
+                    val newNota = Note(
+                        title = titleFormatted.toString(),
+                        description = descriptionFormatted.toString(),
+                        sort = lastItemId.plus(1).toInt(),
                     )
-                    insertNota(newNota)
+                    insertNote(newNota)
                     clearSharedPreferences()
                     setSketchAsDisabled()
-                    _addNotaStatus.postValue(AddNotaStatus.Success)
+                    _addNoteEvents.trySend(AddNoteEvents.NoteSuccessfullyCreated)
                 }
             }
         }
     }
 
-    private fun insertNota(nota: Notas) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insertNota(nota)
+    private fun insertNote(nota: Note) {
+        viewModelScope.launch {
+            repository.insertNote(nota)
         }
     }
 
@@ -73,10 +73,10 @@ class AddViewModel @Inject constructor(
     }
 
     private fun putSketch(titulo: String, descricao: String) {
-        sharedPreferences.edit().apply {
+        sharedPreferences.edit {
             putString(SKETCH_TITLE, titulo)
             putString(SKETCH_DESCRIPTION, descricao)
-        }.apply()
+        }
     }
 
     fun getSavedSketches() {
@@ -97,7 +97,7 @@ class AddViewModel @Inject constructor(
     }
 
     fun clearSharedPreferences() {
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit { clear() }
     }
 
     private fun setSketchAsDisabled() {
@@ -126,7 +126,7 @@ class AddViewModel @Inject constructor(
     }
 }
 
-sealed class AddNotaStatus {
-    data object Success : AddNotaStatus()
-    data object Error : AddNotaStatus()
+sealed interface AddNoteEvents {
+    data object NoteSuccessfullyCreated : AddNoteEvents
+    data object UnableToCreateNote : AddNoteEvents
 }

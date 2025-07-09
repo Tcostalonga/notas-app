@@ -40,6 +40,7 @@ class AboutViewModel : ViewModel() {
         list.add(TimelineEvent(10, R.string.about_apr2024, R.string.about_apr2024_done))
         list.add(TimelineEvent(11, R.string.about_aug2024, R.string.about_aug2024_done))
         list.add(TimelineEvent(12, R.string.about_dec2024, R.string.about_dec2024_done))
+        list.add(TimelineEvent(13, R.string.about_feb2025, R.string.about_feb2025_done))
         _timelineEvents.update { it.copy(timelineEvents = list) }
     }
 

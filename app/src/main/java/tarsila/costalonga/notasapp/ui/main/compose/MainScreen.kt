@@ -32,12 +32,12 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import tarsila.costalonga.notasapp.data.local.Notas
+import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.SearchLayoutBar
-import tarsila.costalonga.notasapp.ui.core.compose.theme.NotaComposeTheme
+import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.core.compose.util.getTextDecoration
@@ -89,7 +89,7 @@ private fun MainCompose(
 ) {
     var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
     var searchTerm by rememberSaveable { mutableStateOf("") }
-    var filteredNotas: List<Notas>
+    var filteredNotas: List<Note>
 
     if (showChangeThemeDialog) {
         ChangeThemeDialog(
@@ -173,12 +173,12 @@ private fun MainCompose(
 
 fun performFilterInTitle(
     searchedText: String,
-    allNotas: List<Notas>,
-): List<Notas> {
+    allNotas: List<Note>,
+): List<Note> {
     return if (searchedText.isNotEmpty()) {
-        val resultList = mutableListOf<Notas>()
+        val resultList = mutableListOf<Note>()
         for (nota in allNotas) {
-            if (nota.titulo.lowercase().contains(searchedText.lowercase())) {
+            if (nota.title.lowercase().contains(searchedText.lowercase())) {
                 resultList.add(nota)
             }
         }
@@ -190,11 +190,11 @@ fun performFilterInTitle(
 
 @Composable
 fun ItemList(
-    nota: Notas,
+    nota: Note,
     onItemClicked: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    var checkedState by rememberSaveable { mutableStateOf(nota.finalizado) }
+    var checkedState by rememberSaveable { mutableStateOf(nota.isFinished) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -219,7 +219,7 @@ fun ItemList(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = nota.titulo,
+            text = nota.title,
             style =
             NoteTheme.typography.bodyLarge.copy(
                 textDecoration = getTextDecoration(checkedState),
@@ -233,9 +233,9 @@ fun ItemList(
 @PreviewLightDark
 @Composable
 fun PreviewMain(
-    @PreviewParameter(PreviewParams::class) listOfNotas: List<Notas>,
+    @PreviewParameter(PreviewParams::class) listOfNotas: List<Note>,
 ) {
-    NotaComposeTheme {
+    NoteComposeTheme {
         MainCompose(
             uiState = MainUiState(
                 isLoading = false,

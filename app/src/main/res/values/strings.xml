@@ -111,4 +111,11 @@
     <string name="about_dec2024">Dezembro, 2024</string>
     <string name="about_dec2024_done">- Reformulação da tela Sobre: exibição em formato de linha do tempo.</string>
 
+    <string name="about_feb2025">Fevereiro, 2025</string>
+    <string name="about_feb2025_done">- Criação de testes unitários para as classes de repository e viewModels;
+\n\n- Criação de testes de integração para o banco de dados;
+\n\n- Criação de testes de UI para as telas em compose;
+\n\n- Utilizei os seguintes frameworks e bibliotecas: JUnit, Mockk, Compose Test APIs e AssertK;
+\n\n- Finalizado em abril.
+    </string>
 </resources>

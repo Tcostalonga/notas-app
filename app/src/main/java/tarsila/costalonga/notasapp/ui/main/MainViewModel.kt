@@ -2,24 +2,25 @@ package tarsila.costalonga.notasapp.ui.main
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.data.local.Notas
-import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
+import tarsila.costalonga.notasapp.DispatcherProvider
+import tarsila.costalonga.notasapp.data.local.Note
+import tarsila.costalonga.notasapp.data.repository.NoteRepository
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainIntent
 import tarsila.costalonga.notasapp.ui.main.compose.MainUiState
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: NoteDataRepository,
+    private val repository: NoteRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
     private var _uiState = MutableStateFlow(MainUiState())
@@ -32,11 +33,14 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadNotes() {
-        viewModelScope.launch {
+        viewModelScope.launch(DispatcherProvider.io) {
             _uiState.update { it.copy(isLoading = true) }
-            repository.getTodasNotas().collect { allNotes ->
-                _uiState.update { it.copy(isLoading = false, allNotes = allNotes) }
-            }
+            repository.getAllNotes()
+                .collect { allNotes ->
+                    _uiState.update {
+                        it.copy(isLoading = false, allNotes = allNotes)
+                    }
+                }
         }
     }
 
@@ -79,18 +83,11 @@ class MainViewModel @Inject constructor(
     fun getThemePreferences() = sharedPreferences.getInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     private fun putThemePreferences(value: Int) {
-        sharedPreferences.edit().putInt(TEMACOR, value).apply()
+        sharedPreferences.edit { putInt(TEMACOR, value) }
     }
 
     fun updateIsSearchEnabled(isSearchEnabled: Boolean) {
         _uiState.update { it.copy(isSearchEnabled = isSearchEnabled) }
-    }
-
-    fun ordenarRecyclerView(lista: List<Notas>) {
-        lista.forEachIndexed { index, nota ->
-            nota.ordem = index
-            updateNota(nota)
-        }
     }
 
     private fun updateTheme(themeModeValue: Int, themeList: List<ThemeMode>): List<ThemeMode> {
@@ -108,16 +105,15 @@ class MainViewModel @Inject constructor(
     }
 
     private fun checkboxStatus(
-        objNota: Notas,
+        objNota: Note,
         checkStatus: Boolean,
     ) {
-        objNota.finalizado = checkStatus
-        updateNota(objNota)
+        updateNote(objNota.copy(isFinished = checkStatus))
     }
 
-    private fun updateNota(nota: Notas) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateNota(nota)
+    private fun updateNote(nota: Note) {
+        viewModelScope.launch {
+            repository.updateNote(nota)
         }
     }
 
