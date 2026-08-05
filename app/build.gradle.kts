@@ -1,63 +1,51 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinParcelize)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.navigationSafeargs)
 }
 
 android {
     namespace = "tarsila.costalonga.notasapp"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "tarsila.costalonga.notasapp"
-        minSdk = 23
-        targetSdk = 36
+        minSdk = 24
+        targetSdk = 37
         versionCode = 15
         versionName = "4-compose"
         vectorDrawables {
             useSupportLibrary = true
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-            signingConfig = signingConfigs.getByName("debug")
-        }
     }
 
     buildFeatures {
         viewBinding = true
-        compose = true
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xjvm-default=all")
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion =
-            extensions.getByType<VersionCatalogsExtension>().named("libs")
-                .findVersion("composeCompiler").get().toString()
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+            // TODO: signed with the debug key — replace with a dedicated release
+            // signingConfig (reading keystore path/password from env vars) before publishing.
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     packaging {
@@ -67,12 +55,20 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
-    debugImplementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.compiler)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.fragment)
@@ -84,19 +80,17 @@ dependencies {
     implementation(libs.androidx.material)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.runtime.livedata)
     implementation(libs.hilt.android)
-    implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.compose.foundation)
     implementation(libs.compose.foundation.layout)
+    implementation(libs.compose.material.icons.core)
     implementation(libs.compose.material3)
     implementation(libs.compose.runtime)
-    implementation(libs.compose.tooling.preview)
+    implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.ui)
     implementation(platform(libs.compose.bom))
 
@@ -110,11 +104,6 @@ dependencies {
     testImplementation(libs.coroutines.test)
     testImplementation(libs.mockk)
 
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.assertk)
-    androidTestImplementation(libs.turbine)
-    androidTestImplementation(libs.coroutines.test)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.test.compose.junit)
     debugImplementation(libs.test.compose.ui)
