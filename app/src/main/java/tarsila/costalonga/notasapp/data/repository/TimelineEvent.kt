@@ -1,4 +1,4 @@
-package tarsila.costalonga.notasapp.ui.utils
+package tarsila.costalonga.notasapp.data.repository
 
 import androidx.annotation.StringRes
 

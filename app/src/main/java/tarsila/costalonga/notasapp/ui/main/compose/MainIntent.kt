@@ -7,7 +7,7 @@ import tarsila.costalonga.notasapp.ui.main.ThemeMode
 sealed class MainIntent {
     data object OnArrowBackClick : MainIntent()
     data class OnCheckboxClick(val note: Note, val checkedStatus: Boolean) : MainIntent()
-    data class OnAddNoteClick(val listSize: Int) : MainIntent()
+    data object OnAddNoteClick : MainIntent()
     data class OnItemListClick(val noteId: Long) : MainIntent()
     data class OnOptionsMenuClick(val itemMenu: ItemMenuType) : MainIntent()
     data class OnThemeOptionClick(val themeMode: ThemeMode) : MainIntent()

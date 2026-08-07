@@ -1,59 +1,44 @@
 package tarsila.costalonga.notasapp.ui.detailnote
 
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
-    private val _noteDetail = MutableStateFlow(Note(title = "", description = "", sort = 0))
-    val noteDetail = _noteDetail.asStateFlow()
+class DetailViewModel @Inject constructor(
+    private val repository: NoteRepository,
+    savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
-    val title by mutableStateOf(TextFieldState())
-    val description by mutableStateOf(TextFieldState())
+    private val noteId: Long = savedStateHandle["noteId"] ?: 0L
 
-    fun setNoteDetail(noteId: Long) {
-        viewModelScope.launch(DispatcherProvider.io) {
-            repository.getNoteById(noteId)
-                .collect { note ->
-                    _noteDetail.update {
-                        it.copy(
-                            id = note.id,
-                            title = note.title,
-                            description = note.description,
-                            createdAt = note.createdAt,
-                            updatedAt = note.updatedAt,
-                            isFinished = note.isFinished,
-                            sort = note.sort,
-                        )
-                    }
-                    title.edit {
-                        replace(0, this.length, noteDetail.value.title)
-                    }
-                    description.edit {
-                        replace(0, this.length, noteDetail.value.description)
-                    }
-                }
+    val title = TextFieldState()
+    val description = TextFieldState()
+
+    val noteDetail = repository.getNoteById(noteId)
+        .onEach {
+            title.edit {
+                replace(0, this.length, it.title)
+            }
+            description.edit {
+                replace(0, this.length, it.description)
+            }
         }
-    }
-
-    private fun updateNote(nota: Note) {
-        viewModelScope.launch {
-            repository.updateNote(nota)
-        }
-    }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            Note(0, "", "", sort = 0),
+        )
 
     fun deleteNote() {
         viewModelScope.launch {
@@ -65,14 +50,19 @@ class DetailViewModel @Inject constructor(private val repository: NoteRepository
         return SimpleDateFormat.getDateInstance(3).format(field)
     }
 
-    fun updateNote() {
-        _noteDetail.update {
-            it.copy(
-                title = title.text.toString(),
-                description = description.text.toString(),
-                updatedAt = System.currentTimeMillis(),
-            )
+    private fun updateNote(nota: Note) {
+        viewModelScope.launch {
+            repository.updateNote(nota)
         }
-        updateNote(_noteDetail.value)
+    }
+
+    fun updateNote() {
+        val newNote = noteDetail.value.copy(
+            title = title.text.toString(),
+            description = description.text.toString(),
+            updatedAt = System.currentTimeMillis(),
+        )
+
+        updateNote(newNote)
     }
 }

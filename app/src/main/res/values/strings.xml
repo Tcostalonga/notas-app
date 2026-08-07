@@ -118,4 +118,10 @@
 \n\n- Utilizei os seguintes frameworks e bibliotecas: JUnit, Mockk, Compose Test APIs e AssertK;
 \n\n- Finalizado em abril.
     </string>
+
+    <string name="about_aug2026">Agosto, 2026</string>
+    <string name="about_aug2026_done">- Atualização de dependências e SDK 37;
+\n\n- Revisão de flows rodando em background;
+\n\n- Ajustes e melhorias de arquitetura.
+    </string>
 </resources>

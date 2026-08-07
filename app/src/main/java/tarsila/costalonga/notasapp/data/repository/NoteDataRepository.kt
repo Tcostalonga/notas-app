@@ -2,29 +2,21 @@ package tarsila.costalonga.notasapp.data.repository
 
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
-import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.local.NoteDao
 
 class NoteDataRepository @Inject constructor(private val dtDao: NoteDao) : NoteRepository {
 
     override suspend fun insertNote(nota: Note) {
-        withContext(DispatcherProvider.io) {
-            dtDao.insertNote(nota)
-        }
+        dtDao.insertNote(nota)
     }
 
     override suspend fun updateNote(nota: Note) {
-        withContext(DispatcherProvider.io) {
-            dtDao.updateNote(nota)
-        }
+        dtDao.updateNote(nota)
     }
 
     override suspend fun deleteNote(nota: Note) {
-        withContext(DispatcherProvider.io) {
-            dtDao.deleteNote(nota)
-        }
+        dtDao.deleteNote(nota)
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
@@ -33,27 +25,13 @@ class NoteDataRepository @Inject constructor(private val dtDao: NoteDao) : NoteR
 
     override fun getNoteById(id: Long): Flow<Note> = dtDao.getNoteById(id)
 
-    override suspend fun getNotesCount(): Int {
-        return withContext(DispatcherProvider.io) {
-            dtDao.getNotesCount()
-        }
-    }
+    override suspend fun getNotesCount(): Int = dtDao.getNotesCount()
 
     override suspend fun getDoneNotes(): Int {
-        return withContext(DispatcherProvider.io) {
-            dtDao.getDoneNotes()
-        }
+        return dtDao.getDoneNotes()
     }
 
-    override suspend fun getActiveNotes(): Int {
-        return withContext(DispatcherProvider.io) {
-            dtDao.getActiveNotes()
-        }
-    }
+    override suspend fun getActiveNotes(): Int = dtDao.getActiveNotes()
 
-    override suspend fun getLastItemId(): Long {
-        return withContext(DispatcherProvider.io) {
-            dtDao.getLastItemId()
-        }
-    }
+    override suspend fun getLastItemId(): Long = dtDao.getLastItemId()
 }

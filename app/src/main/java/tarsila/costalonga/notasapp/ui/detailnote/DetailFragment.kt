@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
@@ -20,20 +19,18 @@ import tarsila.costalonga.notasapp.ui.utils.makeToast
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
-    private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        setNoteDetail()
-
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 NoteComposeTheme {
                     DetailScreen(
+                        viewModel = viewModel,
                         onMenuClicked = { menuType ->
                             when (menuType) {
                                 MenuType.SHARE -> criarShare()
@@ -47,10 +44,6 @@ class DetailFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun setNoteDetail() {
-        viewModel.setNoteDetail(args.noteId)
     }
 
     private fun criarShare() {

@@ -8,5 +8,4 @@ data class MainUiState(
     val allNotes: List<Note> = emptyList(),
     val themeMode: List<ThemeMode> = emptyList(),
     val isSearchEnabled: Boolean = false,
-    val event: MainEvent? = null,
 )

@@ -42,7 +42,7 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.ui.about.AboutViewModel
@@ -50,7 +50,7 @@ import tarsila.costalonga.notasapp.ui.about.Constants
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
-import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
+import tarsila.costalonga.notasapp.data.repository.TimelineEvent
 
 @Composable
 internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {

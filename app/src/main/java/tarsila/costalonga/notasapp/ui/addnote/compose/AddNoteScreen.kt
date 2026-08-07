@@ -31,13 +31,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -56,6 +57,7 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBa
     val keyboard = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
     val ctx = LocalContext.current
+    val resources = LocalResources.current
 
     var callFocusRequester by remember { mutableStateOf(false) }
 
@@ -74,12 +76,12 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBa
     CollectAsEvent(viewModel.addNoteEvents) { event ->
         when (event) {
             AddNoteEvents.NoteSuccessfullyCreated -> {
-                Toast.makeText(ctx, ctx.getString(R.string.nota_insert), Toast.LENGTH_SHORT).show()
+                Toast.makeText(ctx, resources.getString(R.string.nota_insert), Toast.LENGTH_SHORT).show()
                 navigateBack()
             }
 
             AddNoteEvents.UnableToCreateNote -> {
-                Toast.makeText(ctx, ctx.getString(R.string.obrigatoriedade_de_campo), Toast.LENGTH_SHORT).show()
+                Toast.makeText(ctx, resources.getString(R.string.obrigatoriedade_de_campo), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -106,8 +108,7 @@ internal fun AddNoteScreen(viewModel: AddViewModel = hiltViewModel(), navigateBa
             },
             onDismissDialogButton = {
                 viewModel.clearSharedPreferences()
-                viewModel.updateTitle()
-                viewModel.updateDescription()
+                viewModel.clearTextFields()
                 viewModel.hideSketchAlert()
                 callFocusRequester = true
             },
@@ -201,7 +202,7 @@ fun PreviewAdd() {
         AddNoteCompose(
             titleState = TextFieldState(),
             descriptionState = TextFieldState(),
-            focusRequester = FocusRequester(),
+            focusRequester = remember { FocusRequester() },
             {},
         )
     }

@@ -1,6 +1,6 @@
 package tarsila.costalonga.notasapp.ui.about.compose
 
-import tarsila.costalonga.notasapp.ui.utils.TimelineEvent
+import tarsila.costalonga.notasapp.data.repository.TimelineEvent
 
 data class AboutUiState(
     val timelineEvents: List<TimelineEvent> = emptyList(),

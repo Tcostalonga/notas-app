@@ -1,8 +1,10 @@
 package tarsila.costalonga.notasapp.ui.main.compose
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -31,7 +33,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
 import tarsila.costalonga.notasapp.ui.core.compose.ItemMenuType
@@ -42,6 +49,7 @@ import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
 import tarsila.costalonga.notasapp.ui.core.compose.util.PreviewParams
 import tarsila.costalonga.notasapp.ui.core.compose.util.getTextDecoration
 import tarsila.costalonga.notasapp.ui.main.MainViewModel
+import tarsila.costalonga.notasapp.ui.main.NoteListUiState
 
 @Composable
 internal fun MainScreen(
@@ -49,28 +57,30 @@ internal fun MainScreen(
     mainEvent: (MainEvent) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val notesListState by viewModel.noteListUiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(uiState.event) {
-        uiState.event?.let { event ->
-            when (event) {
-                MainEvent.OnAddNoteClicked -> {
-                    mainEvent(MainEvent.OnAddNoteClicked)
-                    viewModel.consumeEvent()
-                }
+    LaunchedEffect(viewModel.event) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            withContext(Dispatchers.Main.immediate) {
+                viewModel.event.collect { event ->
+                    when (event) {
+                        MainEvent.OnAddNoteClicked -> {
+                            mainEvent(MainEvent.OnAddNoteClicked)
+                        }
 
-                is MainEvent.OnItemListClicked -> {
-                    mainEvent(MainEvent.OnItemListClicked(event.noteId))
-                    viewModel.consumeEvent()
-                }
+                        is MainEvent.OnItemListClicked -> {
+                            mainEvent(MainEvent.OnItemListClicked(event.noteId))
+                        }
 
-                is MainEvent.OnOptionsMenuClicked -> {
-                    mainEvent(MainEvent.OnOptionsMenuClicked(event.itemMenu))
-                    viewModel.consumeEvent()
-                }
+                        is MainEvent.OnOptionsMenuClicked -> {
+                            mainEvent(MainEvent.OnOptionsMenuClicked(event.itemMenu))
+                        }
 
-                is MainEvent.OnThemeOptionClicked -> {
-                    mainEvent(MainEvent.OnThemeOptionClicked(event.themeMode))
-                    viewModel.consumeEvent()
+                        is MainEvent.OnThemeOptionClicked -> {
+                            mainEvent(MainEvent.OnThemeOptionClicked(event.themeMode))
+                        }
+                    }
                 }
             }
         }
@@ -78,6 +88,7 @@ internal fun MainScreen(
 
     MainCompose(
         uiState = uiState,
+        notesListState = notesListState,
         uiIntent = { viewModel.handleIntent(it) },
     )
 }
@@ -86,6 +97,7 @@ internal fun MainScreen(
 private fun MainCompose(
     uiState: MainUiState,
     uiIntent: (MainIntent) -> Unit,
+    notesListState: NoteListUiState,
 ) {
     var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
     var searchTerm by rememberSaveable { mutableStateOf("") }
@@ -130,7 +142,7 @@ private fun MainCompose(
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { uiIntent(MainIntent.OnAddNoteClick(uiState.allNotes.size)) },
+                onClick = { uiIntent(MainIntent.OnAddNoteClick) },
             ) {
                 Icon(
                     Icons.Filled.Add,
@@ -139,35 +151,49 @@ private fun MainCompose(
             }
         },
     ) { padding ->
-        AnimatedVisibility(uiState.isLoading, enter = fadeIn(), exit = fadeOut()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                CircularProgressIndicator()
+        AnimatedContent(
+            notesListState,
+            transitionSpec = {
+                fadeIn(tween(200, delayMillis = 300))
+                    .togetherWith(fadeOut(animationSpec = tween(300)))
+            },
+            label = "mainScreenAnimation",
+        ) { notesListState ->
+            when (notesListState) {
+                NoteListUiState.Error -> Unit
+                NoteListUiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                is NoteListUiState.Success -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .padding(NoteTheme.spacing.spacer8),
+                        content = {
+                            filteredNotas = performFilterInTitle(searchTerm, notesListState.allNotes)
+
+                            items(filteredNotas.size) {
+                                val nota = filteredNotas[it]
+                                ItemList(
+                                    nota = nota,
+                                    onItemClicked = { uiIntent(MainIntent.OnItemListClick(nota.id)) },
+                                    onCheckedChange = { checkedStatus ->
+                                        uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
+                                    },
+                                )
+                            }
+                        },
+                    )
+                }
             }
         }
-        AnimatedVisibility(uiState.isLoading.not(), enter = fadeIn(), exit = fadeOut()) {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .padding(NoteTheme.spacing.spacer8),
-                content = {
-                    filteredNotas = performFilterInTitle(searchTerm, uiState.allNotes)
 
-                    items(filteredNotas.size) {
-                        val nota = filteredNotas[it]
-                        ItemList(
-                            nota = nota,
-                            onItemClicked = { uiIntent(MainIntent.OnItemListClick(nota.id)) },
-                            onCheckedChange = { checkedStatus ->
-                                uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
-                            },
-                        )
-                    }
-                },
-            )
-        }
     }
 }
 
@@ -221,9 +247,9 @@ fun ItemList(
                 .fillMaxWidth(),
             text = nota.title,
             style =
-            NoteTheme.typography.bodyLarge.copy(
-                textDecoration = getTextDecoration(checkedState),
-            ),
+                NoteTheme.typography.bodyLarge.copy(
+                    textDecoration = getTextDecoration(checkedState),
+                ),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
@@ -237,11 +263,9 @@ fun PreviewMain(
 ) {
     NoteComposeTheme {
         MainCompose(
+            notesListState = NoteListUiState.Success(listOfNotas),
             uiState = MainUiState(
-                isLoading = false,
-                allNotes = listOfNotas,
                 themeMode = listOf(),
-                event = null,
             ),
             uiIntent = {},
         )

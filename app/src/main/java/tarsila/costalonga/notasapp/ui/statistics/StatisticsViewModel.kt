@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,16 +20,22 @@ class StatisticsViewModel @Inject constructor(private val repository: NoteReposi
 
     fun loadStatistics() {
         viewModelScope.launch {
-            val deferredAllNotes = async { repository.getNotesCount() }
-            val deferredAllDoneNotes = async { repository.getDoneNotes() }
+            try {
+                val deferredAllNotes = async { repository.getNotesCount() }
+                val deferredAllDoneNotes = async { repository.getDoneNotes() }
 
-            val allNotes = deferredAllNotes.await()
-            val allDoneNotes = deferredAllDoneNotes.await()
+                val allNotes = deferredAllNotes.await()
+                val allDoneNotes = deferredAllDoneNotes.await()
 
-            val allActiveNotes = allNotes.minus(allDoneNotes)
-
-            _uiState.update {
-                it.copy(allNotes = allNotes, allDoneNotes = allDoneNotes, allActiveNotes = allActiveNotes)
+                _uiState.update {
+                    it.copy(
+                        allNotes = allNotes,
+                        allDoneNotes = allDoneNotes,
+                        allActiveNotes = allNotes - allDoneNotes,
+                    )
+                }
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
             }
         }
     }

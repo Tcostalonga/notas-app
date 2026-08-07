@@ -45,7 +45,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
 import tarsila.costalonga.notasapp.data.local.Note
@@ -60,7 +59,7 @@ import tarsila.costalonga.notasapp.ui.detailnote.MenuType
 
 @Composable
 internal fun DetailScreen(
-    viewModel: DetailViewModel = hiltViewModel(),
+    viewModel: DetailViewModel,
     onMenuClicked: (MenuType) -> Unit = {},
 ) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
@@ -76,7 +75,7 @@ internal fun DetailScreen(
         onMenuClicked = { menuType ->
             when (menuType) {
                 MenuType.DELETE -> viewModel.deleteNote()
-                MenuType.SHARE -> {}
+                MenuType.SHARE -> Unit
             }
             onMenuClicked(menuType)
         },

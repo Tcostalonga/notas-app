@@ -2,8 +2,6 @@ package tarsila.costalonga.notasapp.ui.addnote
 
 import android.content.SharedPreferences
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,8 +24,8 @@ class AddViewModel @Inject constructor(
     private val _showSketchAlert = MutableStateFlow(false)
     val showSketchAlert: StateFlow<Boolean> = _showSketchAlert
 
-    val titleTextFieldState by mutableStateOf(TextFieldState())
-    val descriptionTextFieldState by mutableStateOf(TextFieldState())
+    val titleTextFieldState = TextFieldState()
+    val descriptionTextFieldState = TextFieldState()
 
     private var isSketch = true
 
@@ -38,44 +36,28 @@ class AddViewModel @Inject constructor(
         val titleFormatted = titleTextFieldState.text.trim()
         val descriptionFormatted = descriptionTextFieldState.text.trim()
 
-        when {
-            (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) -> {
-                _addNoteEvents.trySend(AddNoteEvents.UnableToCreateNote)
-            }
-
-            else -> {
-                viewModelScope.launch {
-                    val lastItemId = repository.getLastItemId()
-                    val newNota = Note(
-                        title = titleFormatted.toString(),
-                        description = descriptionFormatted.toString(),
-                        sort = lastItemId.plus(1).toInt(),
-                    )
-                    insertNote(newNota)
-                    clearSharedPreferences()
-                    setSketchAsDisabled()
-                    _addNoteEvents.trySend(AddNoteEvents.NoteSuccessfullyCreated)
-                }
-            }
+        if (titleFormatted.isEmpty() || descriptionFormatted.isEmpty()) {
+            _addNoteEvents.trySend(AddNoteEvents.UnableToCreateNote)
+            return
         }
-    }
 
-    private fun insertNote(nota: Note) {
         viewModelScope.launch {
-            repository.insertNote(nota)
+            val lastItemId = repository.getLastItemId()
+            val newNota = Note(
+                title = titleFormatted.toString(),
+                description = descriptionFormatted.toString(),
+                sort = lastItemId.plus(1).toInt(),
+            )
+            insertNote(newNota)
+            clearSharedPreferences()
+            setSketchAsDisabled()
+            _addNoteEvents.trySend(AddNoteEvents.NoteSuccessfullyCreated)
         }
     }
 
     fun addSketch() {
         if (isSketch && (titleTextFieldState.text.isNotEmpty() || descriptionTextFieldState.text.isNotEmpty())) {
             putSketch(titleTextFieldState.text.toString(), descriptionTextFieldState.text.toString())
-        }
-    }
-
-    private fun putSketch(titulo: String, descricao: String) {
-        sharedPreferences.edit {
-            putString(SKETCH_TITLE, titulo)
-            putString(SKETCH_DESCRIPTION, descricao)
         }
     }
 
@@ -100,24 +82,32 @@ class AddViewModel @Inject constructor(
         sharedPreferences.edit { clear() }
     }
 
-    private fun setSketchAsDisabled() {
-        isSketch = false
+    fun clearTextFields() {
+        titleTextFieldState.edit {
+            this.replace(0, this.length, "")
+        }
+        descriptionTextFieldState.edit {
+            this.replace(0, this.length, "")
+        }
     }
 
     fun hideSketchAlert() {
         _showSketchAlert.update { false }
     }
 
-    fun updateTitle() {
-        titleTextFieldState.edit {
-            this.replace(0, this.length, "")
+    private suspend fun insertNote(nota: Note) {
+        repository.insertNote(nota)
+    }
+
+    private fun putSketch(titulo: String, descricao: String) {
+        sharedPreferences.edit {
+            putString(SKETCH_TITLE, titulo)
+            putString(SKETCH_DESCRIPTION, descricao)
         }
     }
 
-    fun updateDescription() {
-        descriptionTextFieldState.edit {
-            this.replace(0, this.length, "")
-        }
+    private fun setSketchAsDisabled() {
+        isSketch = false
     }
 
     companion object {

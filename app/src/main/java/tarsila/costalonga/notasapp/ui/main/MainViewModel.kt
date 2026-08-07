@@ -7,63 +7,82 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainIntent
 import tarsila.costalonga.notasapp.ui.main.compose.MainUiState
 
+sealed interface NoteListUiState {
+    data object Loading : NoteListUiState
+    data class Success(val allNotes: List<Note>) : NoteListUiState
+    data object Error : NoteListUiState
+}
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: NoteRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
-    private var _uiState = MutableStateFlow(MainUiState())
+
+    private val _event = Channel<MainEvent>()
+    val event = _event.receiveAsFlow()
+
+    private val _uiState = MutableStateFlow(MainUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
         val themeModeObj = updateTheme(getThemePreferences(), listOfThemes)
         _uiState.update { it.copy(themeMode = themeModeObj) }
-        loadNotes()
     }
 
-    private fun loadNotes() {
-        viewModelScope.launch(DispatcherProvider.io) {
-            _uiState.update { it.copy(isLoading = true) }
-            repository.getAllNotes()
-                .collect { allNotes ->
-                    _uiState.update {
-                        it.copy(isLoading = false, allNotes = allNotes)
-                    }
-                }
+    val noteListUiState = repository.getAllNotes()
+        .map<List<Note>, NoteListUiState> {
+            NoteListUiState.Success(it)
         }
-    }
+        .catch {
+            emit(NoteListUiState.Error)
+        }
+        .onStart {
+            emit(NoteListUiState.Loading)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = NoteListUiState.Loading,
+        )
 
     fun handleIntent(intent: MainIntent) {
         when (intent) {
             is MainIntent.OnAddNoteClick ->
-                _uiState.update { it.copy(event = MainEvent.OnAddNoteClicked) }
+                _event.trySend(MainEvent.OnAddNoteClicked)
 
             is MainIntent.OnItemListClick ->
-                _uiState.update { it.copy(event = MainEvent.OnItemListClicked(intent.noteId)) }
+                _event.trySend(MainEvent.OnItemListClicked(intent.noteId))
 
             is MainIntent.OnOptionsMenuClick ->
-                _uiState.update { it.copy(event = MainEvent.OnOptionsMenuClicked(intent.itemMenu)) }
+                _event.trySend(MainEvent.OnOptionsMenuClicked(intent.itemMenu))
 
             is MainIntent.OnThemeOptionClick -> {
                 val themeValue = intent.themeMode.themeValue
                 _uiState.update {
                     it.copy(
                         themeMode = updateTheme(themeValue, _uiState.value.themeMode),
-                        event = MainEvent.OnThemeOptionClicked(themeValue),
                     )
                 }
                 putThemePreferences(themeValue)
+                _event.trySend(MainEvent.OnThemeOptionClicked(themeValue))
             }
 
             MainIntent.OnArrowBackClick -> {
@@ -74,10 +93,6 @@ class MainViewModel @Inject constructor(
                 checkboxStatus(intent.note, intent.checkedStatus)
             }
         }
-    }
-
-    fun consumeEvent() {
-        _uiState.update { it.copy(event = null) }
     }
 
     fun getThemePreferences() = sharedPreferences.getInt(TEMACOR, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
