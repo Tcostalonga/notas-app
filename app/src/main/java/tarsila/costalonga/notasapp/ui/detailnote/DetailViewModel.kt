@@ -50,19 +50,15 @@ class DetailViewModel @Inject constructor(
         return SimpleDateFormat.getDateInstance(3).format(field)
     }
 
-    private fun updateNote(nota: Note) {
-        viewModelScope.launch {
-            repository.updateNote(nota)
-        }
-    }
-
     fun updateNote() {
-        val newNote = noteDetail.value.copy(
-            title = title.text.toString(),
-            description = description.text.toString(),
-            updatedAt = System.currentTimeMillis(),
-        )
+        viewModelScope.launch {
+            val newNote = noteDetail.value.copy(
+                title = title.text.toString(),
+                description = description.text.toString(),
+                updatedAt = System.currentTimeMillis(),
+            )
 
-        updateNote(newNote)
+            repository.updateNote(newNote)
+        }
     }
 }

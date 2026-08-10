@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package tarsila.costalonga.notasapp.ui.statistics
 
 import app.cash.turbine.test
@@ -5,8 +7,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import tarsila.costalonga.notasapp.data.repository.NoteDataRepository
@@ -18,13 +20,9 @@ class StatisticsViewModelTest {
     val instantTaskRule = InstantTaskRule()
 
     private val repository: NoteDataRepository = mockk()
-    private lateinit var viewModel: StatisticsViewModel
 
-    @Before
-    fun setUp() {
-        viewModel = StatisticsViewModel(
-            repository = repository,
-        )
+    private val viewModel: StatisticsViewModel by lazy {
+        StatisticsViewModel(repository)
     }
 
     @Test
@@ -32,10 +30,8 @@ class StatisticsViewModelTest {
         coEvery { repository.getNotesCount() } returns 5
         coEvery { repository.getDoneNotes() } returns 2
 
-        viewModel.loadStatistics()
-
         viewModel.uiState.test {
-
+            awaitItem()
             val result = awaitItem()
 
             assertThat(result.allNotes).isEqualTo(5)

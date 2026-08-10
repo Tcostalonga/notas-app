@@ -5,8 +5,8 @@ package tarsila.costalonga.notasapp.rules
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
@@ -15,7 +15,7 @@ import tarsila.costalonga.notasapp.DispatcherProvider
 import tarsila.costalonga.notasapp.DispatcherProviderInterface
 
 class InstantTaskRule(
-    private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
+    private val testDispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : DispatcherProviderInterface, TestWatcher() {
 
     override val main: CoroutineDispatcher

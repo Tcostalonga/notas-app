@@ -10,8 +10,11 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +24,7 @@ import tarsila.costalonga.notasapp.ui.Dummy
 import tarsila.costalonga.notasapp.ui.main.compose.MainEvent
 import tarsila.costalonga.notasapp.ui.main.compose.MainIntent
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModelTest {
 
     @get:Rule
@@ -43,21 +47,18 @@ class MainViewModelTest {
     fun `check if allNotes are being correctly loaded`() = runTest {
         val allNotes = Dummy.listOfNotes
 
-        viewModel.uiState.test {
-            val finalState = awaitItem()
-            assertThat(finalState.isLoading).isEqualTo(false)
-            assertThat(finalState.allNotes).isEqualTo(allNotes)
+        viewModel.noteListUiState.test {
+            assertEquals(NoteListUiState.Loading, awaitItem())
+            assertEquals(NoteListUiState.Success(allNotes), awaitItem())
         }
     }
 
     @Test
     fun `check if OnAddNoteClicked is correctly being called and updating uiState`() = runTest {
-        viewModel.handleIntent(MainIntent.OnAddNoteClick(3))
+        viewModel.event.test {
+            viewModel.handleIntent(MainIntent.OnAddNoteClick)
 
-        viewModel.uiState.test {
-
-            val finalState = awaitItem()
-            assertThat(finalState.event).isEqualTo(MainEvent.OnAddNoteClicked)
+            assertThat(awaitItem()).isEqualTo(MainEvent.OnAddNoteClicked)
         }
     }
 
@@ -66,6 +67,7 @@ class MainViewModelTest {
         coEvery { repository.updateNote(any()) } just Runs
 
         viewModel.handleIntent(MainIntent.OnCheckboxClick(Dummy.noteOne, true))
+        advanceUntilIdle()
 
         val result = Dummy.noteOne.copy(isFinished = true)
         coVerify { repository.updateNote(result) }

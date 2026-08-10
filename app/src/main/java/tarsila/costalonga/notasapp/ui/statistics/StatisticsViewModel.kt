@@ -7,7 +7,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
@@ -16,9 +18,17 @@ import tarsila.costalonga.notasapp.data.repository.NoteRepository
 class StatisticsViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StatisticsUiState(0, 0, 0))
-    val uiState = _uiState.asStateFlow()
+    val uiState = _uiState
+        .onStart {
+            loadStatistics()
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            StatisticsUiState(0, 0, 0),
+        )
 
-    fun loadStatistics() {
+    private fun loadStatistics() {
         viewModelScope.launch {
             try {
                 val deferredAllNotes = async { repository.getNotesCount() }

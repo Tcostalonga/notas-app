@@ -1,54 +1,58 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package tarsila.costalonga.notasapp.ui.detailnote
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
+import androidx.lifecycle.SavedStateHandle
+import app.cash.turbine.test
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.confirmVerified
+import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.data.repository.NoteRepository
 import tarsila.costalonga.notasapp.rules.InstantTaskRule
+import tarsila.costalonga.notasapp.ui.Dummy
 
 class DetailViewModelTest {
     @get:Rule
-    val instantTaskRule = InstantTaskRule()
+    val instantTaskRule = InstantTaskRule(UnconfinedTestDispatcher())
 
     private val repository: NoteRepository = mockk()
+    private val savedStateHandle: SavedStateHandle = mockk()
 
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by lazy {
+        DetailViewModel(
+            repository,
+            savedStateHandle,
+        )
+    }
 
     @Before
     fun setUp() {
-        viewModel = DetailViewModel(repository)
+        every { savedStateHandle.get<Long>("noteId") } returns 9293
+        coEvery { repository.getNoteById(any()) } returns flowOf(Dummy.expectedNote)
     }
 
     @Test
     fun `check if a note is being correctly loaded`() = runTest {
-        val expectedNote = Note(
-            id = 9293,
-            title = "Title Note 1",
-            description = "Description Note 1",
-            createdAt = 4876,
-            updatedAt = 5336,
-            isFinished = false,
-            sort = 1,
-        )
-        coEvery { repository.getNoteById(any()) } returns flowOf(expectedNote)
 
-        viewModel.setNoteDetail(9293)
+        viewModel.noteDetail.test {
 
-        assertThat(viewModel.title.text).isEqualTo("Title Note 1")
-        assertThat(viewModel.description.text).isEqualTo("Description Note 1")
-        coVerify(exactly = 1) { repository.getNoteById(9293) }
-        confirmVerified(repository)
+            val item = awaitItem()
+            assertEquals(Dummy.expectedNote, item)
+            assertEquals("Title Note 1", viewModel.title.text.toString())
+            assertEquals("Description Note 1", viewModel.description.text.toString())
+
+        }
     }
 
     @Test
@@ -57,8 +61,7 @@ class DetailViewModelTest {
 
         viewModel.deleteNote()
 
-        coVerify(exactly = 1) { repository.deleteNote(any()) }
-        confirmVerified(repository)
+        coVerify { repository.deleteNote(any()) }
     }
 
     @Test
@@ -68,8 +71,6 @@ class DetailViewModelTest {
         viewModel.updateNote()
 
         coVerify { repository.updateNote(any()) }
-        confirmVerified(repository)
-
     }
 }
 

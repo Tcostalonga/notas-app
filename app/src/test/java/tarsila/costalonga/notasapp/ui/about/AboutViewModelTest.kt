@@ -25,6 +25,7 @@ class AboutViewModelTest {
     @Test
     fun `check if timeline events uiState items are being correctly updated`() = runTest {
         viewModel.timelineEvents.test {
+            awaitItem()
 
             val initialList = awaitItem().timelineEvents
 
