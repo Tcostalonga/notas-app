@@ -4,6 +4,7 @@ package tarsila.costalonga.notasapp.compose
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -31,7 +32,7 @@ class AddNoteScreenTest {
                 AddNoteCompose(
                     titleState = TextFieldState(),
                     descriptionState = TextFieldState(),
-                    focusRequester = FocusRequester(),
+                    focusRequester = remember { FocusRequester() },
                     onFabClicked = {},
                 )
             }
