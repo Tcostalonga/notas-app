@@ -29,7 +29,7 @@ object DatabaseModule {
             NoteRoom::class.java,
             "notas_bd",
         )
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(true)
             .addMigrations(NoteRoom.MIGRATION_2_3)
             .build()
     }

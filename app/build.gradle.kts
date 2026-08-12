@@ -25,7 +25,7 @@ android {
         applicationId = "tarsila.costalonga.notasapp"
         minSdk = 24
         targetSdk = 37
-        versionCode = 15
+        versionCode = 16
         versionName = "5-compose"
         vectorDrawables {
             useSupportLibrary = true
@@ -125,8 +125,6 @@ dependencies {
     testImplementation(libs.coroutines.test)
     testImplementation(libs.mockk)
 
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.test.compose.junit)
     debugImplementation(libs.test.compose.ui)
 
 }
