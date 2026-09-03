@@ -1,11 +1,12 @@
 package tarsila.costalonga.notasapp.ui.main.compose
 
+import android.content.ClipData
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,10 +26,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -38,6 +42,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tarsila.costalonga.notasapp.data.local.Note
 import tarsila.costalonga.notasapp.ui.core.compose.ChangeThemeDialog
@@ -102,6 +107,9 @@ private fun MainCompose(
     var showChangeThemeDialog by rememberSaveable { mutableStateOf(false) }
     var searchTerm by rememberSaveable { mutableStateOf("") }
     var filteredNotas: List<Note>
+
+    val clipboardManager = LocalClipboard.current
+    val scope = rememberCoroutineScope()
 
     if (showChangeThemeDialog) {
         ChangeThemeDialog(
@@ -186,6 +194,14 @@ private fun MainCompose(
                                     onCheckedChange = { checkedStatus ->
                                         uiIntent(MainIntent.OnCheckboxClick(nota, checkedStatus))
                                     },
+                                    onItemLongClicked = {
+                                        scope.launch {
+                                            val clipData = ClipData.newPlainText(
+                                                "noteTitle", nota.title,
+                                            )
+                                            clipboardManager.setClipEntry(ClipEntry(clipData))
+                                        }
+                                    },
                                 )
                             }
                         },
@@ -218,6 +234,7 @@ fun performFilterInTitle(
 fun ItemList(
     nota: Note,
     onItemClicked: () -> Unit,
+    onItemLongClicked: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
     var checkedState by rememberSaveable { mutableStateOf(nota.isFinished) }
@@ -227,7 +244,10 @@ fun ItemList(
         modifier = Modifier
             .fillMaxWidth()
             .padding(NoteTheme.spacing.spacer4)
-            .clickable { onItemClicked() },
+            .combinedClickable(
+                onClick = onItemClicked,
+                onLongClick = onItemLongClicked,
+            ),
     ) {
         /* TODO: drag and drop is disabled until a solution for compose is released
          Icon(

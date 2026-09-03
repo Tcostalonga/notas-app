@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
@@ -45,12 +46,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tarsila.costalonga.notasapp.R
+import tarsila.costalonga.notasapp.data.repository.TimelineEvent
 import tarsila.costalonga.notasapp.ui.about.AboutViewModel
 import tarsila.costalonga.notasapp.ui.about.Constants
 import tarsila.costalonga.notasapp.ui.core.compose.MyTopAppBar
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteComposeTheme
 import tarsila.costalonga.notasapp.ui.core.compose.theme.NoteTheme
-import tarsila.costalonga.notasapp.data.repository.TimelineEvent
 
 @Composable
 internal fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
@@ -195,36 +196,38 @@ fun TimelineWithProgress(
 
 @Composable
 fun LinkableText() {
-    Text(
-        buildAnnotatedString {
-            append(stringResource(id = R.string.about_disclaimer))
+    SelectionContainer {
+        Text(
+            buildAnnotatedString {
+                append(stringResource(id = R.string.about_disclaimer))
 
-            withStyle(
-                style = SpanStyle(
-                    color = NoteTheme.colors.primary,
-                    fontWeight = FontWeight.Bold,
-                ),
-            ) {
-                withLink(link = LinkAnnotation.Url(Constants.LINKEDIN)) {
-                    append(Constants.LINK_LINKEDIN)
+                withStyle(
+                    style = SpanStyle(
+                        color = NoteTheme.colors.primary,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                ) {
+                    withLink(link = LinkAnnotation.Url(Constants.LINKEDIN)) {
+                        append(Constants.LINK_LINKEDIN)
+                    }
                 }
-            }
 
-            append(stringResource(id = R.string.and_string))
+                append(stringResource(id = R.string.and_string))
 
-            withStyle(
-                style = SpanStyle(
-                    color = NoteTheme.colors.primary,
-                    fontWeight = FontWeight.Bold,
-                ),
-            ) {
-                withLink(link = LinkAnnotation.Url(Constants.EMAIL)) {
-                    append(Constants.LINK_EMAIL)
+                withStyle(
+                    style = SpanStyle(
+                        color = NoteTheme.colors.primary,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                ) {
+                    withLink(link = LinkAnnotation.Url(Constants.EMAIL)) {
+                        append(Constants.LINK_EMAIL)
+                    }
                 }
-            }
 
-        },
-    )
+            },
+        )
+    }
 }
 
 @PreviewLightDark

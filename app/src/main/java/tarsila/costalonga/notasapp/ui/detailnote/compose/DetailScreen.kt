@@ -137,7 +137,7 @@ internal fun DetailCompose(
                 }
                 ShowAndEditNote(
                     textFieldState = title,
-                    isEnabled = detailMode == DetailMode.EDIT,
+                    isReadOnly = detailMode == DetailMode.VIEW,
                     textStyle = NoteTheme.typography.titleMedium.copy(color = NoteTheme.colors.onBackground),
                     modifier = Modifier
                         .padding(top = NoteTheme.spacing.spacer18)
@@ -148,7 +148,7 @@ internal fun DetailCompose(
 
                 ShowAndEditNote(
                     textFieldState = description,
-                    isEnabled = detailMode == DetailMode.EDIT,
+                    isReadOnly = detailMode == DetailMode.VIEW,
                     textStyle = NoteTheme.typography.bodyLarge.copy(color = NoteTheme.colors.onBackground),
                     modifier = Modifier
                         .padding(top = NoteTheme.spacing.spacer8)
@@ -250,7 +250,7 @@ fun InsertText(
 @Composable
 fun ShowAndEditNote(
     textFieldState: TextFieldState,
-    isEnabled: Boolean,
+    isReadOnly: Boolean,
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
     singleLine: Boolean = false,
@@ -259,7 +259,7 @@ fun ShowAndEditNote(
         state = textFieldState,
         modifier = modifier,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-        enabled = isEnabled,
+        readOnly = isReadOnly,
         textStyle = textStyle,
         cursorBrush = SolidColor(NoteTheme.colors.primary),
         lineLimits = if (singleLine) {
